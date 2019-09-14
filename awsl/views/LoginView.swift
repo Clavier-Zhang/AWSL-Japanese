@@ -8,17 +8,6 @@
 
 import SwiftUI
 
-struct LoginButtonStyle: ButtonStyle {
-
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .frame(width: 300, height: 40)
-            .background(configuration.isPressed ? red.opacity(0.5) : red)
-            .cornerRadius(20)
-    }
-
-}
-
 struct LoginView: View {
     
     @State var username: String = ""
@@ -59,9 +48,13 @@ struct LoginView: View {
                     
                     Spacer().frame(height: 200)
 
-                }.frame(width: 300, height: fullHeigth)
-            }.frame(width: fullWidth, height: fullHeigth).background(Color.init(red: 30/255, green: 30/255, blue: 30/255))
-        }.navigationViewStyle(StackNavigationViewStyle())
+                }.frame(width: 300, height: fullHeight)
+            }.frame(width: fullWidth, height: fullHeight+300).background(base).navigationBarHidden(true)
+        }
+            .navigationBarHidden(true)
+            .navigationViewStyle(StackNavigationViewStyle())
+            .navigationBarBackButtonHidden(true)
+            .navigationBarHidden(true)
     }
 }
 

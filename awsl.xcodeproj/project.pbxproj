@@ -11,6 +11,9 @@
 		257DFBF02329123D00AA7772 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257DFBEF2329123D00AA7772 /* LoginView.swift */; };
 		257DFBF2232A64F300AA7772 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257DFBF1232A64F300AA7772 /* constants.swift */; };
 		257DFBF4232A664300AA7772 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257DFBF3232A664300AA7772 /* SignUpView.swift */; };
+		257DFBF8232B27FA00AA7772 /* styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257DFBF7232B27FA00AA7772 /* styles.swift */; };
+		257DFBFA232B28DD00AA7772 /* StudyCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257DFBF9232B28DD00AA7772 /* StudyCardView.swift */; };
+		257DFBFD232B35DD00AA7772 /* CountLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257DFBFC232B35DD00AA7772 /* CountLabel.swift */; };
 		25E14A3D232733EC00050264 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E14A3C232733EC00050264 /* AppDelegate.swift */; };
 		25E14A3F232733EC00050264 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E14A3E232733EC00050264 /* SceneDelegate.swift */; };
 		25E14A41232733EC00050264 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E14A40232733EC00050264 /* ContentView.swift */; };
@@ -24,6 +27,9 @@
 		257DFBEF2329123D00AA7772 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		257DFBF1232A64F300AA7772 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
 		257DFBF3232A664300AA7772 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		257DFBF7232B27FA00AA7772 /* styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = styles.swift; sourceTree = "<group>"; };
+		257DFBF9232B28DD00AA7772 /* StudyCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyCardView.swift; sourceTree = "<group>"; };
+		257DFBFC232B35DD00AA7772 /* CountLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountLabel.swift; sourceTree = "<group>"; };
 		25E14A39232733EC00050264 /* awsl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = awsl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25E14A3C232733EC00050264 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25E14A3E232733EC00050264 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,15 +51,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2520423B232C730D00281016 /* studyCardView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = studyCardView;
+			sourceTree = "<group>";
+		};
 		257DFBEC23288C5900AA7772 /* views */ = {
 			isa = PBXGroup;
 			children = (
 				25E14A40232733EC00050264 /* ContentView.swift */,
 				257DFBEF2329123D00AA7772 /* LoginView.swift */,
-				257DFBE923287C6E00AA7772 /* HomeView.swift */,
 				257DFBF3232A664300AA7772 /* SignUpView.swift */,
+				257DFBE923287C6E00AA7772 /* HomeView.swift */,
+				257DFBF9232B28DD00AA7772 /* StudyCardView.swift */,
+				2520423B232C730D00281016 /* studyCardView */,
 			);
 			path = views;
+			sourceTree = "<group>";
+		};
+		257DFBFB232B2B6500AA7772 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				257DFBFC232B35DD00AA7772 /* CountLabel.swift */,
+			);
+			path = common;
 			sourceTree = "<group>";
 		};
 		25E14A30232733EB00050264 = {
@@ -80,8 +103,10 @@
 				25E14A3C232733EC00050264 /* AppDelegate.swift */,
 				25E14A3E232733EC00050264 /* SceneDelegate.swift */,
 				25E14A44232733ED00050264 /* Preview Content */,
+				257DFBFB232B2B6500AA7772 /* common */,
 				257DFBEC23288C5900AA7772 /* views */,
 				257DFBF1232A64F300AA7772 /* constants.swift */,
+				257DFBF7232B27FA00AA7772 /* styles.swift */,
 			);
 			path = awsl;
 			sourceTree = "<group>";
@@ -168,7 +193,10 @@
 			files = (
 				25E14A3D232733EC00050264 /* AppDelegate.swift in Sources */,
 				257DFBEA23287C6E00AA7772 /* HomeView.swift in Sources */,
+				257DFBFA232B28DD00AA7772 /* StudyCardView.swift in Sources */,
 				25E14A3F232733EC00050264 /* SceneDelegate.swift in Sources */,
+				257DFBFD232B35DD00AA7772 /* CountLabel.swift in Sources */,
+				257DFBF8232B27FA00AA7772 /* styles.swift in Sources */,
 				257DFBF4232A664300AA7772 /* SignUpView.swift in Sources */,
 				257DFBF02329123D00AA7772 /* LoginView.swift in Sources */,
 				25E14A41232733EC00050264 /* ContentView.swift in Sources */,
