@@ -49,7 +49,10 @@ struct LoginView: View {
                     Spacer().frame(height: 200)
 
                 }.frame(width: 300, height: fullHeight)
-            }.frame(width: fullWidth, height: fullHeight+300).background(base).navigationBarHidden(true)
+            }
+                .frame(width: fullWidth, height: fullHeight+300)
+                .background(base)
+                .navigationBarHidden(true)
         }
             .navigationBarHidden(true)
             .navigationViewStyle(StackNavigationViewStyle())
