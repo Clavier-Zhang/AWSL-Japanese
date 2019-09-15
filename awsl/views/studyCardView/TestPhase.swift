@@ -18,6 +18,7 @@ struct TestPhase: View {
     var brushWidth: CGFloat = 10.0
     var opacity: CGFloat = 1.0
     var swiped = false
+
     
     var body: some View {
         VStack {
@@ -29,19 +30,18 @@ struct TestPhase: View {
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 120, alignment: .top)
                 .background(base)
             
+            Button(action:  {
+//                print(self.drawing)
+                }, label: {
+                Text("test")
+            })
 
-  
-//            Spacer().frame(height: 600)
-            
-            ActivityIndicator()
-//            Text("start")
-            ProfileSwiftUIView().border(Color.white)
-//            Text("end")
-//            PKCanvasView()
-//            ViewControllerWrapper()
-//            DrawingViewController()
-//            PKCanvasView()
-            
+//            ProfileSwiftUIView()
+//                .background(Color.white)
+//                .border(Color.white)
+            WritingWrapper().border(Color.white)
+                
+
             HStack {
                 Spacer().frame(width: 20)
                 Text("不认识")
