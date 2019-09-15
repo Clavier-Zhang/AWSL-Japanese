@@ -13,11 +13,7 @@ import PencilKit
 
 struct TestPhase: View {
     
-    var lastPoint = CGPoint.zero
-    var color = UIColor.black
-    var brushWidth: CGFloat = 10.0
-    var opacity: CGFloat = 1.0
-    var swiped = false
+    @State var uiimage : UIImage = UIImage()
 
     
     var body: some View {
@@ -30,16 +26,23 @@ struct TestPhase: View {
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 120, alignment: .top)
                 .background(base)
             
+            Image(uiImage: uiimage)
+                .frame(width: 100, height: 100)
+                .border(Color.white)
+            
             Button(action:  {
 //                print(self.drawing)
                 }, label: {
                 Text("test")
             })
-
-//            ProfileSwiftUIView()
-//                .background(Color.white)
+            
+//            Image(imageTest)
+//                .frame(width: 100, height: 100)
 //                .border(Color.white)
-            WritingWrapper().border(Color.white)
+
+            WritingPad(uiimage: $uiimage)
+                .border(Color.white)
+//            WritingWrapper().border(Color.white)
                 
 
             HStack {
