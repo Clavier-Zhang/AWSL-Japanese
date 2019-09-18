@@ -10,11 +10,20 @@ import SwiftUI
 import UIKit
 import PencilKit
 
+class WritingPadStatus: ObservableObject  {
+    
+    @Published var count : Int = 0
+    
+    @Published var canvas: PKCanvasViewWrapper?
+    
+}
+
 
 struct TestPhase: View {
     
     @State var uiimage : UIImage = UIImage()
-
+    
+    var test : WritingPad = WritingPad()
     
     var body: some View {
         VStack {
@@ -27,24 +36,18 @@ struct TestPhase: View {
                 .background(base)
             
             Image(uiImage: uiimage)
-                .frame(width: 100, height: 100)
+                .frame(width: 700, height: 100)
                 .border(Color.white)
             
             Button(action:  {
-//                print(self.drawing)
+                self.uiimage = self.test.getDrawing().image(from: CGRect(x: 0, y: 0, width: 700, height: 100) ,scale: 3.0)
                 }, label: {
-                Text("test")
+                Text("count")
             })
             
-//            Image(imageTest)
-//                .frame(width: 100, height: 100)
-//                .border(Color.white)
-
-            WritingPad(uiimage: $uiimage)
+            test.frame(width: 700, height: 200)
                 .border(Color.white)
-//            WritingWrapper().border(Color.white)
-                
-
+            
             HStack {
                 Spacer().frame(width: 20)
                 Text("不认识")
