@@ -39,7 +39,7 @@ struct StudyCardView: View {
                         
                         Spacer().frame(height: 20)
                         
-                        ProgressBar(100, 100, 100)
+                        ProgressBar(55, 197, 13)
                         
                         Spacer().frame(height: 20)
                         
@@ -58,6 +58,7 @@ struct StudyCardView: View {
             }
                 .frame(width: fullWidth, height: fullHeight+300)
                 .background(base)
+                .foregroundColor(fontBase)
         }
             .navigationViewStyle(StackNavigationViewStyle())
             .navigationBarBackButtonHidden(true)

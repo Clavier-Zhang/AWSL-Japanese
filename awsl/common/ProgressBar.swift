@@ -25,20 +25,28 @@ struct ProgressBar: View {
     var body: some View {
         GeometryReader { geometry in
             HStack (spacing: 0) {
-                Rectangle()
-                    .fill(Color.green)
-                    .frame(width: (self.done/self.total) * geometry.size.width)
+                ZStack {
+                    Rectangle()
+                        .fill(green)
+                        .frame(width: (self.done/self.total) * geometry.size.width)
+                    Text(String(Int(self.done)))
+                }
                 
-                Rectangle()
-                    .fill(base)
-                    .frame(width: (self.remain/self.total) * geometry.size.width)
+                ZStack {
+                    Rectangle()
+                        .fill(base)
+                        .frame(width: (self.remain/self.total) * geometry.size.width)
+                    Text(String(Int(self.remain)))
+                }
                 
-                Rectangle()
-                    .fill(red)
-                    .frame(width: (self.review/self.total) * geometry.size.width)
+                
+                ZStack {
+                    Rectangle()
+                        .fill(yellow)
+                        .frame(width: (self.review/self.total) * geometry.size.width)
+                    Text(String(Int(self.review)))
+                }
             }
-            
-                
         }
             .frame(height: 30)
     }

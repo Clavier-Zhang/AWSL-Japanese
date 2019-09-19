@@ -73,9 +73,9 @@ struct HomeView: View {
                     
                     CountLabel("新单词", 100)
                     
-                    CountLabel("计划单词", 100)
+                    CountLabel("计划单词", 300)
                     
-                    CountLabel("剩余单词", 100)
+                    CountLabel("剩余单词", 189)
                     
                 }
                                            
@@ -90,10 +90,10 @@ struct HomeView: View {
             }
                 .frame(width: fullWidth, height: fullHeight+300)
                 .background(base)
+                .foregroundColor(fontBase)
         }
             .navigationBarHidden(true)
             .navigationViewStyle(StackNavigationViewStyle())
-    
             .navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
     }

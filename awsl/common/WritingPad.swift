@@ -11,16 +11,36 @@ import PencilKit
 import SwiftUI
 import Foundation
 
+class PencilInteractionDelegate: NSObject, UIPencilInteractionDelegate {
+    
+    func pencilInteractionDidTap(_ interaction: UIPencilInteraction) {
+        if UIPencilInteraction.preferredTapAction == .switchPrevious {
+            print("123333")
+        }
+    }
+    
+}
 
-struct WritingPad : UIViewRepresentable {
+final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDelegate  {
     
     var view = PKCanvasViewWrapper()
+    
+    var eraser = PKEraserTool(.vector)
+    
+    var pen = PKInkingTool(.pen)
+    
+    var currentTool = "PEN"
     
     func makeUIView(context: Context) -> PKCanvasViewWrapper {
         
         view.allowsFingerDrawing = false
         view.backgroundColor = UIColor.init(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)
-        view.parent = self
+        
+        let interaction = UIPencilInteraction()
+        interaction.delegate = self
+        view.addInteraction(interaction)
+        
+//        view.parent = self
         return view
     }
 
@@ -29,6 +49,17 @@ struct WritingPad : UIViewRepresentable {
     
     func getDrawing() -> PKDrawing {
         return view.drawing
+    }
+    
+    func pencilInteractionDidTap(_ interaction: UIPencilInteraction) {
+        print("jjjjjjj")
+        if (self.currentTool == "PEN") {
+            view.tool = self.eraser
+            currentTool = "ERASER"
+        } else {
+            view.tool = self.pen
+            currentTool = "PEN"
+        }
     }
     
 }
@@ -40,12 +71,10 @@ class PKCanvasViewWrapper : PKCanvasView {
     
     var count = 0
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        print(self.drawing)
-//        self.parent?.helper()
-//        self.parent?.uiimage = self.drawing.image(from: CGRect(x: 0, y: 0, width: 100, height: 100) ,scale: 3.0)
-    }
+//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        super.touchesEnded(touches, with: event)
+//        print(self.drawing)
+//    }
     
     
 }
