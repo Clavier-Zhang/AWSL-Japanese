@@ -42,7 +42,7 @@ final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDeleg
         currentTool = "PEN"
         
         
-        self.view.backgroundColor = .black
+        view.backgroundColor = UIColor.init(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)
     }
     
     func makeUIView(context: Context) -> PKCanvasView {
@@ -56,9 +56,7 @@ final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDeleg
         interaction.delegate = self
         view.addInteraction(interaction)
         
-        
-        
-//        self.pen.color = .white
+
         return view
     }
 
@@ -70,7 +68,10 @@ final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDeleg
     }
     
     func getImage() -> UIImage {
-        return view.asImage()
+        view.backgroundColor = .black
+        let result = view.asImage()
+        view.backgroundColor = UIColor.init(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)
+        return result
     }
     
     func pencilInteractionDidTap(_ interaction: UIPencilInteraction) {
