@@ -21,7 +21,14 @@ struct LoginView: View {
                     HStack {
                         Image(systemName: "person")
                             .frame(width: 30)
-                        TextField("User Name", text: $username)
+                        ZStack(alignment: .leading) {
+                            if username.isEmpty {
+                                Text("Username")
+                                    .foregroundColor(fontBase)
+                                    .opacity(0.4)
+                            }
+                            TextField("", text: $username)
+                        }
                     }
                     
                     Divider()
@@ -29,7 +36,14 @@ struct LoginView: View {
                     HStack {
                         Image(systemName: "lock")
                             .frame(width: 30)
-                        SecureField("Password", text: $password)
+                        ZStack(alignment: .leading) {
+                            if password.isEmpty {
+                                Text("Password")
+                                    .foregroundColor(fontBase)
+                                    .opacity(0.4)
+                            }
+                            SecureField("Password", text: $password)
+                        }
                     }
                     
                     Divider()
@@ -52,17 +66,12 @@ struct LoginView: View {
             }
                 .frame(width: fullWidth, height: fullHeight+300)
                 .background(base)
+                .foregroundColor(fontBase)
                 .navigationBarHidden(true)
         }
             .navigationBarHidden(true)
             .navigationViewStyle(StackNavigationViewStyle())
             .navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
-    }
-}
-
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView()
     }
 }

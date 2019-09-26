@@ -15,10 +15,11 @@ struct LearnPhase: View {
     var body: some View {
         VStack(spacing: 20) {
             
+            // 汉字， 发音
             HStack {
-                Spacer().frame(width: 20)
                 Text("上手     [あか] [aka]")
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
+                    .padding()
                 Divider()
                 Spacer().frame(width: 20)
                 Image(systemName: "speaker")
@@ -28,28 +29,31 @@ struct LearnPhase: View {
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
                 .background(base)
             
-            HStack {
-                Spacer().frame(width: 20)
-                Text("【名词】\n1.红，红色。\n2.（酱，狗毛等的）茶色。\n 3.赤色分子。")
+            Text("名词】\n1.红，红色。\n 2.（酱，狗毛等的）茶色。\n 3.赤色分子。")
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
+            .padding()
+            .background(base)
+            
+            // 例句
+            VStack {
+                Text("1. 3原色の一つ。人の血や燃える火の色。また，その系統の色。広義では紅色・桃色・だいだい色などをも含む。 红。红色。粉红色。红褐色。橘黄色。")
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
+                    .padding()
+                    .background(base)
             }
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
-                .background(base)
+
             
             
-            
-               Spacer().frame(height: 500)
+            Spacer().frame(height: 500)
             
     
-               HStack {
-                   Spacer().frame(width: 20)
-                   Text("不认识")
-                   .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
-               }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 60)
-               .background(base)
-               
-        
-               
+            Button(action:  {
+                self.currentPhase = "SELF_EVALUATION"
+            }) {
+                Text("下一个")
+            }
+                .frame(width: 300, height: 60, alignment: .center)
+                .background(red)
 
         }
            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
