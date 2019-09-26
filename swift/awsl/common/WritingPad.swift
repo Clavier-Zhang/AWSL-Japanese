@@ -48,9 +48,6 @@ final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDeleg
     func makeUIView(context: Context) -> PKCanvasView {
         
         view.allowsFingerDrawing = false
-//        view.backgroundColor = UIColor.init(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)
-
-        
         // switch to eraser by double tap apple pencil
         let interaction = UIPencilInteraction()
         interaction.delegate = self

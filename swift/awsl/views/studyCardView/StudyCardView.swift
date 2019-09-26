@@ -26,8 +26,6 @@ struct StudyCardView: View {
                         .foregroundColor(.white)
                 }
             }
-
-            
         }
     }
 
@@ -35,24 +33,21 @@ struct StudyCardView: View {
         NavigationView {
             VStack {
                 VStack {
-                    VStack {
-                        
-                        Spacer().frame(height: 20)
-                        
+                    
+                    Spacer().frame(height: 20)
+                    
+                    VStack (spacing: 20) {
                         ProgressBar(55, 197, 13)
-                        
-                        Spacer().frame(height: 20)
-                        
                         if (self.currentPhase == "SELF_EVALUATION") {
                             SelfEvaluationPhase(currentPhase: $currentPhase)
-                            
                         } else if (self.currentPhase == "TEST") {
                             TestPhase(currentPhase: $currentPhase)
+                        } else if (self.currentPhase == "LEARN") {
+                            LearnPhase(currentPhase: $currentPhase)
                         }
-                        
                     }
                         .frame(width: 700, height: 1.05*fullHeight)
-                    
+
                 }
                     .frame(width: fullWidth, height: 1.05*fullHeight)
                     .background(studyCardBase)
