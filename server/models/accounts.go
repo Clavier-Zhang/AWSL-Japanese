@@ -1,21 +1,17 @@
 package models
 
 import (
+	"context"
+	"fmt"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/jinzhu/gorm"
+	"go.mongodb.org/mongo-driver/bson"
+	"golang.org/x/crypto/bcrypt"
+	"os"
 	u "server/utils"
 	"strings"
-	"github.com/jinzhu/gorm"
-	"os"
-	"golang.org/x/crypto/bcrypt"
 )
 
-/*
-JWT claims struct
-*/
-type Token struct {
-	UserId uint
-	jwt.StandardClaims
-}
 
 //a struct to rep user account
 type Account struct {
@@ -62,6 +58,17 @@ func (account *Account) Create() (map[string] interface{}) {
 
 	GetDB().Create(account)
 
+
+	// ***************************
+	filter := bson.D{{"email", "zyc1014551629@gmail.com"}}
+
+	update := bson.M{"$set": bson.M{"token": "42"}}
+	updateResult, err := GetClient().Collection("user").UpdateOne(context.TODO(), filter, update)
+	fmt.Print(updateResult)
+	fmt.Print(err)
+
+	// ***************************
+
 	if account.ID <= 0 {
 		return u.Message(false, "Failed to create account, connection error.")
 	}
@@ -70,6 +77,7 @@ func (account *Account) Create() (map[string] interface{}) {
 	tk := &Token{UserId: account.ID}
 	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), tk)
 	tokenString, _ := token.SignedString([]byte(os.Getenv("token_password")))
+
 	account.Token = tokenString
 
 	account.Password = "" //delete password

@@ -44,7 +44,7 @@ func GetDB() *gorm.DB {
 	return db
 }
 
-func GetClient() *mongo.Client {
+func GetClient() *mongo.Database {
 	// Set client options
 	clientOptions := options.Client().ApplyURI("mongodb://47.89.243.163:27017")
 
@@ -63,5 +63,5 @@ func GetClient() *mongo.Client {
 	}
 
 	fmt.Println("Connected to MongoDB!")
-	return client
+	return client.Database("awsl")
 }
