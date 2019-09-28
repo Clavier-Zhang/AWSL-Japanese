@@ -1,23 +1,28 @@
 package main
 
 import (
+	"github.com/gocolly/colly"
 	"github.com/gorilla/mux"
-	"server/app"
-	"os"
-	"fmt"
 	"net/http"
+	"os"
+	"server/app"
 	"server/controllers"
+
+
+	"fmt"
+
 
 )
 
 func main() {
 
-	
-	router := mux.NewRouter()
-	
 
-	router.HandleFunc("/api/user/new", controllers.CreateAccount).Methods("POST")
-	router.HandleFunc("/api/user/login", controllers.Authenticate).Methods("POST")
+	router := mux.NewRouter()
+
+	router.HandleFunc("/api/user/create", controllers.UserCreateHandler).Methods("POST")
+	router.HandleFunc("/api/user/login", controllers.UserLoginHandler).Methods("POST")
+
+
 	router.HandleFunc("/api/contacts/new", controllers.CreateContact).Methods("POST")
 	router.HandleFunc("/api/me/contacts", controllers.GetContactsFor).Methods("GET") //  user/2/contacts
 
@@ -30,9 +35,10 @@ func main() {
 
 	fmt.Println(port)
 
-	err := http.ListenAndServe(":" + port, router) //Launch the app, visit localhost:8000/api
+	err := http.ListenAndServe(":" + port, router)
 	if err != nil {
 		fmt.Print(err)
 	}
+
 
 }
