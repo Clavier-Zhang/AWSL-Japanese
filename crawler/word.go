@@ -16,6 +16,8 @@ type Word struct {
 
 	CN_Examples []CN_Example `json:"cn_examples"`
 
+	Audio []byte `json:"audio"`
+
 }
 
 type EN_Example struct {

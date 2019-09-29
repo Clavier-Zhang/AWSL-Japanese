@@ -22,14 +22,20 @@ func get_en() {
 
 	c.OnHTML("div.concept_light.clearfix", func(e *colly.HTMLElement) {
 
+		word := &Word{
+			Text: e.ChildText("span.text"),
+			EN_Meanings: []string{},
+			EN_Examples: []EN_Example{},
+		}
+
 		// Get English Meaning
-		EN_Meanings := []string{}
-		e.ForEach("span.meaning-definition span.meaning-meaning", func(_ int, e *colly.HTMLElement) {
-			EN_Meanings = append(EN_Meanings, e.Text)
+		e.ForEach("span.meaning-meaning", func(_ int, e *colly.HTMLElement) {
+			if e.ChildText("span.break-unit") == "" {
+				word.EN_Meanings = append(word.EN_Meanings, e.Text)
+			}
 		})
 
 		// Get Example Sentences
-		EN_Examples := []EN_Example{}
 		e.ForEach("div.sentence", func(_ int, e *colly.HTMLElement) {
 			japanese := ""
 			e.ForEach("span.unlinked", func(_ int, e *colly.HTMLElement) {
@@ -39,14 +45,8 @@ func get_en() {
 				Japanese: japanese,
 				Translation: e.ChildText("li.english"),
 			}
-			EN_Examples = append(EN_Examples, sentence)
+			word.EN_Examples = append(word.EN_Examples, sentence)
 		})
-
-		word := &Word{
-			Text: e.ChildText("span.text"),
-			EN_Meanings: EN_Meanings,
-			EN_Examples: EN_Examples,
-		}
 
 		word.InsertIfNoDuplicate()
 
