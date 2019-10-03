@@ -96,3 +96,26 @@ func (user *User) Update() bool {
 	return true
 
 }
+
+
+//func (user *User) isValid() (map[string] interface{}, bool) {
+//
+//	if !strings.Contains(user.Email, "@") {
+//		return u.Message(false, "Email format not correct"), false
+//	}
+//
+//	if len(user.Password) < 6 {
+//		return u.Message(false, "Password must be longer than 6 characters"), false
+//	}
+//
+//	var result User
+//	filter := bson.D{{"email", user.Email}}
+//
+//	err := GetClient().Collection("user").FindOne(context.TODO(), filter).Decode(&result)
+//	if (err != mongo.ErrNoDocuments) {
+//		return u.Message(false, "Email address already in use by another user."), false
+//	}
+//
+//	return Message(false, "Requirement passed"), true
+//}
+//
