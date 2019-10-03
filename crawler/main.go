@@ -6,7 +6,8 @@ import (
 
 func main() {
 
-	CollectEN()
+
+	//CollectEN()
 	CollectCN()
 
 }

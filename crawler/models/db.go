@@ -2,18 +2,16 @@ package models
 
 import (
 	"context"
-	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
-
 )
 
 
 var DB *mongo.Database
 
-
+// Initialize db package
 func init() {
 
 	// Set client options
@@ -37,17 +35,21 @@ func (word *Word) Exist() bool {
 }
 
 
-func (word *Word) InsertIfNoDuplicate() {
+func (word *Word) Insert() bool {
+
 	if !word.Exist() {
-		res, err := DB.Collection("word").InsertOne(context.TODO(), word)
-		if err != nil {
-			log.Fatal(err, res)
-		}
+		_, _ = DB.Collection("word").InsertOne(context.TODO(), word)
+		return true
+
+	} else {
+		// If there is duplication
+		return false
 	}
 }
 
 
 func (word *Word) Update() bool {
+
 	if word.Exist() {
 		// if Text exists in db, update
 		filter := bson.D{{"text", word.Text}}
@@ -78,8 +80,8 @@ func (word *Word) Update() bool {
 			updatedFields = append(updatedFields, bson.E{"cn_examples", word.CN_Examples})
 		}
 
+		// If no fields need to be updated, return directly
 		if len(updatedFields) == 0 {
-			fmt.Println("No update for ", word.Text)
 			return false
 		}
 
@@ -87,12 +89,25 @@ func (word *Word) Update() bool {
 			{"$set", updatedFields},
 		}
 
-		result, err := DB.Collection("word").UpdateOne(context.TODO(), filter, update)
-		if err != nil {
-			log.Fatal(err, result)
-		}
-		fmt.Println("Update ", word.Text)
+		_, _ = DB.Collection("word").UpdateOne(context.TODO(), filter, update)
+
+		return true
 
 	}
-	return true
+
+	return false
+
+}
+
+
+func FindAllTexts() *[]string {
+	cur, _ := DB.Collection("word").Find(context.TODO(), bson.D{{}}, options.Find())
+	results := []string{}
+	for cur.Next(context.TODO()) {
+		//Create a value into which the single document can be decoded
+		word := &Word{}
+		_ = cur.Decode(word)
+		results = append(results, word.Text)
+	}
+	return &results
 }
