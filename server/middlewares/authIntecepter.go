@@ -1,4 +1,4 @@
-package app
+package authIntecepter
 
 import (
 	"context"
