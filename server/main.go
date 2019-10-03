@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 	"server/app"
-	"server/controllers"
+	."server/controllers"
 
 
 	"fmt"
@@ -18,12 +18,14 @@ func main() {
 
 	router := mux.NewRouter()
 
-	router.HandleFunc("/api/user/create", controllers.UserCreateHandler).Methods("POST")
-	router.HandleFunc("/api/user/login", controllers.UserLoginHandler).Methods("POST")
+	router.HandleFunc("/api/user/create", UserCreateController).Methods("POST")
+	router.HandleFunc("/api/user/login", UserLoginController).Methods("POST")
+
+	router.HandleFunc("/api/user/test", TestController).Methods("POST")
 
 
-	router.HandleFunc("/api/contacts/new", controllers.CreateContact).Methods("POST")
-	router.HandleFunc("/api/me/contacts", controllers.GetContactsFor).Methods("GET") //  user/2/contacts
+	router.HandleFunc("/api/contacts/new", CreateContact).Methods("POST")
+	router.HandleFunc("/api/me/contacts", GetContactsFor).Methods("GET")
 
 	router.Use(app.JwtAuthentication) //attach JWT auth middleware
 

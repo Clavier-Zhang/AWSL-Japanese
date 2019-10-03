@@ -1,14 +1,13 @@
 package app
 
 import (
-	"net/http"
-	u "server/utils"
-	"strings"
-	"server/models"
-	jwt "github.com/dgrijalva/jwt-go"
-	"os"
 	"context"
 	"fmt"
+	"github.com/dgrijalva/jwt-go"
+	"net/http"
+	"server/models"
+	u "server/utils"
+	"strings"
 )
 
 var JwtAuthentication = func(next http.Handler) http.Handler {
@@ -51,7 +50,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 		tk := &models.Token{}
 
 		token, err := jwt.ParseWithClaims(tokenPart, tk, func(token *jwt.Token) (interface{}, error) {
-			return []byte(os.Getenv("token_password")), nil
+			return []byte("test"), nil
 		})
 
 		if err != nil { //Malformed token, returns with http code 403 as usual
@@ -71,8 +70,8 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 		}
 
 		//Everything went well, proceed with the request and set the caller to the user retrieved from the parsed token
-		fmt.Sprintf("User %", tk.UserId) //Useful for monitoring
-		ctx := context.WithValue(r.Context(), "user", tk.UserId)
+		fmt.Sprintf("User %", tk.Text) //Useful for monitoring
+		ctx := context.WithValue(r.Context(), "user", tk.Text)
 		r = r.WithContext(ctx)
 		next.ServeHTTP(w, r) //proceed in the middleware chain!
 	});

@@ -14,7 +14,7 @@ import (
 
 var db *gorm.DB
 
-var mongo_db *mongo.Database
+var DB *mongo.Database
 
 
 func init() {
@@ -60,7 +60,7 @@ func init() {
 		log.Fatal(err)
 	}
 
-	mongo_db = client.Database("awsl")
+	DB = client.Database("awsl")
 	//return client.Database("awsl")
 }
 
@@ -69,5 +69,5 @@ func GetDB() *gorm.DB {
 }
 
 func GetClient() *mongo.Database {
-	return mongo_db
+	return DB
 }

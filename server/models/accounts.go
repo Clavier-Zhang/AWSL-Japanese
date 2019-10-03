@@ -8,7 +8,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"golang.org/x/crypto/bcrypt"
-	"log"
 	"os"
 	u "server/utils"
 	"strings"
@@ -51,7 +50,7 @@ func (account *Account) Validate() (map[string] interface{}, bool) {
 	return u.Message(false, "Requirement passed"), true
 }
 
-func (account *Account) Create() (map[string] interface{}) {
+func (account *Account) CreateYt() (map[string] interface{}) {
 
 	if resp, ok := account.Validate(); !ok {
 		return resp
@@ -64,7 +63,7 @@ func (account *Account) Create() (map[string] interface{}) {
 
 
 	//Create new JWT token for the newly registered account
-	tk := &Token{UserId: account.Email}
+	tk := &Token{Text: account.Email}
 	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), tk)
 	tokenString, _ := token.SignedString([]byte(os.Getenv("token_password")))
 
@@ -112,7 +111,7 @@ func Login(email, password string) (map[string]interface{}) {
 	user.Password = ""
 
 	//Create JWT token
-	tk := &Token{UserId: user.Email}
+	tk := &Token{Text: user.Email}
 	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), tk)
 	tokenString, _ := token.SignedString([]byte(os.Getenv("token_password")))
 	user.Token = tokenString //Store the token in the response
@@ -146,32 +145,4 @@ func (user *User) isValid() (map[string] interface{}, bool) {
 	return u.Message(false, "Requirement passed"), true
 }
 
-func (user *User) Create() (map[string] interface{}) {
-
-	if resp, ok := user.isValid(); !ok {
-		return resp
-	}
-
-	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
-	user.Password = string(hashedPassword)
-
-	//Create new JWT token for the newly registered account
-	tk := &Token{UserId: user.Email}
-	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), tk)
-	tokenString, _ := token.SignedString([]byte(os.Getenv("token_password")))
-	user.Token = tokenString
-
-	// insert user into mongodb
-	_, err := GetClient().Collection("user").InsertOne(context.TODO(), user)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-
-	response := u.Message(true, "Account has been created")
-	response["user"] = user
-
-	return response
-}
 

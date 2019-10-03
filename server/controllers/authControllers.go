@@ -1,31 +1,56 @@
 package controllers
 
 import (
-	"log"
+	"golang.org/x/crypto/bcrypt"
 	"net/http"
 	u "server/utils"
-	"server/models"
+	."server/models"
 	"encoding/json"
 )
 
-func UserLoginHandler(w http.ResponseWriter, r *http.Request) {
-	user := &models.User{}
-	err := json.NewDecoder(r.Body).Decode(user) //decode the request body into struct and failed if any error occur
-	if err != nil {
-		log.Fatal(err)
-		u.Respond(w, u.Message(false, "Invalid request"))
-		return
-	}
-	resp := models.Login(user.Email, user.Password)
-	u.Respond(w, resp)
-}
-
-func UserCreateHandler(w http.ResponseWriter, r *http.Request) {
-	user := &models.User{}
+func UserLoginController(w http.ResponseWriter, r *http.Request) {
+	user := &User{}
 	err := json.NewDecoder(r.Body).Decode(user)
 	if err != nil {
 		u.Respond(w, u.Message(false, "Invalid request"))
+		return
 	}
-	resp := user.Create()
+
+	resp := Login(user.Email, user.Password)
+
+
 	u.Respond(w, resp)
+}
+
+
+func UserCreateController(w http.ResponseWriter, r *http.Request) {
+
+	user := &User{}
+	err := json.NewDecoder(r.Body).Decode(user)
+
+	if err != nil {
+		u.Respond(w, u.Message(false, "Invalid request"))
+	}
+
+	//if resp, ok := user.isValid(); !ok {
+	//	return resp
+	//}
+
+	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+	user.Password = string(hashedPassword)
+
+	user.Token = NewToken()
+
+	ok := user.Insert()
+
+	if !ok {
+		u.Respond(w, u.Message(true, "Account has been created"))
+		return
+	}
+
+	response := u.Message(true, "Account has been created")
+	response["user"] = user
+
+	u.Respond(w, response)
+
 }

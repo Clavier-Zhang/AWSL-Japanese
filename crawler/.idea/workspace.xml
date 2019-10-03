@@ -2,19 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="23fb37d2-57f5-4c76-bc71-2a1be9bc3d44" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../test/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/crawler.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../test/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/collectors/CNCollector.go" beforeDir="false" afterPath="$PROJECT_DIR$/collectors/CNCollector.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/collectors/ENCollector.go" beforeDir="false" afterPath="$PROJECT_DIR$/collectors/ENCollector.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawler" beforeDir="false" afterPath="$PROJECT_DIR$/crawler" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/controllers/planController.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/models/token.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/db.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/db.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/word.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/word.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/app/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/app/auth.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/app/errors.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/controllers/authControllers.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/controllers/authControllers.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/../server/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/../server/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/models/accounts.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/models/accounts.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/models/init.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/models/init.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/models/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/server" beforeDir="false" afterPath="$PROJECT_DIR$/../server/server" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/utils/util.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/utils/util.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
