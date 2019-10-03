@@ -16,7 +16,27 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp := Login(user.Email, user.Password)
+	if !user.ExistEmail() {
+		u.Respond(w, u.Message(false, "Email not exist"))
+		return
+	}
+
+	dbUser := FindByEmail(user.Email)
+
+	err = bcrypt.CompareHashAndPassword([]byte(dbUser.Password), []byte(user.Password))
+
+	if err != nil && err == bcrypt.ErrMismatchedHashAndPassword { //Password does not match!
+		u.Message(false, "Invalid login credentials. Please try again")
+		return
+	}
+
+	//Create JWT token
+	dbUser.Token = NewToken()
+	dbUser.Update()
+
+
+	resp := u.Message(true, "success login")
+	resp["user"] = dbUser
 
 
 	u.Respond(w, resp)

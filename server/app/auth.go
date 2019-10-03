@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"net/http"
-	"server/models"
+	."server/models"
 	u "server/utils"
 	"strings"
 )
@@ -47,7 +47,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 		}
 
 		tokenPart := splitted[1] //Grab the token part, what we are truly interested in
-		tk := &models.Token{}
+		tk := &Token{}
 
 		token, err := jwt.ParseWithClaims(tokenPart, tk, func(token *jwt.Token) (interface{}, error) {
 			return []byte("test"), nil
@@ -63,6 +63,17 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 
 		if !token.Valid { //Token is invalid, maybe not signed on this server
 			response = u.Message(false, "Token is not valid.")
+			w.WriteHeader(http.StatusForbidden)
+			w.Header().Add("Content-Type", "application/json")
+			u.Respond(w, response)
+			return
+		}
+
+		user := FindByToken(tokenPart)
+		fmt.Println(user)
+
+		if user == nil {
+			response = u.Message(false, "User not exist")
 			w.WriteHeader(http.StatusForbidden)
 			w.Header().Add("Content-Type", "application/json")
 			u.Respond(w, response)

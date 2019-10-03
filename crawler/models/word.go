@@ -5,6 +5,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"context"
+	"log"
 )
 
 type Word struct {
@@ -66,6 +67,7 @@ func (word *Word) Exist() bool {
 	err := DB.Collection("word").FindOne(context.TODO(), filter).Decode(&result)
 	return err != mongo.ErrNoDocuments
 }
+
 
 
 func (word *Word) Insert() bool {
