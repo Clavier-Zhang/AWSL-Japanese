@@ -107,6 +107,13 @@
 			path = common;
 			sourceTree = "<group>";
 		};
+		25CFC28E2347774F003D8512 /* models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
 		25E14A30232733EB00050264 = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +137,7 @@
 				25E14A47232733ED00050264 /* LaunchScreen.storyboard */,
 				25E14A3C232733EC00050264 /* AppDelegate.swift */,
 				25E14A3E232733EC00050264 /* SceneDelegate.swift */,
+				25CFC28E2347774F003D8512 /* models */,
 				25E14A44232733ED00050264 /* Preview Content */,
 				257DFBFB232B2B6500AA7772 /* common */,
 				257DFBEC23288C5900AA7772 /* views */,

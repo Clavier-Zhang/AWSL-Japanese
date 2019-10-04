@@ -1,23 +1,29 @@
 package controllers
 
 import (
+	"fmt"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
-	u "server/utils"
+	. "server/utils"
 	."server/models"
 	"encoding/json"
 )
 
 func UserLoginController(w http.ResponseWriter, r *http.Request) {
+
+	fmt.Println("login")
+
 	user := &User{}
 	err := json.NewDecoder(r.Body).Decode(user)
 	if err != nil {
-		u.Respond(w, u.Message(false, "Invalid request"))
+		Respond(w, Message(false, "Invalid request"))
 		return
 	}
 
+	fmt.Println(user)
+
 	if !user.ExistEmail() {
-		u.Respond(w, u.Message(false, "Email not exist"))
+		Respond(w, Message(false, "Email not exist"))
 		return
 	}
 
@@ -26,7 +32,7 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 	err = bcrypt.CompareHashAndPassword([]byte(dbUser.Password), []byte(user.Password))
 
 	if err != nil && err == bcrypt.ErrMismatchedHashAndPassword { //Password does not match!
-		u.Message(false, "Invalid login credentials. Please try again")
+		Message(false, "Invalid login credentials. Please try again")
 		return
 	}
 
@@ -35,11 +41,11 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 	dbUser.Update()
 
 
-	resp := u.Message(true, "success login")
+	resp := Message(true, "success login")
 	resp["user"] = dbUser
 
 
-	u.Respond(w, resp)
+	Respond(w, resp)
 }
 
 
@@ -49,7 +55,7 @@ func UserCreateController(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(user)
 
 	if err != nil {
-		u.Respond(w, u.Message(false, "Invalid request"))
+		Respond(w, Message(false, "Invalid request"))
 	}
 
 	//if resp, ok := user.isValid(); !ok {
@@ -64,13 +70,13 @@ func UserCreateController(w http.ResponseWriter, r *http.Request) {
 	ok := user.Insert()
 
 	if !ok {
-		u.Respond(w, u.Message(true, "Account has been created"))
+		Respond(w, Message(true, "Account has been created"))
 		return
 	}
 
-	response := u.Message(true, "Account has been created")
+	response := Message(true, "Account has been created")
 	response["user"] = user
 
-	u.Respond(w, response)
+	Respond(w, response)
 
 }

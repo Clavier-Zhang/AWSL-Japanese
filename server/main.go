@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
-	"server/app"
 	. "server/controllers"
+	. "server/middlewares"
 )
 
 func main() {
@@ -17,7 +17,7 @@ func main() {
 	router.HandleFunc("/api/user/login", UserLoginController).Methods("POST")
 
 	router.HandleFunc("/api/user/test", TestController).Methods("POST")
-	router.Use(app.JwtAuthentication) //attach JWT auth middleware
+	router.Use(JwtAuthentication) //attach JWT auth middleware
 
 
 
