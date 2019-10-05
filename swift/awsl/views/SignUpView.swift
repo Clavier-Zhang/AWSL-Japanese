@@ -37,7 +37,9 @@ struct SignUpView: View {
                                 Text("email")
                                     .opacity(0.4)
                             }
+                            // Avoid auto-capitalization
                             TextField("", text: $email)
+                                .autocapitalization(UITextAutocapitalizationType.none)
                         }
                     }
                     Divider()
@@ -127,8 +129,8 @@ struct SignUpView: View {
         func handleSuccess(data: Data) -> Void {
             let res = try? JSONDecoder().decode(LoginResponse.self, from: data)
             if let res = res {
-                if (res.status == true) {
-                    print("success")
+                print(res)
+                if (res.status) {
                     self.toHome = true
                 } else {
                     self.errorMessage = res.message

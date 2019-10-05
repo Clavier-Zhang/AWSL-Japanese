@@ -39,7 +39,9 @@ struct LoginView: View {
                                     .foregroundColor(fontBase)
                                     .opacity(0.4)
                             }
+                            // Avoid auto-capitalization
                             TextField("", text: $email)
+                                .autocapitalization(UITextAutocapitalizationType.none)
                         }
                     }
 
@@ -107,6 +109,7 @@ struct LoginView: View {
         func handleSuccess(data: Data) -> Void {
             let res = try? JSONDecoder().decode(LoginResponse.self, from: data)
             if let res = res {
+                print(res)
                 if (res.status == true) {
                     self.toHome = true
                 } else {
