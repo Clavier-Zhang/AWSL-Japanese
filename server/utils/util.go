@@ -2,8 +2,9 @@ package utils
 
 import (
 	"encoding/json"
-	"net/http"
 	"github.com/google/uuid"
+	"golang.org/x/crypto/bcrypt"
+	"net/http"
 )
 
 func Message(status bool, message string) (map[string]interface{}) {
@@ -20,3 +21,16 @@ func NewUUID() string {
 	return uuid.New().String()
 }
 
+func SameHashPassword(s1 string, s2 string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(s1), []byte(s2))
+	if err != nil && err == bcrypt.ErrMismatchedHashAndPassword {
+		return false
+	}
+	return true
+}
+
+
+func NewHashPassword(s string) string {
+	hashed, _ := bcrypt.GenerateFromPassword([]byte(s), bcrypt.DefaultCost)
+	return string(hashed)
+}

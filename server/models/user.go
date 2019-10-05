@@ -1,12 +1,12 @@
 package models
 
-
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
-	"log"
+	"io"
 )
 
 
@@ -40,17 +40,14 @@ func FindByToken(token string) *User {
 
 
 func FindByEmail(email string) *User {
-
-	var result User
+	user := &User{}
 	filter := bson.D{{"email", email}}
-	err := DB.Collection("user").FindOne(context.TODO(), filter).Decode(&result)
-
-	//if err == mongo.ErrNoDocuments
+	err := DB.Collection("user").FindOne(context.TODO(), filter).Decode(&user)
+	// If not found
 	if err != nil {
-		log.Fatal(err)
+		return nil
 	}
-	return &result
-
+	return user
 }
 
 func (user *User) Insert() bool {
@@ -98,24 +95,13 @@ func (user *User) Update() bool {
 }
 
 
-//func (user *User) isValid() (map[string] interface{}, bool) {
-//
-//	if !strings.Contains(user.Email, "@") {
-//		return u.Message(false, "Email format not correct"), false
-//	}
-//
-//	if len(user.Password) < 6 {
-//		return u.Message(false, "Password must be longer than 6 characters"), false
-//	}
-//
-//	var result User
-//	filter := bson.D{{"email", user.Email}}
-//
-//	err := GetClient().Collection("user").FindOne(context.TODO(), filter).Decode(&result)
-//	if (err != mongo.ErrNoDocuments) {
-//		return u.Message(false, "Email address already in use by another user."), false
-//	}
-//
-//	return Message(false, "Requirement passed"), true
-//}
-//
+
+
+func DecodeUser(body io.Reader) *User {
+	user := &User{}
+	err := json.NewDecoder(body).Decode(user)
+	if err != nil {
+		return nil
+	}
+	return user
+}

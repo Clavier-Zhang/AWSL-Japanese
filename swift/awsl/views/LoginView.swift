@@ -12,40 +12,34 @@ import Combine
 
 
 
-
-let user = User(email: "zyc1014551629@gmail.com", password: "zyc990610")
-
-
-
-
 struct LoginView: View {
     
-    @State var username: String = ""
+    @State var email: String = ""
     
     @State var password: String = ""
     
     @State var toSignUp: Bool = false
     
     @State var toHome: Bool = false
-
-
     
+    @State var errorMessage: String = ""
+
     var body: some View {
         NavigationView {
             VStack {
                 VStack {
                     
-                    // Username Input
+                    // Email Input
                     HStack {
                         Image(systemName: "person")
                             .frame(width: 30)
                         ZStack(alignment: .leading) {
-                            if username.isEmpty {
-                                Text("Username")
+                            if email.isEmpty {
+                                Text("Email")
                                     .foregroundColor(fontBase)
                                     .opacity(0.4)
                             }
-                            TextField("", text: $username)
+                            TextField("", text: $email)
                         }
                     }
 
@@ -67,6 +61,8 @@ struct LoginView: View {
                     
                     Divider()
                     
+                    // Error message
+                    Text(errorMessage).foregroundColor(red)
                     Spacer().frame(height: 20)
                     
                     // Buttons
@@ -75,28 +71,17 @@ struct LoginView: View {
                         Button(action: login){
                             Text("登录")
                         }.buttonStyle(LoginButtonStyle())
-                        
                         // Sign Up
-                        Button(action: {
-                            self.toHome = true
-                        }){
+                        NavigationLink(destination: SignUpView()) {
                             Text("注册")
                         }.buttonStyle(LoginButtonStyle())
-                        
                     }
-                    
-
                     
                     // Navigation Links
-                    NavigationLink(destination: SignUpView(), isActive: $toSignUp) {
-                        EmptyView()
-                    }
-                    
                     NavigationLink(destination: HomeView(), isActive: $toHome) {
                         EmptyView()
                     }
                     
-
                     Spacer().frame(height: CGFloat(200))
 
                 }.frame(width: 300, height: fullHeight)
@@ -106,46 +91,36 @@ struct LoginView: View {
             .foregroundColor(fontBase)
                 .navigationBarHidden(true)
         }
-            .navigationBarHidden(true)
-            .navigationViewStyle(StackNavigationViewStyle())
-            .navigationBarBackButtonHidden(true)
-            .navigationBarHidden(true)
+            .modifier(NavigationViewHiddenStyle())
     }
     
     
     
-    public func login() -> Void {
+    private func login() -> Void {
         
-        let user = User(email: self.username, password: self.password)
-        
-        guard let uploadData = try? JSONEncoder().encode(user) else {
+        let user = User(email: self.email, password: self.password)
+
+        guard let data = try? JSONEncoder().encode(user) else {
             return
         }
-                      
-        let url = URL(string: "http://192.168.31.158:8000/api/user/login")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-                      
-        let task = URLSession.shared.uploadTask(with: request, from: uploadData) { data, response, error in
-            if let error = error {
-                print ("error: \(error)")
-                return
-            }
-            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
-                print ("server error")
-                return
-            }
-            if let mimeType = response.mimeType, mimeType == "application/json", let data = data, let dataString = String(data: data, encoding: .utf8) {
-                print ("got data: \(dataString)")
-                
-                let obj = try? JSONDecoder().decode(LoginResponse.self, from: data)
-                print(obj)
-                self.toHome = true
+        
+        func handleSuccess(data: Data) -> Void {
+            let res = try? JSONDecoder().decode(LoginResponse.self, from: data)
+            if let res = res {
+                if (res.status == true) {
+                    self.toHome = true
+                } else {
+                    self.errorMessage = res.message
+                }
             }
         }
-                      
-        task.resume()
+        
+        func handleError() -> Void {
+            self.errorMessage = "Unknown error"
+        }
+        
+        SendPostRequest(path: "/user/login", data: data, handleSuccess: handleSuccess, handleError: handleError)
+        
         
     }
 }
@@ -157,5 +132,6 @@ struct LoginResponse : Decodable {
     
     var message: String
     
-//    var user: User
+    var user: User?
+    
 }

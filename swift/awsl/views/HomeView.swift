@@ -87,14 +87,14 @@ struct HomeView: View {
                     }.buttonStyle(LoginButtonStyle())
                 }
                 
+                Spacer().frame(height: 100)
+                
             }
                 .frame(width: fullWidth, height: fullHeight+300)
                 .background(base)
                 .foregroundColor(fontBase)
+            
         }
-            .navigationBarHidden(true)
-            .navigationViewStyle(StackNavigationViewStyle())
-            .navigationBarBackButtonHidden(true)
-            .navigationBarHidden(true)
+            .modifier(NavigationViewHiddenStyle())
     }
 }
