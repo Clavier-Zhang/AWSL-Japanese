@@ -102,12 +102,15 @@ struct LoginView: View {
         
         let user = User(email: self.email, password: self.password)
 
-        guard let data = try? JSONEncoder().encode(user) else {
-            return
-        }
+        let data = user.toData()
         
         func handleSuccess(data: Data) -> Void {
-            let res = try? JSONDecoder().decode(LoginResponse.self, from: data)
+            
+            let res : LoginResponse? = dataToObj(data: data)
+            
+            if res == nil {
+                self.errorMessage = "Decode fails"
+            }
             if let res = res {
                 print(res)
                 if (res.status == true) {

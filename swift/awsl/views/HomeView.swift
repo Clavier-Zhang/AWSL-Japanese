@@ -81,11 +81,10 @@ struct HomeView: View {
                                            
                 Spacer().frame(height: 50)
                 
-                HStack {
-                    NavigationLink (destination: StudyCardView()) {
-                        Text("开始").bold()
-                    }.buttonStyle(LoginButtonStyle())
-                }
+                // Start Button
+                Button(action: start) {
+                    Text("开始").bold()
+                }.buttonStyle(LoginButtonStyle())
                 
                 Spacer().frame(height: 100)
                 
@@ -96,5 +95,14 @@ struct HomeView: View {
             
         }
             .modifier(NavigationViewHiddenStyle())
+    }
+    
+    private func start() {
+        print("start")
+        var user = User(email: "sssssss", password: "aaaaaa")
+//        Local.save(key: "123", obj: user.toData())
+        
+        let res = try? JSONDecoder().decode(LoginResponse.self, from: Local.get(key: "123")!)
+        print(Local.get(key: "123"))
     }
 }
