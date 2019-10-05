@@ -64,8 +64,6 @@ func (user *User) Update() bool {
 		fmt.Println("Fail to update")
 		return false
 	}
-	fmt.Println("****8")
-	fmt.Println(user)
 
 	filter := bson.D{{"email", user.Email}}
 

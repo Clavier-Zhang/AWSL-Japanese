@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 50) {
@@ -98,7 +99,8 @@ struct HomeView: View {
     }
     
     private func start() {
-
+        let user : User? = Local.get(key: "user")
+        print(user)
         
     }
 }

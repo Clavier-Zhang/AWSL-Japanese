@@ -36,12 +36,15 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//Create JWT token
-	dbUser.Token = NewToken()
-	dbUser.Update()
+	requestUser.Token = NewToken()
+	requestUser.Update()
 
 	requestUser.Password = ""
-	resp := Message(true, "Success Login")
-	resp["user"] = dbUser
+	resp := Message(true, "Login Success")
+	resp["user"] = requestUser
+
+	log.Println(resp)
+	log.Println(requestUser)
 
 	Respond(w, resp)
 }

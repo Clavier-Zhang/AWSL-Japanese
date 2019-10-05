@@ -100,7 +100,7 @@ struct LoginView: View {
     
     private func login() -> Void {
         
-        let user = User(email: self.email, password: self.password)
+        let user = User(email: self.email, password: self.password, token: "")
 
         let data = objToData(obj: user)
         
@@ -113,7 +113,8 @@ struct LoginView: View {
             }
             if let res = res {
                 print(res)
-                if (res.status == true) {
+                if (res.status) {
+                    Local.save(key: "user", obj: res.user)
                     self.toHome = true
                 } else {
                     self.errorMessage = res.message

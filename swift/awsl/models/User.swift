@@ -15,6 +15,6 @@ struct User: Codable {
     
     let password: String
     
-    let token: String = ""
+    let token: String
     
 }
