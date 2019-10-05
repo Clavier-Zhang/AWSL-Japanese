@@ -102,7 +102,7 @@ struct LoginView: View {
         
         let user = User(email: self.email, password: self.password)
 
-        let data = user.toData()
+        let data = objToData(obj: user)
         
         func handleSuccess(data: Data) -> Void {
             
@@ -129,15 +129,4 @@ struct LoginView: View {
         
         
     }
-}
-
-
-struct LoginResponse : Decodable {
-    
-    var status: Bool
-    
-    var message: String
-    
-    var user: User?
-    
 }

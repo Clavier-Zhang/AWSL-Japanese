@@ -17,9 +17,4 @@ struct User: Codable {
     
     let token: String = ""
     
-    public func toData() -> Data {
-        let data = try! JSONEncoder().encode(self)
-        return data
-    }
-    
 }

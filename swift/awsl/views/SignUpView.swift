@@ -121,13 +121,17 @@ struct SignUpView: View {
         print(password == repassword)
         
         let user = User(email: self.email, password: self.password)
-
-        guard let data = try? JSONEncoder().encode(user) else {
-            return
-        }
+        
+        let data = objToData(obj: user)
 
         func handleSuccess(data: Data) -> Void {
-            let res = try? JSONDecoder().decode(LoginResponse.self, from: data)
+            
+            let res : LoginResponse? = dataToObj(data: data)
+            
+            if res == nil {
+                self.errorMessage = "Decoder error"
+            }
+            
             if let res = res {
                 print(res)
                 if (res.status) {

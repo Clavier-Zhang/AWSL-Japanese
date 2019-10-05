@@ -98,11 +98,7 @@ struct HomeView: View {
     }
     
     private func start() {
-        print("start")
-        var user = User(email: "sssssss", password: "aaaaaa")
-//        Local.save(key: "123", obj: user.toData())
+
         
-        let res = try? JSONDecoder().decode(LoginResponse.self, from: Local.get(key: "123")!)
-        print(Local.get(key: "123"))
     }
 }

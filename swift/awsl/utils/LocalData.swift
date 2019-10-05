@@ -12,32 +12,39 @@ import Foundation
 
 struct Local {
     
-    public static func save(key: String, obj: Any) {
-        let defaults = UserDefaults.standard
-        // Store
-        defaults.set(obj, forKey: key)
+    private static let defaults = UserDefaults.standard
+    
+    // Savce to local data by key
+    public static func save<T: Encodable>(key: String, obj: T) {
+        let data = objToData(obj: obj)
+        defaults.set(data, forKey: key)
     }
     
-    public static func get(key: String) -> Data? {
-        let defaults = UserDefaults.standard
-        if let obj = defaults.data(forKey: key) {
-            return obj
+    // Retrive local data by key
+    public static func get<T: Decodable>(key: String) -> T? {
+        
+        let data = defaults.data(forKey: key)
+        
+        if (data == nil) {
+            return nil
         }
-        return nil
+        
+        let obj : T? = dataToObj(data: data!)
+        
+        return obj
     }
     
-    public static func exist(key: String) -> Bool {
-        let defaults = UserDefaults.standard
-        if let obj = defaults.object(forKey: key)
-        {
-            return true
-        }
-        return false
-    }
-    
+    // Remove local data by key
     public static func remove(key: String) {
-        let defaults = UserDefaults.standard
         defaults.removeObject(forKey: key)
+    }
+    
+    // Clean on local data
+    public static func reset() {
+        let dictionary = defaults.dictionaryRepresentation()
+        dictionary.keys.forEach { key in
+            defaults.removeObject(forKey: key)
+        }
     }
     
 }
@@ -49,4 +56,10 @@ func dataToObj<T: Decodable>(data: Data) -> T? {
         return res
     }
     return nil
+}
+
+// Always success
+public func objToData<T: Encodable>(obj: T) -> Data {
+    let data = try! JSONEncoder().encode(obj)
+    return data
 }
