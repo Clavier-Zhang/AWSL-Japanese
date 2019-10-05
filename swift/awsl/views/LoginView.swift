@@ -6,13 +6,12 @@
 //  Copyright © 2019 clavier. All rights reserved.
 //
 
-import SwiftUI
 
-struct User: Codable {
-    let email: String
-    let password: String
-    let token: String = ""
-}
+import SwiftUI
+import Combine
+
+
+
 
 let user = User(email: "zyc1014551629@gmail.com", password: "zyc990610")
 
@@ -22,12 +21,21 @@ let user = User(email: "zyc1014551629@gmail.com", password: "zyc990610")
 struct LoginView: View {
     
     @State var username: String = ""
+    
     @State var password: String = ""
+    
+    @State var toSignUp: Bool = false
+    
+    @State var toHome: Bool = false
+
+
     
     var body: some View {
         NavigationView {
             VStack {
                 VStack {
+                    
+                    // Username Input
                     HStack {
                         Image(systemName: "person")
                             .frame(width: 30)
@@ -42,7 +50,8 @@ struct LoginView: View {
                     }
 
                     Divider()
-
+                    
+                    // Password Input
                     HStack {
                         Image(systemName: "lock")
                             .frame(width: 30)
@@ -55,60 +64,38 @@ struct LoginView: View {
                             SecureField("Password", text: $password)
                         }
                     }
-
+                    
                     Divider()
-
+                    
                     Spacer().frame(height: 20)
-
-                    Button(action: {
+                    
+                    // Buttons
+                    VStack(spacing: 20) {
+                        // Sign In
+                        Button(action: login){
+                            Text("登录")
+                        }.buttonStyle(LoginButtonStyle())
                         
-                        guard let uploadData = try? JSONEncoder().encode(user) else {
-                            return
-                        }
+                        // Sign Up
+                        Button(action: {
+                            self.toHome = true
+                        }){
+                            Text("注册")
+                        }.buttonStyle(LoginButtonStyle())
                         
-                        
-                        let url = URL(string: "http://192.168.31.158:8000/api/user/login")!
-                        var request = URLRequest(url: url)
-                        request.httpMethod = "POST"
-                        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-                        
-                        let task = URLSession.shared.uploadTask(with: request, from: uploadData) { data, response, error in
-                            if let error = error {
-                                print ("error: \(error)")
-                                return
-                            }
-                            guard let response = response as? HTTPURLResponse,
-                                (200...299).contains(response.statusCode) else {
-                                print ("server error")
-                                return
-                            }
-                            if let mimeType = response.mimeType,
-                                mimeType == "application/json",
-                                let data = data,
-                                let dataString = String(data: data, encoding: .utf8) {
-                                print ("got data: \(dataString)")
-                            }
-                        }
-                        
-                        task.resume()
-
-                        
-                        print(url)
-
-      
-                    }){
-                        Text("test")
                     }
+                    
 
-                    NavigationLink (destination: HomeView()) {
-                        Text("Sign In")
-                    }.buttonStyle(LoginButtonStyle())
-
-                    Spacer().frame(height: 20)
-
-                    NavigationLink (destination: SignUpView()) {
-                        Text("Sign Up")
-                    }.buttonStyle(LoginButtonStyle())
+                    
+                    // Navigation Links
+                    NavigationLink(destination: SignUpView(), isActive: $toSignUp) {
+                        EmptyView()
+                    }
+                    
+                    NavigationLink(destination: HomeView(), isActive: $toHome) {
+                        EmptyView()
+                    }
+                    
 
                     Spacer().frame(height: CGFloat(200))
 
@@ -124,4 +111,51 @@ struct LoginView: View {
             .navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
     }
+    
+    
+    
+    public func login() -> Void {
+        
+        let user = User(email: self.username, password: self.password)
+        
+        guard let uploadData = try? JSONEncoder().encode(user) else {
+            return
+        }
+                      
+        let url = URL(string: "http://192.168.31.158:8000/api/user/login")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                      
+        let task = URLSession.shared.uploadTask(with: request, from: uploadData) { data, response, error in
+            if let error = error {
+                print ("error: \(error)")
+                return
+            }
+            guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+                print ("server error")
+                return
+            }
+            if let mimeType = response.mimeType, mimeType == "application/json", let data = data, let dataString = String(data: data, encoding: .utf8) {
+                print ("got data: \(dataString)")
+                
+                let obj = try? JSONDecoder().decode(LoginResponse.self, from: data)
+                print(obj)
+                self.toHome = true
+            }
+        }
+                      
+        task.resume()
+        
+    }
+}
+
+
+struct LoginResponse : Decodable {
+    
+    var status: Bool
+    
+    var message: String
+    
+//    var user: User
 }

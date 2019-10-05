@@ -13,13 +13,13 @@ struct StudyCardView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State var currentPhase : String = "SELF_EVALUATION"
-
+    
     var BackButton : some View {
         HStack {
             Spacer().frame(width: 20)
             Button(action: {
-                self.presentationMode.wrappedValue.dismiss() }
-            ) {
+                self.presentationMode.wrappedValue.dismiss()
+            }) {
                 HStack {
                     Image(systemName: "house")
                         .aspectRatio(contentMode: .fit)
@@ -33,6 +33,8 @@ struct StudyCardView: View {
         NavigationView {
             VStack {
                 VStack {
+                    
+                    
                     
                     Spacer().frame(height: 20)
                     
