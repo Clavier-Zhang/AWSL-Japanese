@@ -91,7 +91,6 @@ struct LoginView: View {
             .frame(width: fullWidth, height: fullHeight+300)
             .background(base)
             .foregroundColor(fontBase)
-                .navigationBarHidden(true)
         }
             .modifier(NavigationViewHiddenStyle())
     }
@@ -106,7 +105,7 @@ struct LoginView: View {
         
         func handleSuccess(data: Data) -> Void {
             
-            let res : LoginResponse? = dataToObj(data: data)
+            let res : Response? = dataToObj(data: data)
             
             if res == nil {
                 self.errorMessage = "Decode fails"
@@ -122,11 +121,7 @@ struct LoginView: View {
             }
         }
         
-        func handleError() -> Void {
-            self.errorMessage = "Unknown error"
-        }
-        
-        SendPostRequest(path: "/user/login", data: data, handleSuccess: handleSuccess, handleError: handleError)
+        SendPostRequest(path: "/user/login", data: data, handleSuccess: handleSuccess)
         
         
     }

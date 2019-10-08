@@ -18,19 +18,20 @@
 		257DFBEA23287C6E00AA7772 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257DFBE923287C6E00AA7772 /* HomeView.swift */; };
 		257DFBF02329123D00AA7772 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257DFBEF2329123D00AA7772 /* LoginView.swift */; };
 		257DFBF2232A64F300AA7772 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257DFBF1232A64F300AA7772 /* constants.swift */; };
-		257DFBF4232A664300AA7772 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257DFBF3232A664300AA7772 /* SignUpView.swift */; };
+		257DFBF4232A664300AA7772 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257DFBF3232A664300AA7772 /* SignupView.swift */; };
 		257DFBF8232B27FA00AA7772 /* styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257DFBF7232B27FA00AA7772 /* styles.swift */; };
 		257DFBFA232B28DD00AA7772 /* StudyCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257DFBF9232B28DD00AA7772 /* StudyCardView.swift */; };
 		257DFBFD232B35DD00AA7772 /* CountLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257DFBFC232B35DD00AA7772 /* CountLabel.swift */; };
 		25BEE771233C32E90074F510 /* LearnPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BEE770233C32E90074F510 /* LearnPhase.swift */; };
 		25CFC29023482A1C003D8512 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CFC28F23482A1C003D8512 /* User.swift */; };
-		25CFC292234851DD003D8512 /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CFC291234851DD003D8512 /* utils.swift */; };
+		25CFC292234851DD003D8512 /* RemoteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CFC291234851DD003D8512 /* RemoteData.swift */; };
 		25E14A3D232733EC00050264 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E14A3C232733EC00050264 /* AppDelegate.swift */; };
 		25E14A3F232733EC00050264 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E14A3E232733EC00050264 /* SceneDelegate.swift */; };
 		25E14A41232733EC00050264 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E14A40232733EC00050264 /* ContentView.swift */; };
 		25E14A43232733ED00050264 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25E14A42232733ED00050264 /* Assets.xcassets */; };
 		25E14A46232733ED00050264 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25E14A45232733ED00050264 /* Preview Assets.xcassets */; };
 		25E14A49232733ED00050264 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25E14A47232733ED00050264 /* LaunchScreen.storyboard */; };
+		25E9757A234CB7C400F0583E /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E97579234CB7C400F0583E /* Task.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,13 +46,13 @@
 		257DFBE923287C6E00AA7772 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		257DFBEF2329123D00AA7772 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		257DFBF1232A64F300AA7772 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
-		257DFBF3232A664300AA7772 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		257DFBF3232A664300AA7772 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		257DFBF7232B27FA00AA7772 /* styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = styles.swift; sourceTree = "<group>"; };
 		257DFBF9232B28DD00AA7772 /* StudyCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyCardView.swift; sourceTree = "<group>"; };
 		257DFBFC232B35DD00AA7772 /* CountLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountLabel.swift; sourceTree = "<group>"; };
 		25BEE770233C32E90074F510 /* LearnPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnPhase.swift; sourceTree = "<group>"; };
 		25CFC28F23482A1C003D8512 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		25CFC291234851DD003D8512 /* utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
+		25CFC291234851DD003D8512 /* RemoteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteData.swift; sourceTree = "<group>"; };
 		25E14A39232733EC00050264 /* awsl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = awsl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25E14A3C232733EC00050264 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25E14A3E232733EC00050264 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +61,7 @@
 		25E14A45232733ED00050264 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		25E14A48232733ED00050264 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		25E14A4A232733ED00050264 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		25E97579234CB7C400F0583E /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,10 +78,12 @@
 		2520423B232C730D00281016 /* studyCardView */ = {
 			isa = PBXGroup;
 			children = (
+				2520423E232DA18A00281016 /* ProgressBar.swift */,
 				257DFBF9232B28DD00AA7772 /* StudyCardView.swift */,
 				2520423C232D7F1D00281016 /* SelfEvaluationPhase.swift */,
 				25204240232DAA0400281016 /* TestPhase.swift */,
 				25BEE770233C32E90074F510 /* LearnPhase.swift */,
+				25204242232DAED100281016 /* WritingPad.swift */,
 			);
 			path = studyCardView;
 			sourceTree = "<group>";
@@ -89,10 +93,8 @@
 			children = (
 				257DFBF7232B27FA00AA7772 /* styles.swift */,
 				257DFBF1232A64F300AA7772 /* constants.swift */,
-				2567037B2336BD4A00A9BBE8 /* hiraganaModel.mlmodel */,
-				2567037E2336F71C00A9BBE8 /* Recognizer.swift */,
-				25CFC291234851DD003D8512 /* utils.swift */,
-				257283FA2348C7E000FFE0CC /* LocalData.swift */,
+				25E9757D234D545700F0583E /* recognizer */,
+				25E9757C234D544200F0583E /* data */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -102,8 +104,8 @@
 			children = (
 				25E14A40232733EC00050264 /* ContentView.swift */,
 				257DFBEF2329123D00AA7772 /* LoginView.swift */,
-				257DFBF3232A664300AA7772 /* SignUpView.swift */,
-				257DFBE923287C6E00AA7772 /* HomeView.swift */,
+				257DFBF3232A664300AA7772 /* SignupView.swift */,
+				25E9757B234D541600F0583E /* homeView */,
 				2520423B232C730D00281016 /* studyCardView */,
 			);
 			path = views;
@@ -112,9 +114,6 @@
 		257DFBFB232B2B6500AA7772 /* common */ = {
 			isa = PBXGroup;
 			children = (
-				257DFBFC232B35DD00AA7772 /* CountLabel.swift */,
-				2520423E232DA18A00281016 /* ProgressBar.swift */,
-				25204242232DAED100281016 /* WritingPad.swift */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -124,6 +123,7 @@
 			children = (
 				25CFC28F23482A1C003D8512 /* User.swift */,
 				257283FC2348E33700FFE0CC /* Response.swift */,
+				25E97579234CB7C400F0583E /* Task.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -167,6 +167,33 @@
 				25E14A45232733ED00050264 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		25E9757B234D541600F0583E /* homeView */ = {
+			isa = PBXGroup;
+			children = (
+				257DFBE923287C6E00AA7772 /* HomeView.swift */,
+				257DFBFC232B35DD00AA7772 /* CountLabel.swift */,
+			);
+			path = homeView;
+			sourceTree = "<group>";
+		};
+		25E9757C234D544200F0583E /* data */ = {
+			isa = PBXGroup;
+			children = (
+				257283FA2348C7E000FFE0CC /* LocalData.swift */,
+				25CFC291234851DD003D8512 /* RemoteData.swift */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
+		25E9757D234D545700F0583E /* recognizer */ = {
+			isa = PBXGroup;
+			children = (
+				2567037E2336F71C00A9BBE8 /* Recognizer.swift */,
+				2567037B2336BD4A00A9BBE8 /* hiraganaModel.mlmodel */,
+			);
+			path = recognizer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,6 +271,7 @@
 				257DFBEA23287C6E00AA7772 /* HomeView.swift in Sources */,
 				2567037C2336BD4A00A9BBE8 /* hiraganaModel.mlmodel in Sources */,
 				2567037F2336F71C00A9BBE8 /* Recognizer.swift in Sources */,
+				25E9757A234CB7C400F0583E /* Task.swift in Sources */,
 				25204243232DAED100281016 /* WritingPad.swift in Sources */,
 				25BEE771233C32E90074F510 /* LearnPhase.swift in Sources */,
 				257DFBFA232B28DD00AA7772 /* StudyCardView.swift in Sources */,
@@ -252,9 +280,9 @@
 				2520423D232D7F1D00281016 /* SelfEvaluationPhase.swift in Sources */,
 				257DFBF8232B27FA00AA7772 /* styles.swift in Sources */,
 				257283FB2348C7E000FFE0CC /* LocalData.swift in Sources */,
-				25CFC292234851DD003D8512 /* utils.swift in Sources */,
+				25CFC292234851DD003D8512 /* RemoteData.swift in Sources */,
 				257283FD2348E33700FFE0CC /* Response.swift in Sources */,
-				257DFBF4232A664300AA7772 /* SignUpView.swift in Sources */,
+				257DFBF4232A664300AA7772 /* SignupView.swift in Sources */,
 				257DFBF02329123D00AA7772 /* LoginView.swift in Sources */,
 				25E14A41232733EC00050264 /* ContentView.swift in Sources */,
 				25CFC29023482A1C003D8512 /* User.swift in Sources */,

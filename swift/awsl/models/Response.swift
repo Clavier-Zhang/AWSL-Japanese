@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct LoginResponse : Decodable {
+struct Response : Codable {
     
     var status: Bool
     
@@ -17,4 +17,7 @@ struct LoginResponse : Decodable {
     
     var user: User?
     
+    var words: [Word]?
+    
 }
+
