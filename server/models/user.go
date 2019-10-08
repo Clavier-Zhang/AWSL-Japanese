@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"io"
 )
@@ -12,11 +13,15 @@ import (
 
 type User struct {
 
+	ID primitive.ObjectID `bson:"_id, omitempty"`
+
 	Email string `json:"email"`
 
 	Password string `json:"password"`
 
 	Token string `json:"token"`
+
+	name string `json:"name"`
 
 }
 

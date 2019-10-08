@@ -10,6 +10,10 @@ import SwiftUI
 
 struct HomeView: View {
     
+    init() {
+        print("HomeView init")
+    }
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 50) {
@@ -99,8 +103,37 @@ struct HomeView: View {
     }
     
     private func start() {
-        let user : User? = Local.get(key: "user")
-        print(user)
+//        let user : User? = Local.get(key: "user")
+//        print(user)
+        fetchHomeData()
+        
+    }
+    
+    private func fetchHomeData() -> Void {
+        
+        func handleSuccess(data: Data) -> Void {
+            
+            let res : LoginResponse? = dataToObj(data: data)
+            
+            if res == nil {
+            }
+            if let res = res {
+                print(res)
+                if (res.status) {
+//                    Local.save(key: "user", obj: res.user)
+
+                } else {
+
+                }
+            }
+        }
+        
+        func handleError() -> Void {
+//            print("error")
+        }
+        
+        SendGetRequest(path: "/user/home/zyc1014551629@gmail.com", handleSuccess: handleSuccess, handleError: handleError)
+        
         
     }
 }

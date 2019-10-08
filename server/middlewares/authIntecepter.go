@@ -4,8 +4,9 @@ import (
 	"context"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/gorilla/mux"
 	"net/http"
-	."server/models"
+	. "server/models"
 	u "server/utils"
 	"strings"
 )
@@ -69,9 +70,9 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 			return
 		}
 
-		user := FindByToken(tokenPart)
-		fmt.Println(user)
 
+
+		user := FindByToken(tokenPart)
 		if user == nil {
 			response = u.Message(false, "User not exist")
 			w.WriteHeader(http.StatusForbidden)
@@ -79,6 +80,21 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 			u.Respond(w, response)
 			return
 		}
+
+		// Compare token's email and request email
+		vars := mux.Vars(r)
+
+		if vars["email"] != user.Email {
+			response = u.Message(false, "Token not belongs to the current user")
+			w.WriteHeader(http.StatusForbidden)
+			w.Header().Add("Content-Type", "application/json")
+			u.Respond(w, response)
+			return
+		}
+
+
+		fmt.Println(user)
+		fmt.Println(vars["email"])
 
 		//Everything went well, proceed with the request and set the caller to the user retrieved from the parsed token
 		fmt.Sprintf("User %", tk.Text) //Useful for monitoring
