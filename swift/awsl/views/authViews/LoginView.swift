@@ -29,37 +29,11 @@ struct LoginView: View {
             VStack {
                 VStack {
                     
-                    // Email Input
-                    HStack {
-                        Image(systemName: "person")
-                            .frame(width: 30)
-                        ZStack(alignment: .leading) {
-                            if email.isEmpty {
-                                Text("Email")
-                                    .foregroundColor(fontBase)
-                                    .opacity(0.4)
-                            }
-                            // Avoid auto-capitalization
-                            TextField("", text: $email)
-                                .autocapitalization(UITextAutocapitalizationType.none)
-                        }
-                    }
+                    EmailField(bind: $email)
 
                     Divider()
                     
-                    // Password Input
-                    HStack {
-                        Image(systemName: "lock")
-                            .frame(width: 30)
-                        ZStack(alignment: .leading) {
-                            if password.isEmpty {
-                                Text("Password")
-                                    .foregroundColor(fontBase)
-                                    .opacity(0.4)
-                            }
-                            SecureField("Password", text: $password)
-                        }
-                    }
+                    PasswordField(bind: $password)
                     
                     Divider()
                     
@@ -84,10 +58,11 @@ struct LoginView: View {
                         EmptyView()
                     }
                     
-                    Spacer().frame(height: CGFloat(200))
+                    Spacer().frame(height: 200)
 
                 }.frame(width: 300, height: fullHeight)
             }
+
             .frame(width: fullWidth, height: fullHeight+300)
             .background(base)
             .foregroundColor(fontBase)

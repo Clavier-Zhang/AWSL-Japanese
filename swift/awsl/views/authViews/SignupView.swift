@@ -13,9 +13,7 @@ import SwiftUI
 struct SignUpView: View {
     
     @State var email: String = ""
-    
     @State var password: String = ""
-    
     @State var repassword: String = ""
     
     @State var toHome: Bool = false
@@ -28,46 +26,17 @@ struct SignUpView: View {
         NavigationView {
             VStack {
                 VStack {
-                    // Email input field
-                    HStack {
-                        Image(systemName: "person")
-                            .frame(width: 30)
-                        ZStack(alignment: .leading) {
-                            if email.isEmpty {
-                                Text("email")
-                                    .opacity(0.4)
-                            }
-                            // Avoid auto-capitalization
-                            TextField("", text: $email)
-                                .autocapitalization(UITextAutocapitalizationType.none)
-                        }
-                    }
+                    
+                    EmailField(bind: $email)
+                    
                     Divider()
-                    // Password input field
-                    HStack {
-                        Image(systemName: "lock")
-                            .frame(width: 30)
-                        ZStack(alignment: .leading) {
-                            if password.isEmpty {
-                                Text("Password")
-                                    .opacity(0.4)
-                            }
-                            SecureField("", text: $password)
-                        }
-                    }
+                    
+                    PasswordField(bind: $password)
+                    
                     Divider()
-                    // Repassword input field
-                    HStack {
-                        Image(systemName: "lock")
-                            .frame(width: 30)
-                        ZStack(alignment: .leading) {
-                            if repassword.isEmpty {
-                                Text("Re-Password")
-                                    .opacity(0.4)
-                            }
-                            SecureField("", text: $repassword)
-                        }
-                    }
+                    
+                    PasswordField(bind: $repassword)
+                    
                     // Error message
                     Spacer().frame(height: 20)
                     Text(errorMessage).foregroundColor(red)
