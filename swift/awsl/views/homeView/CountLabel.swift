@@ -13,7 +13,7 @@ struct CountLabel: View {
     var count: Int
     var label: String
     
-    init(_ label: String, _ count: Int) {
+    init(label: String, count: Int) {
         self.label = label
         self.count = count
     }

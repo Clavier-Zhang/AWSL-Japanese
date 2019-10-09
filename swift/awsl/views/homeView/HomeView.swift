@@ -37,9 +37,9 @@ struct HomeView: View {
                         }
                     }
                     
-                    CountLabel("已完成", 59)
+                    CountLabel(label: "已完成", count: 59)
                     
-                    CountLabel("进行中", 59)
+                    CountLabel(label: "进行中", count: 59)
                     
                     VStack {
                         Image(systemName: "chart.bar")
@@ -56,9 +56,9 @@ struct HomeView: View {
                 
                 HStack(spacing: 100) {
                     
-                    CountLabel("单词书", 59)
+                    CountLabel(label: "单词书", count: 59)
                     
-                    CountLabel("剩余", 59)
+                    CountLabel(label: "剩余", count: 59)
                     
                     VStack {
                         Image(systemName: "book")
@@ -75,11 +75,11 @@ struct HomeView: View {
                
                 HStack(spacing: 100) {
                     
-                    CountLabel("新单词", 100)
+                    CountLabel(label: "新单词", count: 100)
                     
-                    CountLabel("计划单词", 300)
+                    CountLabel(label: "计划单词", count: 300)
                     
-                    CountLabel("剩余单词", 189)
+                    CountLabel(label: "剩余单词", count: 189)
                     
                 }
                                            
@@ -137,7 +137,7 @@ struct HomeView: View {
                 print("success fetch home data")
                 if (res.status) {
                     self.loading = false
-                    Local.save(key: "tasks", obj: res.words)
+                    Local.save(key: "task", obj: res.words)
                 } else {
                     print("Status false")
                 }

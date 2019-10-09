@@ -34,8 +34,6 @@ struct StudyCardView: View {
             VStack {
                 VStack {
                     
-                    
-                    
                     Spacer().frame(height: 20)
                     
                     VStack (spacing: 20) {

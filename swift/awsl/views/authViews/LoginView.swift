@@ -22,7 +22,7 @@ struct LoginView: View {
     
     @State var toHome: Bool = false
     
-    @State var errorMessage: String = ""
+    @State var message: String = ""
 
     var body: some View {
         NavigationView {
@@ -37,9 +37,7 @@ struct LoginView: View {
                     
                     Divider()
                     
-                    // Error message
-                    Text(errorMessage).foregroundColor(red)
-                    Spacer().frame(height: 20)
+                    ErrorMessage(message)
                     
                     // Buttons
                     VStack(spacing: 20) {
@@ -83,7 +81,7 @@ struct LoginView: View {
             let res : Response? = dataToObj(data: data)
             
             if res == nil {
-                self.errorMessage = "Decode fails"
+                self.message = "Decode fails"
             }
             if let res = res {
                 print(res)
@@ -91,7 +89,7 @@ struct LoginView: View {
                     Local.save(key: "user", obj: res.user)
                     self.toHome = true
                 } else {
-                    self.errorMessage = res.message
+                    self.message = res.message
                 }
             }
         }

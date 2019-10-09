@@ -19,6 +19,19 @@ struct LoginButtonStyle: ButtonStyle {
 
 }
 
+struct WideButtonStyle: ButtonStyle {
+
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
+            .padding(.horizontal)
+            .background(configuration.isPressed ? base.opacity(0.5) : base)
+            .foregroundColor(configuration.isPressed ? fontBase.opacity(0.85) : fontBase)
+            .cornerRadius(5)
+    }
+
+}
+
 
 struct StartButtonStyle: ButtonStyle {
 

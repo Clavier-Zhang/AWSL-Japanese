@@ -18,7 +18,7 @@ struct SignUpView: View {
     
     @State var toHome: Bool = false
     
-    @State var errorMessage: String = ""
+    @State var message: String = ""
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
@@ -37,10 +37,8 @@ struct SignUpView: View {
                     
                     PasswordField(bind: $repassword)
                     
-                    // Error message
-                    Spacer().frame(height: 20)
-                    Text(errorMessage).foregroundColor(red)
-                    Spacer().frame(height: 20)
+                    ErrorMessage(message)
+                    
                     // Buttons
                     VStack(spacing: 20) {
                         // Sign In
@@ -68,10 +66,7 @@ struct SignUpView: View {
                 .background(base)
                 .foregroundColor(fontBase)
             
-            
-    
         }.modifier(NavigationViewHiddenStyle())
-        
     }
     
     private func back() -> Void {
@@ -82,11 +77,9 @@ struct SignUpView: View {
     private func signup() -> Void {
         
         if (password != repassword) {
-            errorMessage = "Re-Password does not match"
+            message = "Re-Password does not match"
             return
         }
-        
-        print(password == repassword)
         
         let user = User(email: self.email, password: self.password, token: "")
         
@@ -97,7 +90,7 @@ struct SignUpView: View {
             let res : Response? = dataToObj(data: data)
             
             if res == nil {
-                self.errorMessage = "Decoder error"
+                self.message = "Decoder error"
             }
             
             if let res = res {
@@ -106,7 +99,7 @@ struct SignUpView: View {
                     Local.save(key: "user", obj: res.user)
                     self.toHome = true
                 } else {
-                    self.errorMessage = res.message
+                    self.message = res.message
                 }
             }
         }
