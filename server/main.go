@@ -21,6 +21,8 @@ func main() {
 
 	router.HandleFunc("/api/user/home/{email}", HomeController).Methods("GET")
 
+	router.HandleFunc("/api/task/get/{email}", HomeController).Methods("GET")
+
 
 
 

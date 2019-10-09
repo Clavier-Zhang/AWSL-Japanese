@@ -14,23 +14,19 @@ struct Local {
     
     private static let defaults = UserDefaults.standard
     
-    // Savce to local data by key
+    // Save to local data by key
     public static func save<T: Encodable>(key: String, obj: T) {
         let data = objToData(obj: obj)
         defaults.set(data, forKey: key)
     }
     
-    // Retrive local data by key
+    // Retrieve local data by key
     public static func get<T: Decodable>(key: String) -> T? {
-        
         let data = defaults.data(forKey: key)
-        
         if (data == nil) {
             return nil
         }
-        
         let obj : T? = dataToObj(data: data!)
-        
         return obj
     }
     
@@ -46,7 +42,7 @@ struct Local {
             defaults.removeObject(forKey: key)
         }
     }
-    
+
 }
 
 

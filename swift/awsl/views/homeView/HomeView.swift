@@ -9,6 +9,10 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    @State var loading: Bool = true
+    
+    @State var toStudyCardView = false
 
     var body: some View {
         NavigationView {
@@ -31,7 +35,6 @@ struct HomeView: View {
                             Spacer().frame(height: 30)
                             Text("ID: 13962125149")
                         }
-                        
                     }
                     
                     CountLabel("已完成", 59)
@@ -83,9 +86,14 @@ struct HomeView: View {
                 Spacer().frame(height: 50)
                 
                 // Start Button
-                Button(action: start) {
+                Button(action: self.pressStart) {
                     Text("开始").bold()
                 }.buttonStyle(LoginButtonStyle())
+                
+                // Navigation Links
+                NavigationLink(destination: StudyCardView(), isActive: $toStudyCardView) {
+                    EmptyView()
+                }
                 
                 Spacer().frame(height: 100)
                 
@@ -94,69 +102,53 @@ struct HomeView: View {
                 .background(base)
                 .foregroundColor(fontBase)
             
+            
+            
+            
         }
             .modifier(NavigationViewHiddenStyle())
-        .onAppear(perform: self.start)
+            .onAppear(perform: self.homeAppear)
     }
     
-    private func start() {
-        let user : User? = Local.get(key: "user")
-        if user == nil {
-            print("Defect: User not login")
-            return
-        }
-//        print(user)
-        let words : [Word]? = Local.get(key: "tasks")
-//        fetchHomeData(user: user!)
-        print(words)
-        
-    }
-    
-    private func fetchHomeData(user: User) -> Void {
-        print("fetch homedata")
-        
+    func pressStart() {
         func handleSuccess(data: Data) -> Void {
-            print("success")
-
             let res : Response? = dataToObj(data: data)
-            
             if let res = res {
+                print("start success")
                 print(res)
                 if (res.status) {
                     Local.save(key: "tasks", obj: res.words)
-
+                    self.toStudyCardView = true
+                    
                 } else {
-
+                    print("Status false")
+                }
+            }
+        }
+        Remote.fetchTask(handleSuccess: handleSuccess)
+        
+    }
+    
+    func homeAppear() {
+        
+        func handleSuccess(data: Data) -> Void {
+            let res : Response? = dataToObj(data: data)
+            if let res = res {
+                print("success fetch home data")
+                if (res.status) {
+                    self.loading = false
+                    Local.save(key: "tasks", obj: res.words)
+                } else {
+                    print("Status false")
                 }
             }
         }
         
-        SendGetRequest(path: "/user/home/"+user.email, handleSuccess: handleSuccess, token: user.token)
-        
+        Remote.fetchHomeData(handleSuccess: handleSuccess)
     }
     
-    private func fetchTaskData(user: User) -> Void {
-        print("fetch homedata")
-        
-        func handleSuccess(data: Data) -> Void {
-            print("success")
+    
+    
 
-            let res : Response? = dataToObj(data: data)
-            
-            if let res = res {
-                print(res)
-                if (res.status) {
-                    Local.save(key: "tasks", obj: res.words)
 
-                } else {
-
-                }
-            }
-        }
-        
-        
-        SendGetRequest(path: "/user/home/"+user.email, handleSuccess: handleSuccess, token: user.token)
-        
-        
-    }
 }
