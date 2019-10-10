@@ -102,29 +102,29 @@ struct HomeView: View {
                 .background(base)
                 .foregroundColor(fontBase)
             
-            
-            
-            
         }
             .modifier(NavigationViewHiddenStyle())
             .onAppear(perform: self.homeAppear)
     }
     
     func pressStart() {
+        
         func handleSuccess(data: Data) -> Void {
             let res : Response? = dataToObj(data: data)
             if let res = res {
                 print("start success")
-                print(res)
                 if (res.status) {
-                    Local.save(key: "tasks", obj: res.words)
+                    var task = Task(words: res.words!)
+
+                    Local.save(key: "task", obj: task)
                     self.toStudyCardView = true
-                    
+
                 } else {
                     print("Status false")
                 }
             }
         }
+
         Remote.fetchTask(handleSuccess: handleSuccess)
         
     }
@@ -146,6 +146,8 @@ struct HomeView: View {
         
         Remote.fetchHomeData(handleSuccess: handleSuccess)
     }
+    
+    
     
     
     

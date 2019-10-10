@@ -25,7 +25,7 @@ struct TestPhase: View {
     var canvas : WritingPad = WritingPad()
     
     var body: some View {
-        VStack {
+        VStack(spacing: 20) {
             
             // Explanation of the word
             HStack {
@@ -37,41 +37,23 @@ struct TestPhase: View {
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 120)
                 .background(base)
             
-            // Button Group
+            // Buttons
             HStack {
-                Button(action:  {
-                    
-                    let hira = HandwritingRecognizer.hiragana(uiimage: self.canvas.getImage())
-                    self.handwritingLabel = hira
-                    print(hira)
-                    
-                }) {
-                    Text("提交")
-                }
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .center)
-                    .background(base)
-    
-                Button(action:  {
-                    self.currentPhase = "LEARN"
-                }) {
-                    Text("不会拼")
-                }
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .center)
-                    .background(base)
                 
-            }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 120)
+                WideButton(label: "提交", action: pressSubmit, center: true)
+                
+                WideButton(label: "不会拼", action: pressUnableToSpell, center: true)
+                
+            }
             
             // Recognization of the hand-writing
             HStack {
-                Spacer()
-                    .frame(width: 20)
+                Spacer().frame(width: 20)
                 Text(self.handwritingLabel)
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
             }
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
                 .background(base)
-            
-            Spacer().frame(height: 20)
 
             // WritingBoard
             canvas.frame(width: 700, height: 200)
@@ -82,7 +64,21 @@ struct TestPhase: View {
                 .foregroundColor(Color.white)
             
         }
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
+    }
+    
+    func pressSubmit() {
+        print("submit")
+
+        let hira = HandwritingRecognizer.hiragana(uiimage: self.canvas.getImage())
+        self.handwritingLabel = hira
+        print(hira)
+        
+    }
+    
+    func pressUnableToSpell() {
+        print("spell fail")
+        self.currentPhase = "LEARN"
     }
 }
 

@@ -8,33 +8,68 @@
 
 import Foundation
 
-struct Word: Codable {
+struct Task: Codable {
     
-    struct Example: Codable {
-        
-        let japanese: String
-        
-        let translation: String
-        
+    public init(words: [Word]) {
+        self.date = Date()
+        self.finishedCardPairs = [CardPair]()
+        self.newCardPairs = [CardPair]()
+        for word in words {
+            self.newCardPairs.append(CardPair(word))
+        }
     }
     
-    let text: String
+    var date: Date
     
-    let furigara: String
+    var newCardPairs: [CardPair]
     
-    let en_meanings: [String]
+    var finishedCardPairs: [CardPair]
     
-    let en_examples: [Example]
+    public func getNewNum() -> Int {
+        return newCardPairs.filter( {$0.card.status == "NEW" }).count
+    }
     
-    let cn_type: String
+    public func getProgressingNum() -> Int {
+        return newCardPairs.filter( {$0.card.status == "PROGRESSING" }).count
+    }
     
-    let cn_meanings: [String]
+    public func getFinishedNum() -> Int {
+        return finishedCardPairs.count
+    }
     
-    let cn_examples: [Example]
+    public func getWord() -> Word {
+        return newCardPairs[0].word
+    }
     
-    let audio: Data
-     
 }
 
 
+struct Card: Codable {
+    
+    public init() {
+        self.status = "NEW"
+        self.responseQuality = 5
+        self.remainRepetition = 1
+    }
+    
+    var responseQuality: Int
+    
+    var status: String
+    
+    var remainRepetition: Int
+    
+    
+}
 
+struct CardPair: Codable {
+    
+    public init(_ word: Word) {
+        self.word = word
+        self.card = Card()
+    }
+    
+    var word: Word
+    
+    var card: Card
+    
+}

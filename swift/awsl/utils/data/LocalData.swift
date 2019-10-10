@@ -42,6 +42,14 @@ struct Local {
             defaults.removeObject(forKey: key)
         }
     }
+    
+    public static func getTask() -> Task {
+        let task: Task? = self.get(key: "task")
+        if let task = task {
+            return task
+        }
+        return Task(words: [Word]())
+    }
 
 }
 

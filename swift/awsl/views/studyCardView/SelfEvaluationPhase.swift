@@ -14,15 +14,19 @@ struct SelfEvaluationPhase: View {
     
     var body: some View {
         VStack(spacing: 20) {
+            
             HStack {
                 Spacer().frame(width: 20)
                 Text("上手")
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
-                Divider()
-                Spacer().frame(width: 20)
-                Image(systemName: "speaker")
-                    .frame(width: 30)
-                Spacer().frame(width: 20)
+                
+                Button(action: pressAudio) {
+                    Divider()
+                    Image(systemName: "speaker")
+                        .frame(width: 20).padding(.horizontal)
+                }
+                
+                Spacer().frame(width: 10)
             }
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
                 .background(base)
@@ -52,6 +56,10 @@ struct SelfEvaluationPhase: View {
     
     func pressEasy() {
         print("easy")
+    }
+    
+    func pressAudio() {
+        print("audio")
     }
     
 }

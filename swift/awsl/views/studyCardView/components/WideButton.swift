@@ -14,18 +14,41 @@ struct WideButton: View {
     
     var action: () -> Void
     
-    public init(label: String, action: @escaping () -> Void) {
+    var center: Bool = false
+    
+    public init(label: String, action: @escaping () -> Void, center: Bool? = false) {
         self.label = label
         self.action = action
+        if let center = center {
+            self.center = center
+        }
     }
     
     var body: some View {
         HStack {
             Button(action: action) {
                 Text(label)
-            }.buttonStyle(WideButtonStyle())
-//            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: center ? .center : .leading)
+            }
+            
+            .buttonStyle(WideButtonStyle())
+            
+            
         }
     
     }
+}
+
+struct WideButtonStyle: ButtonStyle {
+
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .padding(.horizontal)
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
+            .cornerRadius(5)
+            .background(configuration.isPressed ? base.opacity(0.5) : base)
+            .foregroundColor(configuration.isPressed ? fontBase.opacity(0.85) : fontBase)
+            
+    }
+
 }
