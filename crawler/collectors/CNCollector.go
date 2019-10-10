@@ -108,6 +108,7 @@ func analyzeCNPage(e *colly.HTMLElement) {
 	word.Audio = ReaderToBytes(resp.Body)
 
 
+
 	ok := word.Update()
 
 	if ok {

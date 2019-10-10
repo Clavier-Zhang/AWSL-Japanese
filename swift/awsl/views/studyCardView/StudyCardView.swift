@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+
 struct StudyCardView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -35,7 +36,7 @@ struct StudyCardView: View {
                         ProgressBar(task.getNewNum(), task.getProgressingNum(), task.getFinishedNum()).padding(.vertical)
                     
                         if (self.currentPhase == "SELF_EVALUATION") {
-                            SelfEvaluationPhase(currentPhase: $currentPhase)
+                            SelfEvaluationPhase(currentPhase: $currentPhase, task: task)
                             
                         } else if (self.currentPhase == "TEST") {
                             TestPhase(currentPhase: $currentPhase)

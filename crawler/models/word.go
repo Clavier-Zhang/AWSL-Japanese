@@ -114,6 +114,10 @@ func (word *Word) Update() bool {
 			updatedFields = append(updatedFields, bson.E{"cn_examples", word.CN_Examples})
 		}
 
+		if len(word.Audio) != 0 {
+			updatedFields = append(updatedFields, bson.E{"audio", word.Audio})
+		}
+
 		// If no fields need to be updated, return directly
 		if len(updatedFields) == 0 {
 			return false

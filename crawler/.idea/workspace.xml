@@ -2,16 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="23fb37d2-57f5-4c76-bc71-2a1be9bc3d44" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../server/controllers/homeController.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../server/models/record.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/output.mp3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/collectors/CNCollector.go" beforeDir="false" afterPath="$PROJECT_DIR$/collectors/CNCollector.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crawler" beforeDir="false" afterPath="$PROJECT_DIR$/crawler" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/word.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/word.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/controllers/taskController.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/controllers/taskController.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/middlewares/authIntecepter.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/middlewares/authIntecepter.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/models/user.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/server" beforeDir="false" afterPath="$PROJECT_DIR$/../server/server" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl/utils/utils.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/utils/utils.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/HomeView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/HomeView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyCardView/SelfEvaluationPhase.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyCardView/SelfEvaluationPhase.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyCardView/StudyCardView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyCardView/StudyCardView.swift" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

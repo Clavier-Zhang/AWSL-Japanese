@@ -7,29 +7,45 @@
 //
 
 import SwiftUI
+import AVFoundation
+import UIKit
+import Foundation
 
 struct SelfEvaluationPhase: View {
     
     @Binding var currentPhase : String
+    
+    @State var task: Task
+    
+    @State var player : AVAudioPlayer?
     
     var body: some View {
         VStack(spacing: 20) {
             
             HStack {
                 Spacer().frame(width: 20)
-                Text("上手")
+                Text(task.getWord().text)
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
                 
                 Button(action: pressAudio) {
-                    Divider()
-                    Image(systemName: "speaker")
-                        .frame(width: 20).padding(.horizontal)
+                    Text("123")
+//                    Divider()
+//                    Image(systemName: "speaker")
+//                        .frame(width: 20).padding(.horizontal)
                 }
                 
                 Spacer().frame(width: 10)
             }
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
                 .background(base)
+            
+            
+            Button(action: pressAudio) {
+                                Text("123")
+            //                    Divider()
+            //                    Image(systemName: "speaker")
+            //                        .frame(width: 20).padding(.horizontal)
+                            }
             
 
             WideButton(label: "太简单", action: pressEasy)
@@ -55,11 +71,19 @@ struct SelfEvaluationPhase: View {
     }
     
     func pressEasy() {
+        print(task.getWord())
         print("easy")
     }
     
     func pressAudio() {
         print("audio")
-    }
     
+
+            self.player = try! AVAudioPlayer(data: self.task.getWord().audio)
+
+            player?.play()
+
+    }
+
 }
+
