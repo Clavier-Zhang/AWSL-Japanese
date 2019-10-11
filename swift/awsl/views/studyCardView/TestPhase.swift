@@ -22,6 +22,8 @@ struct TestPhase: View {
     
     @Binding var currentPhase : String
     
+    @Binding var task: Task
+    
     var canvas : WritingPad = WritingPad()
     
     var body: some View {

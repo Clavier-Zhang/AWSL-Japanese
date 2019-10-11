@@ -12,7 +12,7 @@ struct Task: Codable {
     
     public init(words: [Word]) {
         self.date = Date()
-        self.finishedCardPairs = [CardPair]()
+        self.finishedCards = [Card]()
         self.newCardPairs = [CardPair]()
         for word in words {
             self.newCardPairs.append(CardPair(word))
@@ -23,7 +23,7 @@ struct Task: Codable {
     
     var newCardPairs: [CardPair]
     
-    var finishedCardPairs: [CardPair]
+    var finishedCards: [Card]
     
     public func getNewNum() -> Int {
         return newCardPairs.filter( {$0.card.status == "NEW" }).count
@@ -34,12 +34,36 @@ struct Task: Codable {
     }
     
     public func getFinishedNum() -> Int {
-        return finishedCardPairs.count
+        return finishedCards.count
     }
     
     public func getWord() -> Word {
         return newCardPairs[0].word
     }
+    
+    public func getStatus() -> String {
+        return newCardPairs[0].card.status
+    }
+    
+    public func isEmpty() -> Bool {
+        return newCardPairs.count == 0
+    }
+    
+    mutating public func easy() {
+        newCardPairs[0].card.easy = true
+    }
+    
+    mutating public func next() {
+        // Easy
+        if (newCardPairs[0].card.easy) {
+            var card = newCardPairs[0].card
+            newCardPairs.remove(at: 0)
+            card.easy = true
+            finishedCards.append(card)
+        }
+        
+    }
+    
     
 }
 
@@ -50,6 +74,8 @@ struct Card: Codable {
         self.status = "NEW"
         self.responseQuality = 5
         self.remainRepetition = 1
+        self.failedTimes = 0
+        self.easy = false
     }
     
     var responseQuality: Int
@@ -57,6 +83,10 @@ struct Card: Codable {
     var status: String
     
     var remainRepetition: Int
+    
+    var failedTimes: Int
+    
+    var easy: Bool
     
     
 }

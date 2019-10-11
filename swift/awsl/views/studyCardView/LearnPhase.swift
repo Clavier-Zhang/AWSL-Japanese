@@ -12,6 +12,10 @@ struct LearnPhase: View {
     
     @Binding var currentPhase : String
     
+    @Binding var task: Task
+    
+    @State var toFinishStudyView: Bool = false
+    
     var body: some View {
         VStack(spacing: 20) {
             
@@ -44,18 +48,32 @@ struct LearnPhase: View {
 
             
             
-            Spacer().frame(height: 500)
+            Spacer().frame(height: 300)
             
     
-            Button(action:  {
-                self.currentPhase = "SELF_EVALUATION"
-            }) {
+            Button(action: pressNext) {
                 Text("下一个")
             }
                 .frame(width: 300, height: 60, alignment: .center)
                 .background(red)
+            
+            NavigationLink(destination: FinishStudyView(), isActive: $toFinishStudyView) {
+                EmptyView()
+            }
 
         }
            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
+    }
+    
+    func pressNext() {
+        
+        task.next()
+        if (!task.isEmpty()) {
+            currentPhase = "SELF_EVALUATION"
+        } else {
+            toFinishStudyView = true
+            print("all done")
+        }
+        
     }
 }

@@ -31,18 +31,20 @@ struct StudyCardView: View {
                     
                     VStack {
                         
-//                        Spacer().frame(height: 20)
+                        Spacer().frame(height: 30)
                         
                         ProgressBar(task.getNewNum(), task.getProgressingNum(), task.getFinishedNum()).padding(.vertical)
+                        
+                        Spacer().frame(height: 30)
                     
                         if (self.currentPhase == "SELF_EVALUATION") {
-                            SelfEvaluationPhase(currentPhase: $currentPhase, task: task)
+                            SelfEvaluationPhase(currentPhase: $currentPhase, task: $task)
                             
                         } else if (self.currentPhase == "TEST") {
-                            TestPhase(currentPhase: $currentPhase)
+                            TestPhase(currentPhase: $currentPhase, task: $task)
                             
                         } else if (self.currentPhase == "LEARN") {
-                            LearnPhase(currentPhase: $currentPhase)
+                            LearnPhase(currentPhase: $currentPhase, task: $task)
                         }
                         
                     }

@@ -15,7 +15,7 @@ struct SelfEvaluationPhase: View {
     
     @Binding var currentPhase : String
     
-    @State var task: Task
+    @Binding var task: Task
     
     @State var player : AVAudioPlayer?
     
@@ -28,26 +28,19 @@ struct SelfEvaluationPhase: View {
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
                 
                 Button(action: pressAudio) {
-                    Text("123")
-//                    Divider()
-//                    Image(systemName: "speaker")
-//                        .frame(width: 20).padding(.horizontal)
+                    Divider()
+                    Image(systemName: "speaker")
+                        .frame(width: 20)
+                        .padding(.horizontal)
                 }
                 
                 Spacer().frame(width: 10)
             }
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
                 .background(base)
-            
-            
-            Button(action: pressAudio) {
-                                Text("123")
-            //                    Divider()
-            //                    Image(systemName: "speaker")
-            //                        .frame(width: 20).padding(.horizontal)
-                            }
-            
 
+
+            
             WideButton(label: "太简单", action: pressEasy)
             
             Spacer().frame(height: 400)
@@ -71,18 +64,13 @@ struct SelfEvaluationPhase: View {
     }
     
     func pressEasy() {
-        print(task.getWord())
-        print("easy")
+        task.easy()
+        self.currentPhase = "LEARN"
     }
     
     func pressAudio() {
-        print("audio")
-    
-
-            self.player = try! AVAudioPlayer(data: self.task.getWord().audio)
-
-            player?.play()
-
+        self.player = try! AVAudioPlayer(data: self.task.getWord().audio)
+        player?.play()
     }
 
 }
