@@ -50,7 +50,7 @@ struct LoginView: View {
                             Text("注册")
                         }.buttonStyle(LoginButtonStyle())
                     }
-                    
+    
                     // Navigation Links
                     NavigationLink(destination: HomeView(), isActive: $toHome) {
                         EmptyView()
@@ -60,7 +60,6 @@ struct LoginView: View {
 
                 }.frame(width: 300, height: fullHeight)
             }
-
             .frame(width: fullWidth, height: fullHeight+300)
             .background(base)
             .foregroundColor(fontBase)

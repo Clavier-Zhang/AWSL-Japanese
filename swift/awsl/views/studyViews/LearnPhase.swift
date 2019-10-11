@@ -20,18 +20,7 @@ struct LearnPhase: View {
         VStack(spacing: 20) {
             
             // 汉字， 发音
-            HStack {
-                Text("上手     [あか] [aka]")
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
-                    .padding()
-                Divider()
-                Spacer().frame(width: 20)
-                Image(systemName: "speaker")
-                    .frame(width: 30)
-                Spacer().frame(width: 20)
-            }
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
-                .background(base)
+            WordRow(task: task, withFurigara: true)
             
             Text("名词】\n1.红，红色。\n 2.（酱，狗毛等的）茶色。\n 3.赤色分子。")
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)

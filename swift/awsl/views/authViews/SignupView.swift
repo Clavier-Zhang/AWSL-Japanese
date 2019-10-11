@@ -12,15 +12,18 @@ import SwiftUI
 
 struct SignUpView: View {
     
+    // Input fields
     @State var email: String = ""
     @State var password: String = ""
     @State var repassword: String = ""
     
+    // Navigation
     @State var toHome: Bool = false
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State var message: String = ""
     
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     
     var body: some View {
         NavigationView {
@@ -51,10 +54,8 @@ struct SignUpView: View {
                         }.buttonStyle(LoginButtonStyle())
                     }
 
-
                     Spacer().frame(height: 200)
                     
-
                 }.frame(width: 300, height: fullHeight)
                 
                 // Navigation Links

@@ -22,25 +22,8 @@ struct SelfEvaluationPhase: View {
     var body: some View {
         VStack(spacing: 20) {
             
-            HStack {
-                Spacer().frame(width: 20)
-                Text(task.getWord().text)
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
-                
-                Button(action: pressAudio) {
-                    Divider()
-                    Image(systemName: "speaker")
-                        .frame(width: 20)
-                        .padding(.horizontal)
-                }
-                
-                Spacer().frame(width: 10)
-            }
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
-                .background(base)
+            WordRow(task: task, withFurigara: false)
 
-
-            
             WideButton(label: "太简单", action: pressEasy)
             
             Spacer().frame(height: 400)
