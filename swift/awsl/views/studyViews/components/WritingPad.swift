@@ -15,31 +15,16 @@ import SwiftUI
 
 struct WritingPadWrapper: View {
     
-//    var recognizedText: Binding<String>
-    
-//    
-//    var isHiragana: Bool
-    
     var canvas : WritingPad = WritingPad()
     
-    @State var text: String = " "
+    @State var label: String = "123"
 
-//    public init(bind: Binding<String>, isHiragana: Bool) {
-//        self.recognizedText = bind
-//        self.isHiragana = isHiragana
-//    }
-    
-    let tap = TapGesture()
-        .onEnded { _ in
-            print("View tapped!")
-        }
-    
     var body: some View {
         VStack {
             // Recognization of the hand-writing
             HStack {
                 Spacer().frame(width: 20)
-                Text(text)
+                Text(label)
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
             }
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
@@ -52,15 +37,12 @@ struct WritingPadWrapper: View {
             Text("在上方区域写出假名")
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60, alignment: .center)
                 .foregroundColor(Color.white)
-        }.gesture(tap)
+        }
     }
     
     public func recognize() -> String {
-        let hira = HandwritingRecognizer.hiragana(uiimage: self.canvas.getImage())
-        self.text = hira
-        print(hira)
-//        print()
-        return hira
+        self.label = "hhhhh"
+        return HandwritingRecognizer.hiragana(uiimage: self.canvas.getImage())
     }
     
 }

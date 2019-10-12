@@ -19,7 +19,6 @@ struct LearnPhase: View {
     var body: some View {
         VStack(spacing: 20) {
             
-            // 汉字， 发音
             WordRow(task: task, withFurigara: true)
             
             MeaningRow(meanings: task.getWord().cn_meanings)

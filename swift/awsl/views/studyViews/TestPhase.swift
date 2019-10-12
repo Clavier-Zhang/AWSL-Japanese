@@ -18,7 +18,11 @@ struct TestPhase: View {
     
     @Binding var task: Task
     
-    var writingPad = WritingPadWrapper()
+    @State var writingPad = WritingPadWrapper()
+    
+    var canvas : WritingPad = WritingPad()
+    
+    @State var label: String = "123"
     
     var body: some View {
         VStack(spacing: 20) {
@@ -35,16 +39,29 @@ struct TestPhase: View {
                 
             }
             
-            writingPad
+            // Recognized text
+            Text(label)
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 40, alignment: .leading)
+                .padding()
+                .background(base)
+        
             
-            
+            // Writing pad
+            canvas.frame(width: 700, height: 200)
+
+            // Instructions
+                Text("在上方区域写出假名")
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60, alignment: .center)
         }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
     }
     
     func pressSubmit() {
         print("submit")
-        writingPad.recognize()
+        let res = HandwritingRecognizer.hiragana(uiimage: self.canvas.getImage())
+        self.label = res
+        print(res)
+
 
         
     }

@@ -14,8 +14,3 @@ struct FinishStudyView: View {
     }
 }
 
-struct FinishStudyView_Previews: PreviewProvider {
-    static var previews: some View {
-        FinishStudyView()
-    }
-}
