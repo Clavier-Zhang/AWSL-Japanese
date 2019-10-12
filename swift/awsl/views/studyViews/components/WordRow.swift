@@ -23,14 +23,6 @@ struct WordRow: View {
         self.task = task
     }
     
-    
-//    init(_ done: Int, _ remain: Int, _ review: Int) {
-//        self.done = CGFloat(done)
-//        self.remain = CGFloat(remain)
-//        self.review = CGFloat(review)
-//        self.total = self.done + self.remain + self.review
-//    }
-    
     var body: some View {
         HStack {
             Spacer().frame(width: 20)

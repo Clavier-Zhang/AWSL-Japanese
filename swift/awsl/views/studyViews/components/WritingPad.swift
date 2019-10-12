@@ -10,6 +10,67 @@ import UIKit
 import PencilKit
 import SwiftUI
 
+
+
+
+struct WritingPadWrapper: View {
+    
+//    var recognizedText: Binding<String>
+    
+//    
+//    var isHiragana: Bool
+    
+    var canvas : WritingPad = WritingPad()
+    
+    @State var text: String = " "
+
+//    public init(bind: Binding<String>, isHiragana: Bool) {
+//        self.recognizedText = bind
+//        self.isHiragana = isHiragana
+//    }
+    
+    let tap = TapGesture()
+        .onEnded { _ in
+            print("View tapped!")
+        }
+    
+    var body: some View {
+        VStack {
+            // Recognization of the hand-writing
+            HStack {
+                Spacer().frame(width: 20)
+                Text(text)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
+            }
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
+                .background(base)
+//
+//            // WritingBoard
+            canvas.frame(width: 700, height: 200)
+
+            // Instructions
+            Text("在上方区域写出假名")
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60, alignment: .center)
+                .foregroundColor(Color.white)
+        }.gesture(tap)
+    }
+    
+    public func recognize() -> String {
+        let hira = HandwritingRecognizer.hiragana(uiimage: self.canvas.getImage())
+        self.text = hira
+        print(hira)
+//        print()
+        return hira
+    }
+    
+}
+
+
+
+
+
+
+
 extension UIView {
 
     // Using a function since `var image` might conflict with an existing variable
@@ -23,7 +84,7 @@ extension UIView {
 }
 
 
-final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDelegate  {
+final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDelegate {
     
     var view : PKCanvasView
     
@@ -34,10 +95,10 @@ final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDeleg
     var currentTool = "PEN"
     
     override init() {
-//        super.init()
         self.view = PKCanvasView()
         self.pen = PKInkingTool(.pen)
-        self.pen.color = .white
+        print("white")
+        self.pen.color = UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
         view.tool = self.pen
         currentTool = "PEN"
         
@@ -80,5 +141,9 @@ final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDeleg
             currentTool = "PEN"
         }
     }
+    
+    
+    
+
 }
 

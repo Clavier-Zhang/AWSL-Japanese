@@ -50,11 +50,6 @@ struct SelfEvaluationPhase: View {
         task.easy()
         self.currentPhase = "LEARN"
     }
-    
-    func pressAudio() {
-        self.player = try! AVAudioPlayer(data: self.task.getWord().audio)
-        player?.play()
-    }
 
 }
 

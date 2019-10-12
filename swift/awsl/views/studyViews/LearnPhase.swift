@@ -22,10 +22,7 @@ struct LearnPhase: View {
             // 汉字， 发音
             WordRow(task: task, withFurigara: true)
             
-            Text("名词】\n1.红，红色。\n 2.（酱，狗毛等的）茶色。\n 3.赤色分子。")
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
-            .padding()
-            .background(base)
+            MeaningRow(meanings: task.getWord().cn_meanings)
             
             // 例句
             VStack {
@@ -58,6 +55,7 @@ struct LearnPhase: View {
         
         task.next()
         if (!task.isEmpty()) {
+            print("next")
             currentPhase = "SELF_EVALUATION"
         } else {
             toFinishStudyView = true

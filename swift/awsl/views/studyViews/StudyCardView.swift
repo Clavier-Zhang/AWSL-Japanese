@@ -16,18 +16,11 @@ struct StudyCardView: View {
     @State var currentPhase : String = "SELF_EVALUATION"
     
     @State var task: Task = Local.getTask()
-    
-    
-    
-//    @state var new: Int = 0
-
 
     var body: some View {
         NavigationView {
             VStack {
                 VStack {
-                    
-                    
                     
                     VStack {
                         
@@ -69,16 +62,16 @@ struct StudyCardView: View {
     var BackButton : some View {
         HStack {
             Spacer().frame(width: 20)
-            Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }) {
-                HStack {
-                    Image(systemName: "house")
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundColor(.white)
-                }
+            Button(action: back) {
+                Image(systemName: "house")
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundColor(.white)
             }
         }
+    }
+    
+    func back() {
+        presentationMode.wrappedValue.dismiss()
     }
 }
 
