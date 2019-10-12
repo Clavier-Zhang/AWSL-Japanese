@@ -10,16 +10,16 @@ import SwiftUI
 
 struct ProgressBar: View {
     
-    var done: CGFloat
-    var remain: CGFloat
+    var new: CGFloat
+    var finished: CGFloat
     var review: CGFloat
     var total: CGFloat
     
-    init(_ done: Int, _ remain: Int, _ review: Int) {
-        self.done = CGFloat(done)
-        self.remain = CGFloat(remain)
+    init(new: Int, finished: Int, review: Int) {
+        self.new = CGFloat(new)
+        self.finished = CGFloat(finished)
         self.review = CGFloat(review)
-        self.total = self.done + self.remain + self.review
+        self.total = self.new + self.finished + self.review
     }
     
     var body: some View {
@@ -28,15 +28,15 @@ struct ProgressBar: View {
                 ZStack {
                     Rectangle()
                         .fill(green)
-                        .frame(width: (self.done/self.total) * geometry.size.width)
-                    Text(String(Int(self.done)))
+                        .frame(width: (self.finished/self.total) * geometry.size.width)
+                    Text(String(Int(self.finished)))
                 }
                 
                 ZStack {
                     Rectangle()
                         .fill(base)
-                        .frame(width: (self.remain/self.total) * geometry.size.width)
-                    Text(String(Int(self.remain)))
+                        .frame(width: (self.new/self.total) * geometry.size.width)
+                    Text(String(Int(self.new)))
                 }
                 
                 

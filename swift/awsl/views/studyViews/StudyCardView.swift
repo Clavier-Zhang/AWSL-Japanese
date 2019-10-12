@@ -26,7 +26,8 @@ struct StudyCardView: View {
                         
                         Spacer().frame(height: 30)
                         
-                        ProgressBar(task.getNewNum(), task.getProgressingNum(), task.getFinishedNum()).padding(.vertical)
+                        ProgressBar(new: task.getNewNum(), finished: task.getFinishedNum(), review: task.getReviewNum())
+                            .padding(.vertical)
                         
                         Spacer().frame(height: 30)
                     

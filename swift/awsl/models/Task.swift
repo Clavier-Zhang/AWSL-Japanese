@@ -29,8 +29,8 @@ struct Task: Codable {
         return newCardPairs.filter( {$0.card.status == "NEW" }).count
     }
     
-    public func getProgressingNum() -> Int {
-        return newCardPairs.filter( {$0.card.status == "PROGRESSING" }).count
+    public func getReviewNum() -> Int {
+        return newCardPairs.filter( {$0.card.status == "REVIEW" }).count
     }
     
     public func getFinishedNum() -> Int {

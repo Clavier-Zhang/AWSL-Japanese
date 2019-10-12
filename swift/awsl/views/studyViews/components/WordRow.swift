@@ -43,8 +43,14 @@ struct WordRow: View {
     }
     
     func pressAudio() {
-        self.player = try! AVAudioPlayer(data: self.task.getWord().audio)
-        player?.play()
+        print(self.task.getWord())
+        if (!self.task.getWord().audio.isEmpty) {
+            self.player = try! AVAudioPlayer(data: self.task.getWord().audio)
+            player?.play()
+        } else {
+            print("empty audio")
+        }
+        
     }
     
     func getText() -> String {
