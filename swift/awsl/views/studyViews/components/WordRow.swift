@@ -18,26 +18,33 @@ struct WordRow: View {
     
     var withFurigara: Bool
     
+    var text: String
+    
     public init(task: Task, withFurigara: Bool) {
         self.withFurigara = withFurigara
         self.task = task
+        self.text = task.getWord().text
+        if (withFurigara) {
+            self.text += (" " + "【" + task.getWord().furigara + "】")
+        }
     }
     
     var body: some View {
         HStack {
-            Spacer().frame(width: 20)
-            Text(getText())
+            // Text
+            Text(text)
+                .font(large)
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
-            
+            // Audio Button
             Button(action: pressAudio) {
                 Divider()
                 Image(systemName: "speaker")
                     .frame(width: 20)
                     .padding(.horizontal)
             }
-            
-            Spacer().frame(width: 10)
+
         }
+            .padding(.horizontal)
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
             .background(base)
     }

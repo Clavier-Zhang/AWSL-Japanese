@@ -23,24 +23,11 @@ struct LearnPhase: View {
             
             MeaningRow(meanings: task.getWord().cn_meanings)
             
-            // 例句
-            VStack {
-                Text("1. 3原色の一つ。人の血や燃える火の色。また，その系統の色。広義では紅色・桃色・だいだい色などをも含む。 红。红色。粉红色。红褐色。橘黄色。")
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
-                    .padding()
-                    .background(base)
-            }
+            ExampleRow(examples: task.getWord().cn_examples)
 
+            Spacer().frame(height: 50)
             
-            
-            Spacer().frame(height: 300)
-            
-    
-            Button(action: pressNext) {
-                Text("下一个")
-            }
-                .frame(width: 300, height: 60, alignment: .center)
-                .background(red)
+            RedButton(text: "下一个", action: pressNext)
             
             NavigationLink(destination: FinishStudyView(), isActive: $toFinishStudyView) {
                 EmptyView()

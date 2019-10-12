@@ -38,6 +38,9 @@ struct Task: Codable {
     }
     
     public func getWord() -> Word {
+        if (isEmpty()) {
+            return Word()
+        }
         return newCardPairs[0].word
     }
     

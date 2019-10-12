@@ -86,9 +86,7 @@ struct HomeView: View {
                 Spacer().frame(height: 50)
                 
                 // Start Button
-                Button(action: self.pressStart) {
-                    Text("开始").bold()
-                }.buttonStyle(LoginButtonStyle())
+                RedButton(text: "开始", action: pressStart)
                 
                 // Navigation Links
                 NavigationLink(destination: StudyCardView(), isActive: $toStudyCardView) {

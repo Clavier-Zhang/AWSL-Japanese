@@ -25,17 +25,10 @@ struct WideButton: View {
     }
     
     var body: some View {
-        HStack {
-            Button(action: action) {
-                Text(label)
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: center ? .center : .leading)
-            }
-            
-            .buttonStyle(WideButtonStyle())
-            
-            
-        }
-    
+        Button(action: action) {
+            Text(label)
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: center ? .center : .leading)
+        }.buttonStyle(WideButtonStyle())
     }
 }
 
@@ -48,7 +41,6 @@ struct WideButtonStyle: ButtonStyle {
             .cornerRadius(5)
             .background(configuration.isPressed ? base.opacity(0.5) : base)
             .foregroundColor(configuration.isPressed ? fontBase.opacity(0.85) : fontBase)
-            
     }
 
 }

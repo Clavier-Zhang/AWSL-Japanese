@@ -14,13 +14,23 @@ struct MeaningRow: View {
     
     var body: some View {
         VStack {
-            Spacer().frame(width: 20)
-
+            
+            Spacer().frame(height: 10)
+            
+            Text("名词")
+                .font(large).bold()
+                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+            
+            Spacer().frame(height: 20)
+            
             ForEach(0..<self.meanings.count) { idx in
-                Text(self.meanings[idx])
+                Text(String(idx+1) + ". " + self.meanings[idx])
+                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                Spacer().frame(height: 10)
             }
         }
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 120)
+            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal)
             .background(base)
     }
 }

@@ -25,3 +25,5 @@ var fullHeight = UIScreen.main.bounds.height
 var fontBase = Color.init(red: 0xe5/255, green: 0xe3/255, blue: 0xd1/255)
 
 var baseURL = "http://192.168.31.158:8000/api"
+
+var large = Font.system(size: 20)

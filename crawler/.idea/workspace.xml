@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="23fb37d2-57f5-4c76-bc71-2a1be9bc3d44" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/FinishStudyView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/FinishStudyView.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/ExampleRow.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swift/awsl.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swift/awsl/models/Word.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/models/Word.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/LearnPhase.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/LearnPhase.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/TestPhase.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/TestPhase.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/MeaningRow.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/MeaningRow.swift" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

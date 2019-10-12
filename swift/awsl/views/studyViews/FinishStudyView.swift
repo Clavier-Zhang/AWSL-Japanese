@@ -9,8 +9,18 @@
 import SwiftUI
 
 struct FinishStudyView: View {
+    
     var body: some View {
-        Text("Finish")
+        VStack {
+            Text("finsihs")
+            
+            RedButton(text: "提交", action: pressSubmit)
+        }.modifier(NavigationViewHiddenStyle())
     }
+    
+    func pressSubmit() {
+        print("submit")
+    }
+    
 }
 

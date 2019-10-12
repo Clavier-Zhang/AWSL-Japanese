@@ -21,7 +21,7 @@ struct StudyCardView: View {
         NavigationView {
             VStack {
                 VStack {
-                    
+
                     VStack {
                         
                         Spacer().frame(height: 30)

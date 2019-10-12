@@ -10,12 +10,20 @@ import Foundation
 
 struct Word: Codable {
     
-    struct Example: Codable {
+    init() {
+        text = ""
+        furigara = ""
+        en_meanings = [String]()
         
-        let japanese: String
+        en_examples = [Example]()
         
-        let translation: String
+        cn_type = ""
         
+        cn_meanings = [String]()
+        
+        cn_examples = [Example]()
+        
+        audio = Data()
     }
     
     let text: String
@@ -34,4 +42,12 @@ struct Word: Codable {
     
     let audio: Data
      
+}
+
+struct Example: Codable {
+    
+    let japanese: String
+    
+    let translation: String
+    
 }
