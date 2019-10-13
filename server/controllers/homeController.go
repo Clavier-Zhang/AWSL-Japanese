@@ -5,8 +5,7 @@ import (
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
-	."server/models"
-	."server/utils"
+	. "server/utils"
 )
 
 func HomeController(w http.ResponseWriter, r *http.Request) {
@@ -14,9 +13,13 @@ func HomeController(w http.ResponseWriter, r *http.Request) {
 	log.Println("test from "+vars["email"])
 
 	result := Message(true, "home")
-	words := *FindAllLimit()
-	words[6].Audio = []byte{0, 1, 1,1, 2}
-	result["words"] = words
+
+	result["finishedNum"] = 2234
+	result["progressingNum"] = 386
+	result["currentBook"] = "N1"
+	result["todayNewNum"] = 78
+	result["todayScheduleNum"] = 300
+
 	log.Println(result)
 	Respond(w, result)
 }

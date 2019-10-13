@@ -19,11 +19,9 @@ struct SignUpView: View {
     
     // Navigation
     @State var toHome: Bool = false
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    // Message
     @State var message: String = ""
-    
-    
     
     var body: some View {
         NavigationView {
@@ -33,6 +31,8 @@ struct SignUpView: View {
                     EmailField(bind: $email)
                     
                     Divider()
+                    
+                    Spacer().frame(height: 20)
                     
                     PasswordField(bind: $password)
                     
@@ -44,14 +44,10 @@ struct SignUpView: View {
                     
                     // Buttons
                     VStack(spacing: 20) {
-                        // Sign In
-                        Button(action: signup){
-                            Text("提交")
-                        }.buttonStyle(LoginButtonStyle())
-                        // Sign Up
-                        Button(action: back){
-                            Text("返回")
-                        }.buttonStyle(LoginButtonStyle())
+                        // Submit
+                        RedButton(text: "提交", action: signup)
+                        // Back
+                        RedButton(text: "返回", action: back)
                     }
 
                     Spacer().frame(height: 200)
@@ -66,16 +62,17 @@ struct SignUpView: View {
                 .frame(width: fullWidth, height: fullHeight+300)
                 .background(base)
                 .foregroundColor(fontBase)
-            
         }.modifier(NavigationViewHiddenStyle())
     }
     
-    private func back() -> Void {
-        self.presentationMode.wrappedValue.dismiss()
+    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    func back() -> Void {
+        presentationMode.wrappedValue.dismiss()
     }
     
     
-    private func signup() -> Void {
+    func signup() -> Void {
         
         if (password != repassword) {
             message = "Re-Password does not match"

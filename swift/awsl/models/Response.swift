@@ -21,3 +21,39 @@ struct Response : Codable {
     
 }
 
+
+struct HomeResponse : Codable {
+    
+    public init() {
+        status = true
+        
+        message = ""
+        
+        finishedNum = 0
+        
+        progressingNum = 0
+        
+        currentBook = ""
+        
+        todayNewNum = 0
+        
+        todayScheduleNum = 0
+        
+    }
+    
+    var status: Bool
+    
+    var message: String
+    
+    var finishedNum: Int
+    
+    var progressingNum: Int
+    
+    var currentBook: String
+    
+    var todayNewNum: Int
+    
+    var todayScheduleNum: Int
+    
+    
+}

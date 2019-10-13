@@ -13,6 +13,10 @@ struct HomeView: View {
     @State var loading: Bool = true
     
     @State var toStudyCardView = false
+    
+    @State var homeResponse: HomeResponse = HomeResponse()
+    
+    @State var user: User = User(email: "", password: "", token: "")
 
     var body: some View {
         NavigationView {
@@ -20,35 +24,13 @@ struct HomeView: View {
                 
                 HStack (spacing: 100) {
                     
-                    HStack (spacing: 20) {
-                        Image("1")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 100, height: 100)
-                            .clipShape(Capsule())
-                        
-                        VStack (alignment: .leading) {
-                            Text("Claveir")
-                                .font(.largeTitle)
-                                .bold()
-                                .frame(height: 30)
-                            Spacer().frame(height: 30)
-                            Text("ID: 13962125149")
-                        }
-                    }
+                    UserProfile(user: user)
                     
-                    CountLabel(label: "已完成", count: 59)
+                    CountLabel(label: "已完成", count: homeResponse.finishedNum)
                     
-                    CountLabel(label: "进行中", count: 59)
+                    CountLabel(label: "进行中", count: homeResponse.progressingNum)
                     
-                    VStack {
-                        Image(systemName: "chart.bar")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 30, height: 30)
-                        Spacer().frame(height: 30)
-                        Text("详细>>")
-                    }
+                    CountLabel(label: "详细>>", icon: "chart.bar")
                     
                 }
                 
@@ -56,18 +38,11 @@ struct HomeView: View {
                 
                 HStack(spacing: 100) {
                     
-                    CountLabel(label: "单词书", count: 59)
+                    CountLabel(label: "单词书", count: 33)
                     
                     CountLabel(label: "剩余", count: 59)
                     
-                    VStack {
-                        Image(systemName: "book")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 30, height: 30)
-                        Spacer().frame(height: 30)
-                        Text("选择>>")
-                    }
+                    CountLabel(label: "选择>>", icon: "book")
                     
                 }
                 
@@ -75,9 +50,9 @@ struct HomeView: View {
                
                 HStack(spacing: 100) {
                     
-                    CountLabel(label: "新单词", count: 100)
+                    CountLabel(label: "新单词", count: homeResponse.todayNewNum)
                     
-                    CountLabel(label: "计划单词", count: 300)
+                    CountLabel(label: "计划单词", count: homeResponse.todayScheduleNum)
                     
                     CountLabel(label: "剩余单词", count: 189)
                     
@@ -93,10 +68,9 @@ struct HomeView: View {
                     EmptyView()
                 }
                 
-                Spacer().frame(height: 100)
                 
             }
-                .frame(width: fullWidth, height: fullHeight+300)
+                .frame(width: fullWidth, height: fullHeight+200)
                 .background(base)
                 .foregroundColor(fontBase)
             
@@ -130,12 +104,13 @@ struct HomeView: View {
     func homeAppear() {
         
         func handleSuccess(data: Data) -> Void {
-            let res : Response? = dataToObj(data: data)
+            let res : HomeResponse? = dataToObj(data: data)
             if let res = res {
                 print("success fetch home data")
+                print(res)
                 if (res.status) {
+                    self.homeResponse = res
                     self.loading = false
-                    Local.save(key: "task", obj: res.words)
                 } else {
                     print("Status false")
                 }
@@ -143,6 +118,9 @@ struct HomeView: View {
         }
         
         Remote.fetchHomeData(handleSuccess: handleSuccess)
+        
+        let temp: User = Local.get(key: "user")!
+        self.user = temp
     }
     
     

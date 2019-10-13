@@ -14,7 +14,7 @@ struct RedButton: View {
     
     var action: () -> Void
     
-    public init(text: String, action: @escaping () -> Void) {
+    init(text: String, action: @escaping () -> Void) {
         self.text = text
         self.action = action
     }
@@ -24,6 +24,7 @@ struct RedButton: View {
             Text(text)
         }.buttonStyle(LoginButtonStyle())
     }
+    
 }
 
 

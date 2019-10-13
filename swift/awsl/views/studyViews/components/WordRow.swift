@@ -47,13 +47,20 @@ struct WordRow: View {
             .padding(.horizontal)
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
             .background(base)
+            .onAppear(perform: pressAudio)
     }
     
     func pressAudio() {
         print(self.task.getWord())
         if (!self.task.getWord().audio.isEmpty) {
-            self.player = try! AVAudioPlayer(data: self.task.getWord().audio)
-            player?.play()
+            do {
+                try self.player = AVAudioPlayer(data: self.task.getWord().audio)
+                player?.play()
+            } catch {
+                print("audio error")
+            }
+            
+            
         } else {
             print("empty audio")
         }
@@ -66,4 +73,5 @@ struct WordRow: View {
         }
         return task.getWord().text
     }
+    
 }

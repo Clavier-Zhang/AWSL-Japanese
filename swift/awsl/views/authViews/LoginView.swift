@@ -33,6 +33,8 @@ struct LoginView: View {
 
                     Divider()
                     
+                    Spacer().frame(height: 20)
+                    
                     PasswordField(bind: $password)
                     
                     Divider()
@@ -42,9 +44,7 @@ struct LoginView: View {
                     // Buttons
                     VStack(spacing: 20) {
                         // Sign In
-                        Button(action: login){
-                            Text("登录")
-                        }.buttonStyle(LoginButtonStyle())
+                        RedButton(text: "登录", action: login)
                         // Sign Up
                         NavigationLink(destination: SignUpView()) {
                             Text("注册")

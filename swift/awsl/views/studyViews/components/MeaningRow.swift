@@ -12,17 +12,21 @@ struct MeaningRow: View {
     
     @State var meanings: [String]
     
+    @State var type: String
+    
     var body: some View {
         VStack {
             
             Spacer().frame(height: 10)
             
-            Text("名词")
+            // Type
+            Text(type)
                 .font(large).bold()
                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
             
             Spacer().frame(height: 20)
             
+            // Meanings
             ForEach(0..<self.meanings.count) { idx in
                 Text(String(idx+1) + ". " + self.meanings[idx])
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)

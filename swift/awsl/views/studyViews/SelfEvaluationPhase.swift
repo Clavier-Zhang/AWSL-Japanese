@@ -50,6 +50,6 @@ struct SelfEvaluationPhase: View {
         task.easy()
         self.currentPhase = "LEARN"
     }
-
+    
 }
 

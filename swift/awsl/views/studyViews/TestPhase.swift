@@ -28,7 +28,7 @@ struct TestPhase: View {
         VStack(spacing: 20) {
             
             // Explanation of the word
-            MeaningRow(meanings: task.getWord().cn_meanings)
+            MeaningRow(meanings: task.getWord().cn_meanings, type: task.getWord().cn_type)
             
             // Buttons
             HStack {
