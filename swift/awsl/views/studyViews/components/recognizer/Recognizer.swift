@@ -17,7 +17,7 @@ class HandwritingRecognizer {
     
     // UIImage -> Hiragana Label
     public static func hiragana(uiimage: UIImage) -> String {
-        print(uiimage[1, 3])
+        
         
         // CVPixelBuffer -> Hirakana Label
         let model = hiraganaModel()
@@ -160,42 +160,39 @@ func getPixelColor(_ image:UIImage, _ point: CGPoint) -> UIColor {
 
 
 extension UIImage{
-     
-    /**
-     根据坐标获取图片中的像素颜色值
-     */
-    subscript (x: Int, y: Int) -> UIColor? {
-         
-        if x < 0 || x > Int(size.width) || y < 0 || y > Int(size.height) {
-            return nil
+    
+    func toMatrix() -> [[Bool]] {
+        
+        if (cgImage?.bitsPerPixel != 32) {
+            print("empty")
+            return [[Bool]]()
         }
-         
+        
         let provider = self.cgImage!.dataProvider
         let providerData = provider!.data
         let data = CFDataGetBytePtr(providerData)
-         
-        let numberOfComponents = 8
-        let pixelData = ((Int(size.width) * y) + x) * numberOfComponents
-    
-         
-
-        for m in 0...Int(size.height-1) {
-            var temp = [UInt8]()
-            for n in 0...Int(size.width-1) {
-                let pos = ((Int(size.width) * m) + n) * numberOfComponents
-//                print(pos)
-                temp.append(data![pos+1])
-            }
-            print(temp)
-   
-        }
-
+        let numberOfComponents = 4
+        let width = self.cgImage!.width
+        let offset = (width/20)%2 == 1 ? 4 : 0
         
-        let r = CGFloat(data![pixelData]) / 255.0
-        let g = CGFloat(data![pixelData + 1]) / 255.0
-        let b = CGFloat(data![pixelData + 2]) / 255.0
-        let a = CGFloat(data![pixelData + 3]) / 255.0
-         
-        return UIColor(red: r, green: g, blue: b, alpha: a)
+        
+        
+        var matrix = [[Bool]]()
+        
+        for m in 0...Int(size.height*2)-1 {
+            var row = [Bool]()
+                    for n in 0...Int(self.cgImage!.width+offset-1) {
+                        let pos = ((Int(self.cgImage!.width+offset) * m) + n) * numberOfComponents - offset * numberOfComponents
+        //                print(pos)
+                        
+                        row.append(data![pos] != 0)
+            }
+            print(row)
+            matrix.append(row)
+
+        }
+        return matrix
     }
+     
+
 }

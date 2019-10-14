@@ -44,7 +44,7 @@ struct TestPhase: View {
                 .background(base)
         
             // Writing pad
-            canvas.frame(width: 40, height: 40)
+            canvas.frame(width: 50, height: 40)
 
             // Instructions
             Text("在上方区域写出假名")
@@ -55,6 +55,8 @@ struct TestPhase: View {
     
     func pressSubmit() {
         print("submit")
+        self.canvas.getImage().toMatrix()
+//        print(self.canvas.getImage()[1, 3])
         let res = HandwritingRecognizer.hiragana(uiimage: self.canvas.getImage())
         self.label = res
         print(res)
