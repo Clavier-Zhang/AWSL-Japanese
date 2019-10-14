@@ -36,7 +36,7 @@ struct WordRow: View {
                 .font(large)
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
             // Audio Button
-            Button(action: pressAudio) {
+            Button(action: playAudio) {
                 Divider()
                 Image(systemName: "speaker")
                     .frame(width: 20)
@@ -47,14 +47,14 @@ struct WordRow: View {
             .padding(.horizontal)
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
             .background(base)
-            .onAppear(perform: pressAudio)
+            .onAppear(perform: playAudio)
     }
     
-    func pressAudio() {
+    func playAudio() {
         print(self.task.getWord())
-        if (!self.task.getWord().audio.isEmpty) {
+        if (!task.getWord().audio.isEmpty) {
             do {
-                try self.player = AVAudioPlayer(data: self.task.getWord().audio)
+                try player = AVAudioPlayer(data: task.getWord().audio)
                 player?.play()
             } catch {
                 print("audio error")
@@ -64,7 +64,6 @@ struct WordRow: View {
         } else {
             print("empty audio")
         }
-        
     }
     
     func getText() -> String {

@@ -2,30 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="23fb37d2-57f5-4c76-bc71-2a1be9bc3d44" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../swift/awsl/views/homeView/components/CountLabel.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../swift/awsl/views/homeView/components/UserProfile.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/controllers/homeController.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/controllers/homeController.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/server" beforeDir="false" afterPath="$PROJECT_DIR$/../server/server" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl/common/ErrorMessage.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/common/ErrorMessage.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl/common/RedButton.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/common/RedButton.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl/models/Response.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/models/Response.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl/utils/recognizer/Recognizer.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/recognizer/Recognizer.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl/utils/recognizer/hiraganaModel.mlmodel" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/recognizer/hiraganaModel.mlmodel" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/ContentView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/ContentView.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/authViews/EmailField.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/authViews/components/EmailField.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/authViews/LoginView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/authViews/LoginView.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/authViews/PasswordField.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/authViews/components/PasswordField.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/authViews/SignupView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/authViews/SignupView.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/homeView/CountLabel.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/homeView/HomeView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/homeView/HomeView.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/LearnPhase.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/LearnPhase.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/SelfEvaluationPhase.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/SelfEvaluationPhase.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/TestPhase.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/TestPhase.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/MeaningRow.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/MeaningRow.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/ProgressBar.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/ProgressBar.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/WideButton.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/WideButton.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/WordRow.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/WordRow.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/WritingPad.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/recognizer/WritingPad.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/recognizer/Recognizer.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/recognizer/Recognizer.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/recognizer/WritingPad.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/recognizer/WritingPad.swift" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

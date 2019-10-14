@@ -25,6 +25,7 @@ struct ProgressBar: View {
     var body: some View {
         GeometryReader { geometry in
             HStack (spacing: 0) {
+                
                 ZStack {
                     Rectangle()
                         .fill(green)
@@ -46,8 +47,8 @@ struct ProgressBar: View {
                         .frame(width: (self.review/self.total) * geometry.size.width)
                     Text(String(Int(self.review)))
                 }
+                
             }
-        }
-            .frame(height: 30)
+        }.frame(height: 30)
     }
 }

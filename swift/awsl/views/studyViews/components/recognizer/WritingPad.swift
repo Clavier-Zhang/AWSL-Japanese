@@ -10,62 +10,6 @@ import UIKit
 import PencilKit
 import SwiftUI
 
-
-
-
-struct WritingPadWrapper: View {
-    
-    var canvas : WritingPad = WritingPad()
-    
-    @State var label: String = "123"
-
-    var body: some View {
-        VStack {
-            // Recognization of the hand-writing
-            HStack {
-                Spacer().frame(width: 20)
-                Text(label)
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
-            }
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
-                .background(base)
-//
-//            // WritingBoard
-            canvas.frame(width: 700, height: 200)
-
-            // Instructions
-            Text("在上方区域写出假名")
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60, alignment: .center)
-                .foregroundColor(Color.white)
-        }
-    }
-    
-    public func recognize() -> String {
-        self.label = "hhhhh"
-        return HandwritingRecognizer.hiragana(uiimage: self.canvas.getImage())
-    }
-    
-}
-
-
-
-
-
-
-
-extension UIView {
-
-    // Using a function since `var image` might conflict with an existing variable
-    // (like on `UIImageView`)
-    func asImage() -> UIImage {
-        let renderer = UIGraphicsImageRenderer(bounds: bounds)
-        return renderer.image { rendererContext in
-            layer.render(in: rendererContext.cgContext)
-        }
-    }
-}
-
-
 final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDelegate {
     
     var view : PKCanvasView
@@ -124,8 +68,16 @@ final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDeleg
         }
     }
     
-    
-    
-
 }
 
+extension UIView {
+
+    // Using a function since `var image` might conflict with an existing variable
+    // (like on `UIImageView`)
+    func asImage() -> UIImage {
+        let renderer = UIGraphicsImageRenderer(bounds: bounds)
+        return renderer.image { rendererContext in
+            layer.render(in: rendererContext.cgContext)
+        }
+    }
+}

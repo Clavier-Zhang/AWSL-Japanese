@@ -16,12 +16,10 @@ struct WideButton: View {
     
     var center: Bool = false
     
-    public init(label: String, action: @escaping () -> Void, center: Bool? = false) {
+    public init(label: String, action: @escaping () -> Void, center: Bool = false) {
         self.label = label
         self.action = action
-        if let center = center {
-            self.center = center
-        }
+        self.center = center
     }
     
     var body: some View {
@@ -30,6 +28,7 @@ struct WideButton: View {
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: center ? .center : .leading)
         }.buttonStyle(WideButtonStyle())
     }
+    
 }
 
 struct WideButtonStyle: ButtonStyle {
