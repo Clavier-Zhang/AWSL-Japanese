@@ -23,7 +23,6 @@ final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDeleg
     override init() {
         self.view = PKCanvasView()
         self.pen = PKInkingTool(.pen)
-        print("white")
         self.pen.color = UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
         view.tool = self.pen
         currentTool = "PEN"
@@ -53,7 +52,7 @@ final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDeleg
     
     func getImage() -> UIImage {
         view.backgroundColor = .black
-        let result = view.asImage()
+        let result = view.toUIImage()
         view.backgroundColor = UIColor.init(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)
         return result
     }
@@ -68,16 +67,4 @@ final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDeleg
         }
     }
     
-}
-
-extension UIView {
-
-    // Using a function since `var image` might conflict with an existing variable
-    // (like on `UIImageView`)
-    func asImage() -> UIImage {
-        let renderer = UIGraphicsImageRenderer(bounds: bounds)
-        return renderer.image { rendererContext in
-            layer.render(in: rendererContext.cgContext)
-        }
-    }
 }

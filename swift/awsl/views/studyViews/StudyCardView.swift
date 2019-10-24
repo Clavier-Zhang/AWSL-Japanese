@@ -13,7 +13,7 @@ struct StudyCardView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State var currentPhase : String = "SELF_EVALUATION"
+    @State var currentPhase : String = SELF_EVALUATION
     
     @State var task: Task = Local.getTask()
 
@@ -31,7 +31,7 @@ struct StudyCardView: View {
                         
                         Spacer().frame(height: 30)
                     
-                        if (self.currentPhase == "SELF_EVALUATION") {
+                        if (self.currentPhase == SELF_EVALUATION) {
                             SelfEvaluationPhase(currentPhase: $currentPhase, task: $task)
                             
                         } else if (self.currentPhase == "TEST") {

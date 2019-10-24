@@ -44,7 +44,7 @@ struct TestPhase: View {
                 .background(base)
         
             // Writing pad
-            canvas.frame(width: 50, height: 40)
+            canvas.frame(width: 30, height: 40)
 
             // Instructions
             Text("在上方区域写出假名")
