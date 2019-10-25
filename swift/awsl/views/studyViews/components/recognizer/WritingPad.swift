@@ -57,6 +57,11 @@ final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDeleg
         return result
     }
     
+    func getText() -> [UIImage] {
+        let uiimage = self.getImage()
+        return HandwritingRecognizer.splitText(uiimage: uiimage)
+    }
+    
     func pencilInteractionDidTap(_ interaction: UIPencilInteraction) {
         if (self.currentTool == "PEN") {
             view.tool = self.eraser

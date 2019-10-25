@@ -10,6 +10,14 @@ import SwiftUI
 
 extension UIImage {
     
+    func toUIImages(rects: [CGRect]) -> [UIImage] {
+        var images = [UIImage]()
+        for rect in rects {
+            images.append(crop(rect))
+        }
+        return images
+    }
+    
     func crop(_ rect: CGRect) -> UIImage {
         return UIImage(cgImage: cgImage!.cropping(to: rect)!)
     }
