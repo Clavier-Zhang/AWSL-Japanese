@@ -40,12 +40,11 @@ struct LearnPhase: View {
     func pressNext() {
         
         task.next()
+        
         if (!task.isEmpty()) {
-            print("next")
-            currentPhase = "SELF_EVALUATION"
+            currentPhase = SELF_EVALUATION_PHASE
         } else {
             toFinishStudyView = true
-            print("all done")
         }
         
     }

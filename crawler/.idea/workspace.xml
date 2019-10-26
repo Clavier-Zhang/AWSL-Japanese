@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="23fb37d2-57f5-4c76-bc71-2a1be9bc3d44" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swift/awsl/models/Task.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/models/Task.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../swift/awsl/utils/constants.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/utils/constants.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/LearnPhase.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/LearnPhase.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/SelfEvaluationPhase.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/SelfEvaluationPhase.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/StudyCardView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/StudyCardView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/TestPhase.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/TestPhase.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/WordRow.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/WordRow.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/recognizer/Recognizer.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/recognizer/Recognizer.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/recognizer/WritingPad.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/components/recognizer/WritingPad.swift" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

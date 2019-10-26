@@ -17,19 +17,23 @@ class HandwritingRecognizer {
     
     static let model = hiraganaModel()
     
-    
-    
     public static func hiragana(uiimage: UIImage) -> String {
-//        let output = try? model.prediction(image: uiimage.toCVPixelBuffer())
-//        if let output = output {
-//            return output.classLabel
-//        }
-        return ""
+        var result = ""
+        let images = splitText(uiimage: uiimage)
+        for image in images {
+            let output = try? model.prediction(image: image.toCVPixelBuffer())
+            if let output = output {
+                result += output.classLabel
+            }
+        }
+        return result
     }
     
     public static func splitText(uiimage: UIImage) -> [UIImage] {
         let matrix = uiimage.toMatrix()
-        
+        if (matrix.count == 0) {
+            return [UIImage]()
+        }
         // Get char intervals
         let intervals = getCharRanges(matrix: matrix);
         
@@ -60,7 +64,7 @@ class HandwritingRecognizer {
             var width = right - left + 1
             var height = bottom - top + 1
             let side = max(width, height)
-            print((width, height))
+
             // Expand height
             while (height < side) {
                 if (top > 0) {
@@ -138,7 +142,6 @@ class HandwritingRecognizer {
                 }
             }
         }
-        
         // Consider the last char
         if (begin > 0) {
             intervals.append((begin, end))

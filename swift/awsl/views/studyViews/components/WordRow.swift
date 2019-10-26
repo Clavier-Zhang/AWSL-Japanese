@@ -51,7 +51,6 @@ struct WordRow: View {
     }
     
     func playAudio() {
-        print(self.task.getWord())
         if (!task.getWord().audio.isEmpty) {
             do {
                 try player = AVAudioPlayer(data: task.getWord().audio)
@@ -59,8 +58,6 @@ struct WordRow: View {
             } catch {
                 print("audio error")
             }
-            
-            
         } else {
             print("empty audio")
         }

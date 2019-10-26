@@ -8,6 +8,8 @@
 
 import SwiftUI
 
+let LEARN_PHASE = "LEARN_PHASE"
+
 var green = Color.init(red: 0x00/255, green: 0xa8/255, blue: 0x78/255)
 
 var red = Color.init(red: 0x91/255, green: 0x1/255, blue: 0x1b/255)
@@ -28,7 +30,9 @@ var baseURL = "http://192.168.31.158:8000/api"
 
 var large = Font.system(size: 20)
 
-let SELF_EVALUATION = "SELF_EVALUATION"
+let SELF_EVALUATION_PHASE = "SELF_EVALUATION_PHASE"
+
+let TEST_PHASE = "TEST_PHASE"
 
 let TEST = "TEST"
 

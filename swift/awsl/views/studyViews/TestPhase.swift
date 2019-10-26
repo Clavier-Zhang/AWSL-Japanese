@@ -29,20 +29,16 @@ struct TestPhase: View {
             
             // Buttons
             HStack {
-                
                 WideButton(label: "提交", action: pressSubmit, center: true)
-                
                 WideButton(label: "不会拼", action: pressUnableToSpell, center: true)
-                
             }
+            
             HStack {
                 ForEach(images, id: \.self) { image in
                     Image(uiImage: image)
                 }
             }
             
-            
-
             // Recognized text
             Text(label)
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 40, alignment: .leading)
@@ -50,7 +46,7 @@ struct TestPhase: View {
                 .background(base)
         
             // Writing pad
-            canvas.frame(width: 300, height: 100)
+            canvas.frame(width: 700, height: 150)
 
             // Instructions
             Text("在上方区域写出假名")
@@ -60,16 +56,15 @@ struct TestPhase: View {
     }
     
     func pressSubmit() {
-        print("submit")
-        
-        let uiimage = self.canvas.getImage()
-        
-        images = self.canvas.getText()
-        
+        label = canvas.getText()
+        // Check the answer
+        task.setCorrect()
+        currentPhase = LEARN_PHASE
     }
     
     func pressUnableToSpell() {
-        self.currentPhase = "LEARN"
+        task.setWrong()
+        currentPhase = LEARN_PHASE
     }
 }
 
