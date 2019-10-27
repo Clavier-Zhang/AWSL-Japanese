@@ -89,11 +89,12 @@ struct StudyCardView: View {
             if (self.currentPhase != SUBMISSION_PHASE) {
                 self.task.studyTime += 5
             }
-            print(self.task.studyTime)
         })
     }
+    
     func onDisappear() {
         self.timer?.invalidate()
     }
+    
 }
 

@@ -33,6 +33,8 @@ struct Task: Codable {
     
     var studyTime: Int = 0
     
+    var submitted: Bool = false
+    
     public func getNewNum() -> Int {
         return newCardPairs.filter( {$0.card.status != REVIEW }).count
         
@@ -75,6 +77,9 @@ struct Task: Codable {
     
     mutating public func next() {
         print("next")
+        if (isEmpty()) {
+            return
+        }
         
         var pair = newCardPairs[0]
         print(pair)

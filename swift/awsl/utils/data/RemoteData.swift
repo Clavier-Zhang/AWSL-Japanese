@@ -93,7 +93,7 @@ func SendPostRequest(path: String, data: Data, handleSuccess: @escaping (Data) -
             return
         }
         // Handle success
-        if let mimeType = response.mimeType, mimeType == "application/json", let data = data, let dataString = String(data: data, encoding: .utf8) {
+        if let data = data {
             handleSuccess(data)
             return
         }
@@ -126,7 +126,7 @@ func SendGetRequest(path: String, handleSuccess: @escaping (Data) -> Void, token
             return
         }
         // Handle success
-        if let mimeType = response.mimeType, mimeType == "application/json", let data = data, let dataString = String(data: data, encoding: .utf8) {
+        if let data = data {
             handleSuccess(data)
             return
         }

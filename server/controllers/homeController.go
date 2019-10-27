@@ -22,5 +22,6 @@ func HomeController(w http.ResponseWriter, r *http.Request) {
 
 	log.Println("HomeController ", vars["email"])
 	PrettyPrint(result)
+	println(r.Context().Value("email").(string))
 	Respond(w, result)
 }

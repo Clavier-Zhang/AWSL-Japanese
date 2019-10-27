@@ -32,13 +32,11 @@ struct LearnPhase: View {
     }
     
     func pressNext() {
-        
         task.next()
-        
         if (!task.isEmpty()) {
             currentPhase = SELF_EVALUATION_PHASE
         } else {
-//            toFinishStudyView = true
+            currentPhase = SUBMISSION_PHASE
         }
         
     }
