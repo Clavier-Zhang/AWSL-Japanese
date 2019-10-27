@@ -64,14 +64,21 @@ struct HomeView: View {
     
     func pressStart() {
         
-        let today = Date().toNum()
+        let today = Date().toNum()+Int.random(in: 0...10)
         
         func handleSuccess(data: Data) -> Void {
             let res : Response? = dataToObj(data: data)
             if let res = res {
                 print(res)
                 if (res.status) {
-                    let task = Task(words: res.words!, date: today)
+                    var words = res.words!
+                    for i in 0..<words.count {
+                        words[i].isCorrect = true
+                        words[i].status = NEW
+                        words[i].remainRepetition = 1
+                        words[i].reviewCount = 0
+                    }
+                    let task = Task(words: words, date: today)
                     Local.save(key: "task", obj: task)
                     self.toStudyCardView = true
 
@@ -119,7 +126,7 @@ struct HomeView: View {
         let today = Date().toNum()
         let task: Task? = Local.get(key: "task")
         if let task = task, task.date == today {
-            return task.newCardPairs.count
+            return task.newWords.count
         }
         return homeResponse.todayScheduleNum
     }

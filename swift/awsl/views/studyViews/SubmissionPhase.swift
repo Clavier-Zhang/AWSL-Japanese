@@ -30,6 +30,9 @@ struct SubmissionPhase: View {
     
     func pressSubmit() {
         print("submit")
+        
+        // Make submission body
+        
         task.submitted = true
         Local.save(key: "task", obj: task)
         back()

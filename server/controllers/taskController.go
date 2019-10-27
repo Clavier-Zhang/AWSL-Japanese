@@ -27,14 +27,15 @@ func TaskGetController(w http.ResponseWriter, r *http.Request) {
 
 func TaskSubmitController(w http.ResponseWriter, r *http.Request) {
 
-	vars := mux.Vars(r)
-	result := Message(true, "Get task by date")
+	email := r.Context().Value("email").(string)
 
+	log.Println("TaskGetController Submission ","email: ", email)
+	task := DecodeTask(r.Body)
+	println(task)
 
-	words := *FindAllLimit()
-	result["words"] = words
+	result := Message(true, "Submit task")
 
-	log.Println("TaskGetController ","email:", vars["email"], " date: ", vars["date"])
+	//log.Println("TaskGetController ","email:", vars["email"], " date: ", vars["date"])
 
 	Respond(w, result)
 }

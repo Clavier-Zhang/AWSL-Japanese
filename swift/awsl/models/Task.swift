@@ -19,96 +19,91 @@ let WRONG = "WRONG"
 struct Task: Codable {
     
     init(words: [Word], date: Int) {
-        for word in words {
-            self.newCardPairs.append(CardPair(word))
-        }
         self.date = date
+        self.newWords = words
     }
     
+    var finishedWords: [Word] = [Word]()
+    
+    var newWords: [Word] = [Word]()
+    
     var date: Int
-    
-    var newCardPairs: [CardPair] = [CardPair]()
-    
-    var finishedCards: [Card] = [Card]()
     
     var studyTime: Int = 0
     
     var submitted: Bool = false
     
-    public func getNewNum() -> Int {
-        return newCardPairs.filter( {$0.card.status != REVIEW }).count
-        
+    func getNewNum() -> Int {
+        return newWords.filter( {$0.status != REVIEW }).count
     }
     
-    public func getReviewNum() -> Int {
-        return newCardPairs.filter( {$0.card.status == REVIEW }).count
+    func getReviewNum() -> Int {
+        return newWords.filter( {$0.status == REVIEW }).count
     }
     
-    public func getFinishedNum() -> Int {
-        return finishedCards.count
+    func getFinishedNum() -> Int {
+        return finishedWords.count
     }
     
-    public func getWord() -> Word {
+    func getWord() -> Word {
         if (isEmpty()) {
             return Word()
         }
-        return newCardPairs[0].word
+        return newWords[0]
     }
     
-    public func getStatus() -> String {
-        return newCardPairs[0].card.status
+    func getStatus() -> String {
+        return newWords[0].status!
     }
     
-    public func isEmpty() -> Bool {
-        return newCardPairs.count == 0
+    func isEmpty() -> Bool {
+        return newWords.count == 0
     }
     
-    mutating public func setEasy() {
-        newCardPairs[0].card.status = EASY
+    mutating func setEasy() {
+        newWords[0].status = EASY
     }
     
-    mutating public func setCorrect() {
-        newCardPairs[0].card.isCorrect = true
+    mutating func setCorrect() {
+        newWords[0].isCorrect = true
     }
     
-    mutating public func setWrong() {
-        newCardPairs[0].card.isCorrect = false
+    mutating func setWrong() {
+        newWords[0].isCorrect = false
     }
     
-    mutating public func next() {
-        print("next")
+    mutating func next() {
+
         if (isEmpty()) {
             return
         }
         
-        var pair = newCardPairs[0]
-        print(pair)
+        var word = newWords[0]
         
-        newCardPairs.remove(at: 0)
-        let upper = min(newCardPairs.count, 50)
+        newWords.remove(at: 0)
+        let upper = min(newWords.count, 50)
         var random = Int.random(in: 0 ... upper)
-        random = min(random+1, newCardPairs.count-1)
+        random = min(random+1, newWords.count-1)
         // Easy
-        if (pair.card.status == EASY) {
-            finishedCards.append(pair.card)
+        if (word.status == EASY) {
+            finishedWords.append(word)
         // Correct
-        } else if (pair.card.isCorrect) {
-            print("then correct")
-            pair.card.remainRepetition -= 1
-            pair.card.reviewCount += 1
-            if (pair.card.remainRepetition == 0) {
+        } else if (word.isCorrect!) {
+            word.remainRepetition! -= 1
+            word.reviewCount! += 1
+            if (word.remainRepetition == 0) {
                 // finish
-                finishedCards.append(pair.card)
+                finishedWords.append(word)
             } else {
                 // Keep review ****
-                newCardPairs.insert(pair, at: random)
+                newWords.insert(word, at: random)
                 
             }
         // Wrong
-        } else if (!pair.card.isCorrect) {
-            pair.card.remainRepetition = 3
-            pair.card.status = REVIEW
-            newCardPairs.insert(pair, at: random)
+        } else if (!word.isCorrect!) {
+            word.remainRepetition! = 3
+            word.status! = REVIEW
+            newWords.insert(word, at: random)
         }
         
         Local.save(key: "task", obj: self)
@@ -118,29 +113,3 @@ struct Task: Codable {
     
 }
 
-
-struct Card: Codable {
-    
-    var responseQuality: Int = 5
-    
-    var status: String = NEW
-    
-    var remainRepetition: Int = 1
-    
-    var reviewCount: Int = 0
-    
-    var isCorrect: Bool = true
-    
-}
-
-struct CardPair: Codable {
-    
-    init(_ word: Word) {
-        self.word = word
-    }
-    
-    var word: Word
-    
-    var card: Card = Card()
-    
-}

@@ -11,6 +11,7 @@ import Foundation
 struct Word: Codable {
     
     init() {
+
         text = ""
         
         furigara = ""
@@ -27,7 +28,9 @@ struct Word: Codable {
         
         audio = Data()
     }
-
+    
+    // From server
+    
     let text: String
     
     let furigara: String
@@ -43,6 +46,16 @@ struct Word: Codable {
     let cn_examples: [Example]
     
     let audio: Data
+    
+    // Submit to server
+    
+    var status: String? = NEW
+    
+    var remainRepetition: Int? = 1
+    
+    var reviewCount: Int? = 0
+    
+    var isCorrect: Bool? = true
      
 }
 

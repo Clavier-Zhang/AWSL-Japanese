@@ -10,14 +10,15 @@ import SwiftUI
 
 struct StudyCardView: View {
     
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    // View data
+    @State var task: Task = Local.getTask()
     
     @State var currentPhase : String = Local.getTask().isEmpty() ? SUBMISSION_PHASE : SELF_EVALUATION_PHASE
     
-    @State var task: Task = Local.getTask()
-    
     @State var timer: Timer?
     
+    // Navigation
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State var toFinishStudyView: Bool = false
 
     var body: some View {

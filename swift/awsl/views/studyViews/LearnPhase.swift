@@ -27,8 +27,7 @@ struct LearnPhase: View {
             
             RedButton(text: "下一个", action: pressNext)
 
-        }
-           .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
+        }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
     }
     
     func pressNext() {

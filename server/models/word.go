@@ -2,12 +2,17 @@ package models
 
 import (
 "go.mongodb.org/mongo-driver/bson"
-"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 "go.mongodb.org/mongo-driver/mongo/options"
 "context"
 )
 
 type Word struct {
+
+	_ID primitive.ObjectID `bson:"_id, omitempty"`
+
+	ID string `json:"id"`
 
 	Text string `json:"text"`
 
@@ -48,6 +53,7 @@ func NewExample() *Example {
 // Constructor for Word
 func NewWord() *Word {
 	word := &Word{}
+	word.ID = ""
 	word.Text = ""
 	word.Furigara = ""
 	word.EN_Meanings = []string{}
