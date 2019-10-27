@@ -10,7 +10,7 @@ import (
 
 func HomeController(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	log.Println("test from "+vars["email"])
+
 
 	result := Message(true, "home")
 
@@ -20,6 +20,7 @@ func HomeController(w http.ResponseWriter, r *http.Request) {
 	result["todayNewNum"] = 78
 	result["todayScheduleNum"] = 300
 
-	log.Println(result)
+	log.Println("HomeController ", vars["email"])
+	PrettyPrint(result)
 	Respond(w, result)
 }

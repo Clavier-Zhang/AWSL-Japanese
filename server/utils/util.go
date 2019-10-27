@@ -2,6 +2,7 @@ package utils
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
@@ -33,4 +34,12 @@ func SameHashPassword(s1 string, s2 string) bool {
 func NewHashPassword(s string) string {
 	hashed, _ := bcrypt.GenerateFromPassword([]byte(s), bcrypt.DefaultCost)
 	return string(hashed)
+}
+
+func PrettyPrint(v interface{}) (err error) {
+	b, err := json.MarshalIndent(v, "", "  ")
+	if err == nil {
+		fmt.Println(string(b))
+	}
+	return
 }

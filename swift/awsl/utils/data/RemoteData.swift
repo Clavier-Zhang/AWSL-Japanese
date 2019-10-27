@@ -57,13 +57,12 @@ struct Remote {
         
     }
     
-    static public func fetchTask(handleSuccess: @escaping (Data) -> Void) -> Void {
+    static public func fetchTask(handleSuccess: @escaping (Data) -> Void, date: Int) -> Void {
         
         let user : User? = Local.get(key: "user")
         
         if let user = user {
-            
-            SendGetRequest(path: "/task/get/"+user.email, handleSuccess: handleSuccess, token: user.token)
+            SendGetRequest(path: "/task/get/"+user.email+"/"+String(date), handleSuccess: handleSuccess, token: user.token)
         } else {
             print("BUG: User not in local")
             return
@@ -86,6 +85,7 @@ func SendPostRequest(path: String, data: Data, handleSuccess: @escaping (Data) -
     let task = URLSession.shared.uploadTask(with: request, from: data) { data, response, error in
         // Handle error
         if let error = error {
+            
             return
         }
         // Handle error
@@ -108,12 +108,11 @@ func SendGetRequest(path: String, handleSuccess: @escaping (Data) -> Void, token
     // Create post request
     let url = URL(string: baseURL + path)!
     
-    
-    
     var request = URLRequest(url: url)
     request.httpMethod = "GET"
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     request.setValue("bearer "+token, forHTTPHeaderField: "Authorization")
+
     
     
     let task = URLSession.shared.dataTask(with: request) { data, response, error in

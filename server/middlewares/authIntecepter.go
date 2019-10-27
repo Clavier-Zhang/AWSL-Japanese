@@ -2,7 +2,6 @@ package middlewares
 
 import (
 	"context"
-	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gorilla/mux"
 	"net/http"
@@ -92,12 +91,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 			return
 		}
 
-
-		fmt.Println(user)
-		fmt.Println(vars["email"])
-
 		//Everything went well, proceed with the request and set the caller to the user retrieved from the parsed token
-		fmt.Sprintf("User %", tk.Text) //Useful for monitoring
 		ctx := context.WithValue(r.Context(), "user", tk.Text)
 		r = r.WithContext(ctx)
 		next.ServeHTTP(w, r) //proceed in the middleware chain!

@@ -12,7 +12,9 @@ struct Word: Codable {
     
     init() {
         text = ""
+        
         furigara = ""
+        
         en_meanings = [String]()
         
         en_examples = [Example]()
@@ -25,7 +27,7 @@ struct Word: Codable {
         
         audio = Data()
     }
-    
+
     let text: String
     
     let furigara: String

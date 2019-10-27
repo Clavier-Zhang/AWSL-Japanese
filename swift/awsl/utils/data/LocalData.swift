@@ -48,7 +48,11 @@ struct Local {
         if let task = task {
             return task
         }
-        return Task(words: [Word]())
+        return Task(words: [Word](), date: 0)
+    }
+    
+    public static func saveTask(task: Task) {
+        self.save(key: "task", obj: task)
     }
 
 }

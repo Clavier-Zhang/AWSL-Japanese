@@ -12,20 +12,20 @@ import Foundation
 let NEW = "NEW"
 let REVIEW = "REVIEW"
 let EASY = "EASY"
-let DONE = "DONE"
 let CORRECT = "CORRECT"
 let WRONG = "WRONG"
 
 
 struct Task: Codable {
     
-    public init(words: [Word]) {
+    init(words: [Word], date: Int) {
         for word in words {
             self.newCardPairs.append(CardPair(word))
         }
+        self.date = date
     }
     
-    var date: Date = Date()
+    var date: Int
     
     var newCardPairs: [CardPair] = [CardPair]()
     
@@ -63,14 +63,6 @@ struct Task: Codable {
     
     mutating public func setEasy() {
         newCardPairs[0].card.status = EASY
-    }
-    
-    mutating public func setReview() {
-        newCardPairs[0].card.status = REVIEW
-    }
-    
-    mutating public func setDone() {
-        newCardPairs[0].card.status = DONE
     }
     
     mutating public func setCorrect() {
@@ -114,8 +106,10 @@ struct Task: Codable {
             newCardPairs.insert(pair, at: random)
         }
         
+        Local.save(key: "task", obj: self)
+        
     }
-    
+
     
 }
 
@@ -136,13 +130,12 @@ struct Card: Codable {
 
 struct CardPair: Codable {
     
-    public init(_ word: Word) {
+    init(_ word: Word) {
         self.word = word
-        self.card = Card()
     }
     
     var word: Word
     
-    var card: Card
+    var card: Card = Card()
     
 }

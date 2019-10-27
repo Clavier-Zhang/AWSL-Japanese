@@ -8,16 +8,17 @@
 
 import SwiftUI
 
-
 struct StudyCardView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State var currentPhase : String = SELF_EVALUATION_PHASE
+    @State var currentPhase : String = Local.getTask().isEmpty() ? SUBMISSION_PHASE : SELF_EVALUATION_PHASE
     
     @State var task: Task = Local.getTask()
     
     @State var timer: Timer?
+    
+    @State var toFinishStudyView: Bool = false
 
     var body: some View {
         NavigationView {
@@ -33,7 +34,7 @@ struct StudyCardView: View {
                         
                         Spacer().frame(height: 30)
                     
-                        if (self.currentPhase == SELF_EVALUATION_PHASE) {
+                        if (currentPhase == SELF_EVALUATION_PHASE) {
                             SelfEvaluationPhase(currentPhase: $currentPhase, task: $task)
                             
                         } else if (currentPhase == TEST_PHASE) {
@@ -41,6 +42,8 @@ struct StudyCardView: View {
                             
                         } else if (currentPhase == LEARN_PHASE) {
                             LearnPhase(currentPhase: $currentPhase, task: $task)
+                        } else if (currentPhase == SUBMISSION_PHASE) {
+                            SubmissionPhase(back: back)
                         }
                         
                     }
@@ -49,15 +52,18 @@ struct StudyCardView: View {
                 }
                     .frame(width: fullWidth, height: 1.05*fullHeight)
                     .background(studyCardBase)
+                
             }
                 .frame(width: fullWidth, height: fullHeight+300)
                 .background(base)
                 .foregroundColor(fontBase)
+                .onAppear(perform: onAppear)
+                .onDisappear(perform: onDisappear)
         }
             .navigationViewStyle(StackNavigationViewStyle())
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: BackButton)
-            .onAppear(perform: onAppear)
+            
 
     }
     
@@ -76,14 +82,18 @@ struct StudyCardView: View {
     
     func back() {
         presentationMode.wrappedValue.dismiss()
-        self.timer?.invalidate()
     }
     
     func onAppear() {
         self.timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true, block: { timer in
-            self.task.studyTime += 5
+            if (self.currentPhase != SUBMISSION_PHASE) {
+                self.task.studyTime += 5
+            }
             print(self.task.studyTime)
         })
+    }
+    func onDisappear() {
+        self.timer?.invalidate()
     }
 }
 

@@ -43,8 +43,7 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 	resp := Message(true, "Login Success")
 	resp["user"] = requestUser
 
-	log.Println(resp)
-	log.Println(requestUser)
+	log.Println("UserLoginController ", requestUser.Email, " log in")
 
 	Respond(w, resp)
 }

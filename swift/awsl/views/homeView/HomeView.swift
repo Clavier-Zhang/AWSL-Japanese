@@ -14,6 +14,8 @@ struct HomeView: View {
     
     @State var toStudyCardView = false
     
+    @State var toFinishStudyView = false
+    
     @State var homeResponse: HomeResponse = HomeResponse()
     
     @State var user: User = User(email: "", password: "", token: "")
@@ -68,7 +70,6 @@ struct HomeView: View {
                     EmptyView()
                 }
                 
-                
             }
                 .frame(width: fullWidth, height: fullHeight+200)
                 .background(base)
@@ -81,24 +82,32 @@ struct HomeView: View {
     
     func pressStart() {
         
+        let today = Date().toNum()+1
+        
         func handleSuccess(data: Data) -> Void {
             let res : Response? = dataToObj(data: data)
             if let res = res {
-                print("start success")
+                print(res)
                 if (res.status) {
-                    var task = Task(words: res.words!)
-
+                    let task = Task(words: res.words!, date: today)
                     Local.save(key: "task", obj: task)
                     self.toStudyCardView = true
 
                 } else {
-                    print("Status false")
+                    print("Fetch task fail")
                 }
             }
         }
-
-        Remote.fetchTask(handleSuccess: handleSuccess)
         
+        // Already fetch today's task
+        let task: Task? = Local.get(key: "task")
+        if let task = task, task.date == today {
+            toStudyCardView = true
+        // Otherwise
+        } else {
+            Remote.fetchTask(handleSuccess: handleSuccess, date: today)
+        }
+    
     }
     
     func homeAppear() {

@@ -12,7 +12,6 @@ struct PasswordField: View {
     
     var password: Binding<String>
 
-    
     public init(bind: Binding<String>) {
         self.password = bind
     }

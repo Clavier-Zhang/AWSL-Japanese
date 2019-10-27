@@ -2,12 +2,11 @@ package models
 
 import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"time"
 )
 
 type Task struct {
 
-	Date time.Time `json:"date"`
+	Date int `json:"date"`
 
 	Scheduled int `json:"scheduled"`
 
