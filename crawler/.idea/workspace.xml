@@ -3,12 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="23fb37d2-57f5-4c76-bc71-2a1be9bc3d44" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/controllers/taskController.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/controllers/taskController.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/models/task.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/models/task.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/models/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/models/word.go" beforeDir="false" afterPath="$PROJECT_DIR$/../server/models/word.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/server" beforeDir="false" afterPath="$PROJECT_DIR$/../server/server" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swift/awsl/views/studyViews/SubmissionPhase.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../swift/awsl/views/studyViews/SubmissionPhase.swift" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
