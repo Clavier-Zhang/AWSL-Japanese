@@ -102,7 +102,7 @@ struct SignUpView: View {
             }
         }
 
-        SendPostRequest(path: "/user/create", data: data, handleSuccess: handleSuccess)
+        Remote.sendPostRequest(path: "/user/create", data: data, handleSuccess: handleSuccess)
         
     }
 }

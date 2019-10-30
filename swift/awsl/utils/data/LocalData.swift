@@ -12,16 +12,16 @@ import Foundation
 
 struct Local {
     
-    private static let defaults = UserDefaults.standard
+    static let defaults = UserDefaults.standard
     
     // Save to local data by key
-    public static func save<T: Encodable>(key: String, obj: T) {
+    static func save<T: Encodable>(key: String, obj: T) {
         let data = objToData(obj: obj)
         defaults.set(data, forKey: key)
     }
     
     // Retrieve local data by key
-    public static func get<T: Decodable>(key: String) -> T? {
+    static func get<T: Decodable>(key: String) -> T? {
         let data = defaults.data(forKey: key)
         if (data == nil) {
             return nil
@@ -31,19 +31,19 @@ struct Local {
     }
     
     // Remove local data by key
-    public static func remove(key: String) {
+    static func remove(key: String) {
         defaults.removeObject(forKey: key)
     }
     
     // Clean on local data
-    public static func reset() {
+    static func reset() {
         let dictionary = defaults.dictionaryRepresentation()
         dictionary.keys.forEach { key in
             defaults.removeObject(forKey: key)
         }
     }
     
-    public static func getTask() -> Task {
+    static func getTask() -> Task {
         let task: Task? = self.get(key: "task")
         if let task = task {
             return task
@@ -51,8 +51,17 @@ struct Local {
         return Task(words: [Word](), date: 0)
     }
     
-    public static func saveTask(task: Task) {
-        self.save(key: "task", obj: task)
+    static func saveTask(task: Task) {
+        save(key: "task", obj: task)
+    }
+    
+    static func getToken() -> String {
+        let user : User? = Local.get(key: "user")
+        if let user = user {
+            return user.token
+        }
+        print("ERROR: User not exist")
+        return ""
     }
 
 }

@@ -17,8 +17,8 @@ func main() {
 	router.HandleFunc("/api/user/login", UserLoginController).Methods("POST")
 
 	// Task
-	router.HandleFunc("/api/user/home/{email}", HomeController).Methods("GET")
-	router.HandleFunc("/api/task/get/{email}/{date}", TaskGetController).Methods("GET")
+	router.HandleFunc("/api/user/home", HomeController).Methods("GET")
+	router.HandleFunc("/api/task/get/{date}", TaskGetController).Methods("GET")
 	router.HandleFunc("/api/task/submit", TaskSubmitController).Methods("POST")
 
 	// Middleware

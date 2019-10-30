@@ -43,7 +43,7 @@ struct SubmissionPhase: View {
                 print("success submit task")
                 if (res.status) {
                     task.submitted = true
-                    Local.save(key: "task", obj: task)
+                    task.save()
                     
                     print(res)
                     
@@ -53,16 +53,7 @@ struct SubmissionPhase: View {
             }
         }
         
-        let user : User? = Local.get(key: "user")
-        
-        if let user = user {
-            
-            SendPostRequest(path: "/task/submit", data: data, handleSuccess: handleSuccess, token: user.token)
-        } else {
-            print("BUG: User not in local")
-            return
-        }
-        
+        Remote.sendPostRequest(path: "/task/submit", data: data, handleSuccess: handleSuccess, token: Local.getToken())
         
         back()
         

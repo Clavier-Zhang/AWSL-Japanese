@@ -93,7 +93,7 @@ struct LoginView: View {
             }
         }
         
-        SendPostRequest(path: "/user/login", data: data, handleSuccess: handleSuccess)
+        Remote.sendPostRequest(path: "/user/login", data: data, handleSuccess: handleSuccess)
         
         
     }

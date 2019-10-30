@@ -64,22 +64,14 @@ struct HomeView: View {
     
     func pressStart() {
         
-        let today = Date().toNum()+Int.random(in: 0...10)
+        let today = Date().toNum()
         
         func handleSuccess(data: Data) -> Void {
             let res : Response? = dataToObj(data: data)
             if let res = res {
-                print(res)
                 if (res.status) {
-                    var words = res.words!
-                    for i in 0..<words.count {
-                        words[i].isCorrect = true
-                        words[i].status = NEW
-                        words[i].remainRepetition = 1
-                        words[i].reviewCount = 0
-                    }
-                    let task = Task(words: words, date: today)
-                    Local.save(key: "task", obj: task)
+                    let task = Task(words: res.words!, date: today)
+                    task.save()
                     self.toStudyCardView = true
 
                 } else {
@@ -99,12 +91,14 @@ struct HomeView: View {
             
         // Otherwise
         } else {
-            Remote.fetchTask(handleSuccess: handleSuccess, date: today)
+            Remote.sendGetRequest(path: "/task/get/"+String(today), handleSuccess: handleSuccess, token: Local.getToken())
         }
     
     }
     
     func homeAppear() {
+        
+        print("home appear")
         
         func handleSuccess(data: Data) -> Void {
             let res : HomeResponse? = dataToObj(data: data)
@@ -118,15 +112,16 @@ struct HomeView: View {
             }
         }
         
-        Remote.fetchHomeData(handleSuccess: handleSuccess)
+        Remote.sendGetRequest(path: "/user/home", handleSuccess: handleSuccess, token: Local.getToken())
 
     }
     
     func getLeftWordNum() -> Int {
-        let today = Date().toNum()
         let task: Task? = Local.get(key: "task")
-        if let task = task, task.date == today {
-            return task.newWords.count
+        if let task = task {
+            if (Date().toNum() == task.date) {
+                return task.newWords.count
+            }
         }
         return homeResponse.todayScheduleNum
     }

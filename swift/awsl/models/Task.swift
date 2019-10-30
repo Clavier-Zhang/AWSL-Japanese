@@ -21,6 +21,12 @@ struct Task: Codable {
     init(words: [Word], date: Int) {
         self.date = date
         self.newWords = words
+        for i in 0..<self.newWords.count {
+            self.newWords[i].isCorrect = true
+            self.newWords[i].status = NEW
+            self.newWords[i].remainRepetition = 1
+            self.newWords[i].reviewCount = 0
+        }
     }
     
     var finishedWords: [Word] = [Word]()
@@ -106,7 +112,7 @@ struct Task: Codable {
             newWords.insert(word, at: random)
         }
         
-        Local.save(key: "task", obj: self)
+        save()
         
     }
     
@@ -114,6 +120,10 @@ struct Task: Codable {
         for i in 0..<finishedWords.count {
             finishedWords[i].audio = Data()
         }
+    }
+    
+    func save() {
+        Local.save(key: "task", obj: self)
     }
 
     

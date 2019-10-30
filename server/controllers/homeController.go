@@ -1,15 +1,14 @@
 package controllers
 
 import (
-	//"bytes"
-	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	. "server/utils"
 )
 
 func HomeController(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
+
+	email := r.Context().Value("email").(string)
 
 
 	result := Message(true, "home")
@@ -20,7 +19,7 @@ func HomeController(w http.ResponseWriter, r *http.Request) {
 	result["todayNewNum"] = 78
 	result["todayScheduleNum"] = 300
 
-	log.Println("HomeController ", vars["email"])
+	log.Println("HomeController ", email)
 	PrettyPrint(result)
 	println(r.Context().Value("email").(string))
 	Respond(w, result)
