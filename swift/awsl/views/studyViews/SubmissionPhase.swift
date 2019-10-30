@@ -33,10 +33,45 @@ struct SubmissionPhase: View {
         
         // Make submission body
         
-        task.submitted = true
-        Local.save(key: "task", obj: task)
+        task.clearData()
+        
+        let data = objToData(obj: task)
+        
+        func handleSuccess(data: Data) {
+            let res : Response? = dataToObj(data: data)
+            if let res = res {
+                print("success submit task")
+                if (res.status) {
+                    task.submitted = true
+                    Local.save(key: "task", obj: task)
+                    
+                    print(res)
+                    
+                } else {
+                    print("Status false")
+                }
+            }
+        }
+        
+        let user : User? = Local.get(key: "user")
+        
+        if let user = user {
+            
+            SendPostRequest(path: "/task/submit", data: data, handleSuccess: handleSuccess, token: user.token)
+        } else {
+            print("BUG: User not in local")
+            return
+        }
+        
+        
         back()
+        
+        
+        
+        
     }
+    
+
     
 
     

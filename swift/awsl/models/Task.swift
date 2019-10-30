@@ -109,6 +109,12 @@ struct Task: Codable {
         Local.save(key: "task", obj: self)
         
     }
+    
+    mutating func clearData() {
+        for i in 0..<finishedWords.count {
+            finishedWords[i].audio = Data()
+        }
+    }
 
     
 }

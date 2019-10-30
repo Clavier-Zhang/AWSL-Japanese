@@ -45,7 +45,7 @@ struct Word: Codable {
     
     let cn_examples: [Example]
     
-    let audio: Data
+    var audio: Data
     
     // Submit to server
     

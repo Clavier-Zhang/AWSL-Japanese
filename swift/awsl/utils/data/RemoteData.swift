@@ -49,7 +49,7 @@ struct Remote {
         
         if let user = user {
             
-            SendGetRequest(path: "/user/home/"+user.email, handleSuccess: handleSuccess, token: user.token)
+            sendGetRequest(path: "/user/home/"+user.email, handleSuccess: handleSuccess, token: user.token)
         } else {
             print("BUG: User not in local")
             return
@@ -73,23 +73,26 @@ struct Remote {
 }
 
 
-func SendPostRequest(path: String, data: Data, handleSuccess: @escaping (Data) -> Void) -> Void {
+func SendPostRequest(path: String, data: Data, handleSuccess: @escaping (Data) -> Void, token: String = "") -> Void {
     
     // Create post request
     let url = URL(string: baseURL + path)!
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.setValue("bearer "+token, forHTTPHeaderField: "Authorization")
     
     
     let task = URLSession.shared.uploadTask(with: request, from: data) { data, response, error in
         // Handle error
         if let error = error {
-            
+            print(error)
             return
         }
+
         // Handle error
         guard let response = response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
+            
             return
         }
         // Handle success

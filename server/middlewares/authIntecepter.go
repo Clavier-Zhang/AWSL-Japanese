@@ -3,7 +3,7 @@ package middlewares
 import (
 	"context"
 	"github.com/dgrijalva/jwt-go"
-	"github.com/gorilla/mux"
+	"log"
 	"net/http"
 	. "server/models"
 	u "server/utils"
@@ -16,6 +16,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 
 		notAuth := []string{"/api/user/login", "/api/user/create"} //List of endpoints that doesn't require auth
 		requestPath := r.URL.Path //current request path
+
 
 		//check if request does not need authentication, serve the request if it doesn't need it
 		for _, value := range notAuth {
@@ -30,6 +31,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 		tokenHeader := r.Header.Get("Authorization") //Grab the token from the header
 
 		if tokenHeader == "" { //Token is missing, returns with error code 403 Unauthorized
+			log.Println("Missing auth token")
 			response = u.Message(false, "Missing auth token")
 			w.WriteHeader(http.StatusForbidden)
 			w.Header().Add("Content-Type", "application/json")
@@ -39,6 +41,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 
 		splitted := strings.Split(tokenHeader, " ") //The token normally comes in format `Bearer {token-body}`, we check if the retrieved token matched this requirement
 		if len(splitted) != 2 {
+			log.Println("Invalid/Malformed auth token")
 			response = u.Message(false, "Invalid/Malformed auth token")
 			w.WriteHeader(http.StatusForbidden)
 			w.Header().Add("Content-Type", "application/json")
@@ -54,6 +57,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 		})
 
 		if err != nil { //Malformed token, returns with http code 403 as usual
+			log.Println("Malformed authentication token")
 			response = u.Message(false, "Malformed authentication token")
 			w.WriteHeader(http.StatusForbidden)
 			w.Header().Add("Content-Type", "application/json")
@@ -62,6 +66,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 		}
 
 		if !token.Valid { //Token is invalid, maybe not signed on this server
+			log.Println("Token is not valid.")
 			response = u.Message(false, "Token is not valid.")
 			w.WriteHeader(http.StatusForbidden)
 			w.Header().Add("Content-Type", "application/json")
@@ -73,18 +78,8 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 
 		user := FindByToken(tokenPart)
 		if user == nil {
+			log.Println("User not exist")
 			response = u.Message(false, "User not exist")
-			w.WriteHeader(http.StatusForbidden)
-			w.Header().Add("Content-Type", "application/json")
-			u.Respond(w, response)
-			return
-		}
-
-		// Compare token's email and request email
-		vars := mux.Vars(r)
-
-		if vars["email"] != user.Email {
-			response = u.Message(false, "Token not belongs to the current user")
 			w.WriteHeader(http.StatusForbidden)
 			w.Header().Add("Content-Type", "application/json")
 			u.Respond(w, response)
