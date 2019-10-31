@@ -13,11 +13,13 @@ struct CountLabel: View {
     var count: Int = -1
     var label: String
     var icon: String = ""
+    var title: String = ""
     
-    init(label: String, count: Int = -1, icon: String = "") {
+    init(label: String, count: Int = -1, icon: String = "", title: String = "") {
         self.label = label
         self.count = count
         self.icon = icon
+        self.title = title
     }
     
     var body: some View {
@@ -35,6 +37,13 @@ struct CountLabel: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 30, height: 30)
+            }
+            
+            if title != "" {
+                Text(title)
+                    .font(.largeTitle)
+                    .bold()
+                    .frame(height: 30)
             }
             
             Spacer().frame(height: 30)

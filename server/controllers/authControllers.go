@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	. "server/models"
@@ -40,12 +41,13 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 	requestUser.Update()
 
 	requestUser.Password = ""
-	resp := Message(true, "Login Success")
-	resp["user"] = requestUser
+	response := Message(true, "Login Success")
+	response["user"] = requestUser
 
-	log.Println("UserLoginController ", requestUser.Email, " log in")
+	log.Println("UserLoginController ")
+	fmt.Println(response)
 
-	Respond(w, resp)
+	Respond(w, response)
 }
 
 

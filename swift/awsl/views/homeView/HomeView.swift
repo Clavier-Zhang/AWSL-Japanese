@@ -32,7 +32,7 @@ struct HomeView: View {
                 Divider()
                 
                 HStack(spacing: 100) {
-                    CountLabel(label: "单词书", count: 33)
+                    CountLabel(label: "单词书", title: homeResponse.currentBook)
                     CountLabel(label: "剩余", count: 59)
                     CountLabel(label: "选择>>", icon: "book")
                 }
@@ -98,16 +98,14 @@ struct HomeView: View {
     
     func homeAppear() {
         
-        print("home appear")
-        
         func handleSuccess(data: Data) -> Void {
             let res : HomeResponse? = dataToObj(data: data)
             if let res = res {
-                print("success fetch home data")
+                NSLog("HomeView: Fetch home data")
                 if (res.status) {
                     self.homeResponse = res
                 } else {
-                    print("Status false")
+                    NSLog("HomeView: Fetch home data fail")
                 }
             }
         }

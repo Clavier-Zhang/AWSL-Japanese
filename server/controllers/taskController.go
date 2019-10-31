@@ -10,9 +10,12 @@ import (
 )
 
 func TaskGetController(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-
+	// Get request data
+	date := mux.Vars(r)["date"]
 	email := r.Context().Value("email").(string)
+
+	//user := FindByEmail(email)
+
 
 
 	result := Message(true, "Get task by date")
@@ -21,17 +24,15 @@ func TaskGetController(w http.ResponseWriter, r *http.Request) {
 	words := *FindAllLimit()
 	result["words"] = words
 
-	log.Println("TaskGetController ","email:", email, " date:", vars["date"])
+	log.Println("TaskGetController ","email:", email, " date:", date)
 
 	Respond(w, result)
 }
 
 
 func TaskSubmitController(w http.ResponseWriter, r *http.Request) {
-
+	// Get data
 	email := r.Context().Value("email").(string)
-
-	log.Println("TaskGetController Submission ","email: ", email)
 	task := DecodeTask(r.Body)
 	println(task)
 

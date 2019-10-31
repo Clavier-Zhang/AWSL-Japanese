@@ -10,9 +10,7 @@ import (
 
 type Word struct {
 
-	_ID primitive.ObjectID `bson:"_id, omitempty"`
-
-	ID string `json:"id"`
+	ID primitive.ObjectID `bson:"_id, omitempty"`
 
 	Text string `json:"text"`
 
@@ -53,7 +51,6 @@ func NewExample() *Example {
 // Constructor for Word
 func NewWord() *Word {
 	word := &Word{}
-	word.ID = ""
 	word.Text = ""
 	word.Furigara = ""
 	word.EN_Meanings = []string{}
