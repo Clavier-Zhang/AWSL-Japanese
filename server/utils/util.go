@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/google/uuid"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
 )
@@ -40,6 +41,21 @@ func PrettyPrint(v interface{}) (err error) {
 	b, err := json.MarshalIndent(v, "", "  ")
 	if err == nil {
 		fmt.Println(string(b))
+	}
+	return
+}
+
+func Union(a, b []primitive.ObjectID) (c []primitive.ObjectID) {
+	m := make(map[string]bool)
+
+	for _, item := range a {
+		m[item.String()] = true
+	}
+
+	for _, item := range b {
+		if _, ok := m[item.String()]; ok {
+			c = append(c, item)
+		}
 	}
 	return
 }

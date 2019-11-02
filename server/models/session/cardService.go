@@ -11,17 +11,13 @@ func NewCard(WordID primitive.ObjectID) *Card {
 	return card
 }
 
-
 func (card *Card) GetInterval() int {
-	if card.SuccessDayCount == 1 {
-		return 1
+	result := 1.0
+	if card.SuccessDayCount >= 2 {
+		result = 6
 	}
-	if card.SuccessDayCount == 2 {
-		return 6
-	}
-	result := 6
 	for i := 2; i <= card.SuccessDayCount; i++ {
 		result = result * card.EF
 	}
-	return result
+	return int(result)
 }

@@ -23,6 +23,14 @@ func (session *Session) GetProgressingWordCount() int {
 	return len(session.Words)-session.GetFinishedWordCount()
 }
 
+func (session *Session) GetWordIDs() []primitive.ObjectID {
+	results := []primitive.ObjectID{}
+	for _, card := range session.Words {
+		results = append(results, card.WordID)
+	}
+	return results
+}
+
 
 func NewSession(email string) *Session {
 	session := &Session{}

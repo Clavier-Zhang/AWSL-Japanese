@@ -8,7 +8,7 @@ type Card struct {
 
 	WordID primitive.ObjectID `bson:"word_id, omitempty"`
 
-	EF int `json:"EF"`
+	EF float64 `json:"EF"`
 
 	SuccessDayCount int `json:"success_day_count"`
 
