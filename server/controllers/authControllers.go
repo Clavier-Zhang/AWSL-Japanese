@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	. "server/models"
+	"server/models/user"
 	. "server/utils"
 	"strings"
 )
 
 func UserLoginController(w http.ResponseWriter, r *http.Request) {
 
-	requestUser := DecodeUser(r.Body)
+	requestUser := user.DecodeUser(r.Body)
 
 	// Decoding fails
 	if requestUser == nil {
@@ -22,7 +22,7 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 	// Email to lowercase
 	requestUser.Email = strings.ToLower(requestUser.Email)
 
-	dbUser := FindByEmail(requestUser.Email)
+	dbUser := user.FindByEmail(requestUser.Email)
 
 	// Not found in database
 	if dbUser == nil {
@@ -37,7 +37,7 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//Create JWT token
-	requestUser.Token = NewToken()
+	requestUser.Token = user.NewToken()
 	requestUser.Update()
 
 	requestUser.Password = ""
@@ -53,7 +53,7 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 
 func UserCreateController(w http.ResponseWriter, r *http.Request) {
 
-	requestUser := DecodeUser(r.Body)
+	requestUser := user.DecodeUser(r.Body)
 
 	// Decoding fails
 	if requestUser == nil {
@@ -65,7 +65,7 @@ func UserCreateController(w http.ResponseWriter, r *http.Request) {
 	// Email to lowercase
 	requestUser.Email = strings.ToLower(requestUser.Email)
 
-	dbUser := FindByEmail(requestUser.Email)
+	dbUser := user.FindByEmail(requestUser.Email)
 
 	// Email has been used
 	if dbUser != nil {
@@ -92,7 +92,7 @@ func UserCreateController(w http.ResponseWriter, r *http.Request) {
 	requestUser.Password = NewHashPassword(requestUser.Password)
 
 	// Generate token
-	requestUser.Token = NewToken()
+	requestUser.Token = user.NewToken()
 
 	ok := requestUser.Insert()
 

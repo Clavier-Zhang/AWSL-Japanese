@@ -28,15 +28,12 @@ struct HomeResponse : Codable {
     
     var message: String = ""
     
-    var finishedNum: Int = -1
+    var finishedWordCount: Int = -1
     
-    var progressingNum: Int = -1
+    var progressingWordCount: Int = -1
     
-    var currentBook: String = ""
+    var currentPlan: String = ""
     
-    var todayNewNum: Int = -1
-    
-    var todayScheduleNum: Int = -1
-    
+    var currentPlanLeftWordCount: Int = 0
     
 }

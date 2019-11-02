@@ -15,8 +15,6 @@ var DB *mongo.Database
 
 func init() {
 
-
-
 	// mongo
 	// Set client options
 	clientOptions := options.Client().ApplyURI("mongodb://47.89.243.163:27017")

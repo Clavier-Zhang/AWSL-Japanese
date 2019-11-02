@@ -3,8 +3,9 @@ package controllers
 import (
 	"log"
 	"net/http"
+	. "server/models/plan"
+	session2 "server/models/session"
 	. "server/utils"
-	."server/models"
 )
 
 func HomeController(w http.ResponseWriter, r *http.Request) {
@@ -12,33 +13,23 @@ func HomeController(w http.ResponseWriter, r *http.Request) {
 	email := r.Context().Value("email").(string)
 	log.Println("HomeController ", email)
 
-	session := FindSessionByEmail(email)
+	session := session2.FindSessionByEmail(email)
 	if session == nil {
-		_ = PrettyPrint("Session not exist, create a new one")
-		session = NewSession(email)
+		log.Println("Session not exist, create a new one")
+		session = session2.NewSession(email)
+		session.Save()
 	}
-	session = NewSession(email)
 
-	plan := NewPlan("N3", "zzzzz")
-
-
-	words := FindAllLimit()
-	for i := 0; i < len(*words); i++ {
-		plan.WordIDs = append(plan.WordIDs, (*words)[i].ID)
-	}
+	plan := FindPlanByName(session.CurrentPlan)
 
 	PrettyPrint(plan)
-	plan.Save()
-
-
+	PrettyPrint(session)
 
 	result := Message(true, "home")
-
-	result["finishedNum"] = session.FinishedWordCount
-	result["progressingNum"] = session.ProgressingWordCount
-	result["currentBook"] = session.CurrentPlan
-	result["todayNewNum"] = 78
-	result["todayScheduleNum"] = session.ScheduledWordCount
+	result["finishedWordCount"] = session.GetFinishedWordCount()
+	result["progressingWordCount"] = session.GetprogressingWordCount()
+	result["currentPlan"] = session.CurrentPlan
+	result["currentPlanLeftWordCount"] = 54
 
 	_ = PrettyPrint(result)
 

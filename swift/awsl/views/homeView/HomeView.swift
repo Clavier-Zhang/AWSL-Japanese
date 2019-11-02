@@ -25,16 +25,16 @@ struct HomeView: View {
                 
                 HStack (spacing: 100) {
                     UserProfile(user: user)
-                    CountLabel(label: "已完成", count: homeResponse.finishedNum)
-                    CountLabel(label: "进行中", count: homeResponse.progressingNum)
+                    CountLabel(label: "已完成", count: homeResponse.finishedWordCount)
+                    CountLabel(label: "进行中", count: homeResponse.progressingWordCount)
                     CountLabel(label: "详细>>", icon: "chart.bar")
                 }
                 
                 Divider()
                 
                 HStack(spacing: 100) {
-                    CountLabel(label: "单词书", title: homeResponse.currentBook)
-                    CountLabel(label: "剩余", count: 59)
+                    CountLabel(label: "单词书", title: homeResponse.currentPlan)
+                    CountLabel(label: "剩余", count: homeResponse.currentPlanLeftWordCount)
                     CountLabel(label: "选择>>", icon: "book")
                 }
                 

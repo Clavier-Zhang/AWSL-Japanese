@@ -5,7 +5,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"log"
 	"net/http"
-	. "server/models"
+	user2 "server/models/user"
 	u "server/utils"
 	"strings"
 )
@@ -50,7 +50,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 		}
 
 		tokenPart := splitted[1] //Grab the token part, what we are truly interested in
-		tk := &Token{}
+		tk := &user2.Token{}
 
 		token, err := jwt.ParseWithClaims(tokenPart, tk, func(token *jwt.Token) (interface{}, error) {
 			return []byte("test"), nil
@@ -76,7 +76,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 
 
 
-		user := FindByToken(tokenPart)
+		user := user2.FindByToken(tokenPart)
 		if user == nil {
 			log.Println("User not exist")
 			response = u.Message(false, "User not exist")
