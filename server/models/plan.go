@@ -5,7 +5,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
-	"log"
 )
 
 type Plan struct {
@@ -25,6 +24,16 @@ func NewPlan(name string, creator string) *Plan {
 	plan.Creator = creator
 	plan.Name = name
 	plan.WordIDs = []primitive.ObjectID{}
+	return plan
+}
+
+func FindPlanByName(name string) *Plan {
+	plan := &Plan{}
+	filter := bson.D{{"name", name}}
+	err := DB.Collection("user").FindOne(context.TODO(), filter).Decode(&plan)
+	if err != nil {
+		return nil
+	}
 	return plan
 }
 

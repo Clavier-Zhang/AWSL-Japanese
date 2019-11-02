@@ -18,7 +18,8 @@ let WRONG = "WRONG"
 
 struct Task: Codable {
     
-    init(words: [Word], date: Int) {
+    init(words: [Word], date: Int, newCount: Int) {
+        self.newCount = newCount
         self.date = date
         self.newWords = words
         for i in 0..<self.newWords.count {
@@ -28,6 +29,8 @@ struct Task: Codable {
             self.newWords[i].reviewCount = 0
         }
     }
+    
+    var newCount: Int
     
     var finishedWords: [Word] = [Word]()
     
@@ -39,6 +42,20 @@ struct Task: Codable {
     
     var submitted: Bool = false
     
+    // HomeView
+    func getScheduledCount() -> Int {
+        return newWords.count+finishedWords.count
+    }
+    
+    func getNewCount() -> Int {
+        return newCount
+    }
+    
+    func getRemainCount() -> Int {
+        return newWords.count
+    }
+    
+    // StudyCardView
     func getNewNum() -> Int {
         return newWords.filter( {$0.status != REVIEW }).count
     }

@@ -13,6 +13,7 @@ struct HomeView: View {
     // View data
     @State var homeResponse: HomeResponse = HomeResponse()
     @State var user: User = Local.get(key: "user")!
+    @State var task: Task = Local.getTask()
     
     // Navigation
     @State var toStudyCardView = false
@@ -39,11 +40,20 @@ struct HomeView: View {
                 
                 Divider()
                
-                HStack(spacing: 100) {
-                    CountLabel(label: "新单词", count: homeResponse.todayNewNum)
-                    CountLabel(label: "计划单词", count: homeResponse.todayScheduleNum)
-                    CountLabel(label: "剩余单词", count: getLeftWordNum())
+                if (task.date == Date().toNum()) {
+                    HStack(spacing: 100) {
+                        CountLabel(label: "新单词", count: task.getNewCount())
+                        CountLabel(label: "计划单词", count: task.getScheduledCount())
+                        CountLabel(label: "剩余单词", count: task.getRemainCount())
+                    }
+                } else {
+                    HStack(spacing: 100) {
+                        CountLabel(label: "新单词", title: "N/A")
+                        CountLabel(label: "计划单词", title: "N/A")
+                        CountLabel(label: "剩余单词", title: "N/A")
+                    }
                 }
+                
                                            
                 Spacer().frame(height: 50)
                 
@@ -70,7 +80,7 @@ struct HomeView: View {
             let res : Response? = dataToObj(data: data)
             if let res = res {
                 if (res.status) {
-                    let task = Task(words: res.words!, date: today)
+                    let task = Task(words: res.words!, date: today, newCount: 54)
                     task.save()
                     self.toStudyCardView = true
 
@@ -81,7 +91,7 @@ struct HomeView: View {
         }
         
         // Already fetch today's task
-        let task: Task? = Local.get(key: "task")
+        let task: Task? = Local.getTask()
         if let task = task, task.date == today {
             if (!task.submitted) {
                 toStudyCardView = true
@@ -98,6 +108,8 @@ struct HomeView: View {
     
     func homeAppear() {
         
+        task = Local.getTask()
+        
         func handleSuccess(data: Data) -> Void {
             let res : HomeResponse? = dataToObj(data: data)
             if let res = res {
@@ -112,16 +124,6 @@ struct HomeView: View {
         
         Remote.sendGetRequest(path: "/user/home", handleSuccess: handleSuccess, token: Local.getToken())
 
-    }
-    
-    func getLeftWordNum() -> Int {
-        let task: Task? = Local.get(key: "task")
-        if let task = task {
-            if (Date().toNum() == task.date) {
-                return task.newWords.count
-            }
-        }
-        return homeResponse.todayScheduleNum
     }
 
 }
