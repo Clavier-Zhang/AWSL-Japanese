@@ -12,18 +12,7 @@ type Card struct {
 
 	SuccessDayCount int `json:"success_day_count"`
 
+	LastReviewedDate int `json:"last_reviewed_date"`
+
 }
 
-func (card *Card) GetInterval() int {
-	if card.SuccessDayCount == 1 {
-		return 1
-	}
-	if card.SuccessDayCount == 2 {
-		return 6
-	}
-	result := 6
-	for i := 2; i <= card.SuccessDayCount; i++ {
-		result = result * card.EF
-	}
-	return result
-}
