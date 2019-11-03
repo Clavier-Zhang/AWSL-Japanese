@@ -1,9 +1,7 @@
 package task
 
 import (
-	"encoding/json"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"io"
 )
 
 type Task struct {
@@ -22,24 +20,3 @@ type Task struct {
 
 }
 
-func NewTask(email string, date int, wordIDs []primitive.ObjectID) *Task {
-	task := &Task{}
-	task.IsCompleted = false
-	task.Email = email
-	task.Date = date
-	for _, wordID := range wordIDs {
-		task.Records[wordID.String()] = *NewRecord(wordID)
-	}
-	return task
-}
-
-
-
-func DecodeTask(body io.Reader) *Task {
-	task := &Task{}
-	err := json.NewDecoder(body).Decode(task)
-	if err != nil {
-		return nil
-	}
-	return task
-}

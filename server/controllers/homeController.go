@@ -5,6 +5,7 @@ import (
 	"net/http"
 	. "server/models/plan"
 	. "server/models/session"
+	"server/models/word"
 	. "server/utils"
 )
 
@@ -21,6 +22,9 @@ func HomeController(w http.ResponseWriter, r *http.Request) {
 	}
 
 	plan := FindPlanByName(session.CurrentPlan)
+	words := word.FindAllWordsByIDs(session.GetWordIDs())
+	PrettyPrint(session.GetWordIDs())
+	PrettyPrint(words)
 
 	result := Message(true, "Home data")
 	result["finishedWordCount"] = session.GetFinishedWordCount()
