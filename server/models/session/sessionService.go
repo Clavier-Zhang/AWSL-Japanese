@@ -9,6 +9,14 @@ import (
 	"server/models"
 )
 
+func (session *Session) GetReviewWords() []primitive.ObjectID {
+	results := []primitive.ObjectID{}
+	for _, card := range session.Words {
+		log.Println(card)
+	}
+	return results
+}
+
 func (session *Session) GetFinishedWordCount() int {
 	count := 0
 	for _, card := range session.Words {
@@ -34,6 +42,7 @@ func (session *Session) GetWordIDs() []primitive.ObjectID {
 
 func NewSession(email string) *Session {
 	session := &Session{}
+	session.ID = primitive.NewObjectID()
 	session.Email = email
 	session.CurrentPlan = "N5"
 	session.ScheduledWordCount = 50
@@ -65,8 +74,7 @@ func (session *Session) Save() {
 	} else {
 		log.Println("delete insert")
 		session.ID = result.ID
-		_, _ = models.DB.Collection("session").DeleteOne(context.TODO(), filter)
-		_, _ = models.DB.Collection("session").InsertOne(context.TODO(), session)
+		models.DB.Collection("session").FindOneAndReplace(context.TODO(), filter, session)
 	}
 
 }

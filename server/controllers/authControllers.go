@@ -53,6 +53,8 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 
 func UserCreateController(w http.ResponseWriter, r *http.Request) {
 
+	log.Println("User Create Controller")
+
 	requestUser := user.DecodeUser(r.Body)
 
 	// Decoding fails
@@ -102,13 +104,15 @@ func UserCreateController(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Println("Create user:")
-	log.Println(*requestUser)
+
 
 	// Response success
 	requestUser.Password = ""
-	response := Message(true, "Account has been created")
+	response := Message(true, "create user")
 	response["user"] = requestUser
+
+	PrettyPrint(response)
+
 	Respond(w, response)
 
 }

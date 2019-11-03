@@ -1,6 +1,9 @@
 package session
 
-import "go.mongodb.org/mongo-driver/bson/primitive"
+import (
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	. "server/utils"
+)
 
 func NewCard(WordID primitive.ObjectID) *Card {
 	card := &Card{}
@@ -9,6 +12,11 @@ func NewCard(WordID primitive.ObjectID) *Card {
 	card.LastReviewedDate = 0
 	card.SuccessDayCount = 1
 	return card
+}
+
+func (card *Card) GetNextReviewDayCount() int {
+	today := GetToday()
+	return today
 }
 
 func (card *Card) GetInterval() int {

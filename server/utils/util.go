@@ -7,6 +7,8 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
+	"strconv"
+	"time"
 )
 
 func Message(status bool, message string) (map[string]interface{}) {
@@ -14,6 +16,7 @@ func Message(status bool, message string) (map[string]interface{}) {
 }
 
 func Respond(w http.ResponseWriter, data map[string] interface{})  {
+	PrettyPrint(data)
 	w.Header().Add("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(data)
 }
@@ -37,7 +40,7 @@ func NewHashPassword(s string) string {
 	return string(hashed)
 }
 
-func PrettyPrint(v interface{}) (err error) {
+func PrettyPrint(v interface{}) {
 	b, err := json.MarshalIndent(v, "", "  ")
 	if err == nil {
 		fmt.Println(string(b))
@@ -58,4 +61,11 @@ func Union(a, b []primitive.ObjectID) (c []primitive.ObjectID) {
 		}
 	}
 	return
+}
+
+func GetToday() int {
+	today := time.Now()
+	str := today.Format("20060102")
+	num, _ := strconv.Atoi(str)
+	return num
 }
