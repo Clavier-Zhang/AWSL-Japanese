@@ -16,9 +16,5 @@ type Session struct {
 
 	Words map[string]Card `json:"words"`
 
-	FinishedWordIDs []primitive.ObjectID `bson:"finished_word_ids, omitempty"`
-
-	ProgressingWordIDs []primitive.ObjectID `bson:"progressing_word_ids, omitempty"`
-
 }
 

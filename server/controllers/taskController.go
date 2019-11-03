@@ -6,6 +6,9 @@ import (
 	"log"
 	"net/http"
 	. "server/models"
+	. "server/models/plan"
+	. "server/models/session"
+	task2 "server/models/task"
 	. "server/utils"
 )
 
@@ -14,7 +17,12 @@ func TaskGetController(w http.ResponseWriter, r *http.Request) {
 	date := mux.Vars(r)["date"]
 	email := r.Context().Value("email").(string)
 
-	//user := FindByEmail(email)
+	// Check if task already exist
+
+	// Get DB data
+	session := FindSessionByEmail(email)
+	plan := FindPlanByName(session.CurrentPlan)
+	PrettyPrint(plan)
 
 
 
@@ -33,7 +41,7 @@ func TaskGetController(w http.ResponseWriter, r *http.Request) {
 func TaskSubmitController(w http.ResponseWriter, r *http.Request) {
 	// Get data
 	email := r.Context().Value("email").(string)
-	task := DecodeTask(r.Body)
+	task := task2.DecodeTask(r.Body)
 	println(task)
 
 	result := Message(true, "Submit task")

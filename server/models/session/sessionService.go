@@ -38,8 +38,6 @@ func NewSession(email string) *Session {
 	session.CurrentPlan = "N5"
 	session.ScheduledWordCount = 50
 	session.Words = make(map[string]Card)
-	session.FinishedWordIDs = []primitive.ObjectID{}
-	session.ProgressingWordIDs = []primitive.ObjectID{}
 	return session
 }
 
