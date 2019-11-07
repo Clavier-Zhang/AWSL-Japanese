@@ -13,6 +13,7 @@ func HomeController(w http.ResponseWriter, r *http.Request) {
 
 	email := r.Context().Value("email").(string)
 	log.Println("HomeController ", email)
+	GetDateGap(20190610, 20190512)
 
 	session := FindSessionByEmail(email)
 	if session == nil {

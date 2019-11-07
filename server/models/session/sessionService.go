@@ -5,16 +5,32 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
-	"log"
 	"server/models"
+	"sort"
 )
 
-func (session *Session) GetReviewWords() []primitive.ObjectID {
-	results := []primitive.ObjectID{}
+type Pair struct {
+	ID primitive.ObjectID
+	value int
+}
+
+
+func (session *Session) GetReviewWords() *[]primitive.ObjectID {
+	results := []Pair{}
 	for _, card := range session.Words {
-		log.Println(card)
+		remainDays := card.GetNextReviewDayCount()
+		if remainDays <= 0 {
+			results = append(results, Pair{card.WordID, remainDays})
+		}
 	}
-	return results
+	sort.Slice(results, func(i, j int) bool {
+		return results[i].value < results[j].value
+	})
+	wordIDs := []primitive.ObjectID{}
+	for _, p := range results {
+		wordIDs = append(wordIDs, p.ID)
+	}
+	return &wordIDs
 }
 
 func (session *Session) GetFinishedWordCount() int {
@@ -68,11 +84,9 @@ func (session *Session) Save() {
 	err := models.DB.Collection("session").FindOne(context.TODO(), filter).Decode(&result)
 
 	if err == mongo.ErrNoDocuments {
-		log.Println("insert")
 		// Not exist, insert directly
 		_, _ = models.DB.Collection("session").InsertOne(context.TODO(), session)
 	} else {
-		log.Println("delete insert")
 		session.ID = result.ID
 		models.DB.Collection("session").FindOneAndReplace(context.TODO(), filter, session)
 	}

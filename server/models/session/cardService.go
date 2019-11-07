@@ -16,7 +16,8 @@ func NewCard(WordID primitive.ObjectID) *Card {
 
 func (card *Card) GetNextReviewDayCount() int {
 	today := GetToday()
-	return today
+	gap := GetDateGap(today, card.LastReviewedDate)
+	return card.GetInterval()-gap
 }
 
 func (card *Card) GetInterval() int {

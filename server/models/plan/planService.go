@@ -28,20 +28,23 @@ func FindPlanByName(name string) *Plan {
 }
 
 func (plan *Plan) Save() {
-
 	var result Plan
 	filter := bson.D{{"name", plan.Name}}
 	err := models.DB.Collection("plan").FindOne(context.TODO(), filter).Decode(&result)
 
 	if err == mongo.ErrNoDocuments {
-		// Not exist, insert directly
-		_, _ = models.DB.Collection("plan").InsertOne(context.TODO(), plan)
-	} else {
-		// Delete and insert the new plan
-		// Use same ObjectID
-		plan.ID = result.ID
-		_, _ = models.DB.Collection("plan").DeleteOne(context.TODO(), filter)
-		_, _ = models.DB.Collection("plan").InsertOne(context.TODO(), plan)
-	}
 
+		_, _ = models.DB.Collection("plan").InsertOne(context.TODO(), plan)
+
+	} else {
+
+		plan.ID = result.ID
+		models.DB.Collection("plan").FindOneAndReplace(context.TODO(), filter, plan)
+
+	}
+}
+
+func (plan *Plan) Delete() {
+	filter := bson.D{{"name", plan.Name}}
+	_, _ = models.DB.Collection("plan").DeleteOne(context.TODO(), filter)
 }

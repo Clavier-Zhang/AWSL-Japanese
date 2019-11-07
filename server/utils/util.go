@@ -69,3 +69,10 @@ func GetToday() int {
 	num, _ := strconv.Atoi(str)
 	return num
 }
+
+func GetDateGap(d1 int, d2 int) int {
+	date1, _ := time.Parse("20060102", strconv.Itoa(d1))
+	date2, _ := time.Parse("20060102", strconv.Itoa(d2))
+	diff := int(date1.Sub(date2).Hours())
+	return diff/24
+}

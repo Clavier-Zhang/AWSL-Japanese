@@ -99,8 +99,6 @@ func (user *User) Update() bool {
 }
 
 
-
-
 func DecodeUser(body io.Reader) *User {
 	user := &User{}
 	err := json.NewDecoder(body).Decode(user)
