@@ -2,31 +2,52 @@ package session
 
 import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	. "server/utils"
+	"strconv"
+	"time"
 )
 
-func NewCard(WordID primitive.ObjectID) *Card {
-	card := &Card{}
+func NewCard(WordID primitive.ObjectID) Card {
+	card := Card{}
 	card.WordID = WordID
 	card.EF = 2.5
-	card.LastReviewedDate = 0
-	card.SuccessDayCount = 1
+	card.LastReviewDate = 0
+	card.Level = 1
 	return card
 }
 
-func (card *Card) GetNextReviewDayCount() int {
-	today := GetToday()
-	gap := GetDateGap(today, card.LastReviewedDate)
-	return card.GetInterval()-gap
+func (card *Card) GetRemainDaysForNextReview(date int) int {
+	daysAfterReview := GetDateGap(date, card.LastReviewDate)
+	return card.GetInterval() - daysAfterReview
 }
 
 func (card *Card) GetInterval() int {
-	result := 1.0
-	if card.SuccessDayCount >= 2 {
-		result = 6
+	if card.Level == 1 {
+		return 1
 	}
-	for i := 2; i <= card.SuccessDayCount; i++ {
+	if card.Level == 2 {
+		return 6
+	}
+	result := 6.0
+	for i := 3; i <= card.Level; i++ {
 		result = result * card.EF
 	}
 	return int(result)
+}
+
+func GetToday() int {
+	today := time.Now()
+	str := today.Format("20060102")
+	num, _ := strconv.Atoi(str)
+	return num
+}
+
+func GetDateGap(d1 int, d2 int) int {
+	date1, _ := time.Parse("20060102", strconv.Itoa(d1))
+	date2, _ := time.Parse("20060102", strconv.Itoa(d2))
+	diff := int(date1.Sub(date2).Hours())
+	return diff/24
+}
+
+func (card Card) SetLevel(level int) {
+	card.Level = level
 }

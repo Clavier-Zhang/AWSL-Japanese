@@ -12,7 +12,7 @@ type Plan struct {
 
 	Creator string `json:"creator"`
 
-	WordIDs []primitive.ObjectID `bson:"word_ids, omitempty"`
+	WordIDs map[string]bool `bson:"word_ids, omitempty"`
 
 }
 

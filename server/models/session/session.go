@@ -14,7 +14,7 @@ type Session struct {
 
 	ScheduledWordCount int `json:"scheduled_word_count"`
 
-	Words map[string]Card `json:"words"`
+	Cards map[string]Card `json:"cards"`
 
 }
 

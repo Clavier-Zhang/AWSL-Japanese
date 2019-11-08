@@ -24,7 +24,7 @@ func NewTask(email string, date int, wordIDs []primitive.ObjectID) *Task {
 	task.Email = email
 	task.Date = date
 	for _, wordID := range wordIDs {
-		task.Records[wordID.String()] = *NewRecord(wordID)
+		task.Records[wordID.Hex()] = *NewRecord(wordID)
 	}
 	return task
 }

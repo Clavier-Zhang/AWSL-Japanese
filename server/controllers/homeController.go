@@ -13,7 +13,6 @@ func HomeController(w http.ResponseWriter, r *http.Request) {
 
 	email := r.Context().Value("email").(string)
 	log.Println("HomeController ", email)
-	GetDateGap(20190610, 20190512)
 
 	session := FindSessionByEmail(email)
 	if session == nil {
@@ -40,7 +39,7 @@ func HomeController(w http.ResponseWriter, r *http.Request) {
 	result["finishedWordCount"] = session.GetFinishedWordCount()
 	result["progressingWordCount"] = session.GetProgressingWordCount()
 	result["currentPlan"] = session.CurrentPlan
-	result["currentPlanLeftWordCount"] = len(Union(plan.WordIDs, session.GetWordIDs()))
+	//result["currentPlanLeftWordCount"] = len(Union(plan.WordIDs, session.GetWordIDs()))
 
 	Respond(w, result)
 }

@@ -4,15 +4,13 @@ import "go.mongodb.org/mongo-driver/bson/primitive"
 
 type Card struct {
 
-	ID primitive.ObjectID `bson:"_id, omitempty"`
-
 	WordID primitive.ObjectID `bson:"word_id, omitempty"`
 
 	EF float64 `json:"EF"`
 
-	SuccessDayCount int `json:"success_day_count"`
+	Level int `json:"level"`
 
-	LastReviewedDate int `json:"last_reviewed_date"`
+	LastReviewDate int `json:"last_reviewed_date"`
 
 }
 
