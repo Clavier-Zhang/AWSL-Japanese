@@ -6,7 +6,7 @@ import (
 
 type Task struct {
 
-	ID primitive.ObjectID `bson:"_id, omitempty"`
+	ID primitive.ObjectID `bson:"_id"`
 
 	IsCompleted bool `json:"is_completed"`
 

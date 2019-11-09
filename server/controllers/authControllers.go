@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"server/models/user"
@@ -43,9 +42,6 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 	requestUser.Password = ""
 	response := Message(true, "Login Success")
 	response["user"] = requestUser
-
-	log.Println("UserLoginController ")
-	fmt.Println(response)
 
 	Respond(w, response)
 }
@@ -104,15 +100,10 @@ func UserCreateController(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-
-
 	// Response success
 	requestUser.Password = ""
 	response := Message(true, "create user")
 	response["user"] = requestUser
-
-	PrettyPrint(response)
-
 	Respond(w, response)
 
 }

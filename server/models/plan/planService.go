@@ -33,15 +33,12 @@ func (plan *Plan) Save() {
 	err := models.DB.Collection("plan").FindOne(context.TODO(), filter).Decode(&result)
 
 	if err == mongo.ErrNoDocuments {
-
 		_, _ = models.DB.Collection("plan").InsertOne(context.TODO(), plan)
-
 	} else {
-
 		plan.ID = result.ID
 		models.DB.Collection("plan").FindOneAndReplace(context.TODO(), filter, plan)
-
 	}
+
 }
 
 func (plan *Plan) Delete() {

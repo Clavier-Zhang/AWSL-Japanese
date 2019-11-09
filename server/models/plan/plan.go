@@ -6,13 +6,13 @@ import (
 
 type Plan struct {
 
-	ID primitive.ObjectID `bson:"_id, omitempty"`
+	ID primitive.ObjectID `bson:"_id"`
 
 	Name string `json:"name"`
 
 	Creator string `json:"creator"`
 
-	WordIDs map[string]bool `bson:"word_ids, omitempty"`
+	WordIDs map[string]bool `json:"word_ids"`
 
 }
 

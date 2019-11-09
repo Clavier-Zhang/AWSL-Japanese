@@ -1,8 +1,6 @@
 package controllers
 
 import (
-	"fmt"
-	"log"
 	"net/http"
 	. "server/models/plan"
 	. "server/models/session"
@@ -10,36 +8,31 @@ import (
 )
 
 func HomeController(w http.ResponseWriter, r *http.Request) {
-
+	// Get parameter
 	email := r.Context().Value("email").(string)
-	log.Println("HomeController ", email)
-
+	// Find session
 	session := FindSessionByEmail(email)
+
 	if session == nil {
-		fmt.Println("Session not exist, create a new one")
-		session = NewSession(email)
-		session.Save()
+		result := Message(false, "BUG: Session not exist")
+		Respond(w, result)
+		return
 	}
 
+	// Find plan
 	plan := FindPlanByName(session.CurrentPlan)
 
 	if plan == nil {
-		result := Message(false, "Plan "+session.CurrentPlan+" not exist")
+		result := Message(false, "BUG: Plan "+session.CurrentPlan+" not exist")
 		Respond(w, result)
 		return
 	}
 
-	if session == nil {
-		result := Message(false, "Session not exist")
-		Respond(w, result)
-		return
-	}
-
-	result := Message(true, "Home data")
+	// Response
+	result := Message(true, "Get home data")
 	result["finishedWordCount"] = session.GetFinishedWordCount()
 	result["progressingWordCount"] = session.GetProgressingWordCount()
 	result["currentPlan"] = session.CurrentPlan
-	//result["currentPlanLeftWordCount"] = len(Union(plan.WordIDs, session.GetWordIDs()))
-
+	result["currentPlanLeftWordCount"] = len(session.GetNewWordIdsFromPlan(plan))
 	Respond(w, result)
 }

@@ -15,7 +15,6 @@ var DB *mongo.Database
 
 func init() {
 
-	// mongo
 	// Set client options
 	clientOptions := options.Client().ApplyURI("mongodb://47.89.243.163:27017")
 
@@ -34,10 +33,5 @@ func init() {
 	}
 
 	DB = client.Database("awsl")
-	//return client.Database("awsl")
-}
 
-
-func GetClient() *mongo.Database {
-	return DB
 }

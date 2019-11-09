@@ -4,7 +4,7 @@ import "go.mongodb.org/mongo-driver/bson/primitive"
 
 type Card struct {
 
-	WordID primitive.ObjectID `bson:"word_id, omitempty"`
+	WordID primitive.ObjectID `bson:"word_id"`
 
 	EF float64 `json:"EF"`
 

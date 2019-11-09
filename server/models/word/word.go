@@ -6,21 +6,21 @@ import (
 
 type Word struct {
 
-	ID primitive.ObjectID `bson:"_id, omitempty"`
+	ID primitive.ObjectID `bson:"_id"`
 
 	Text string `json:"text"`
 
-	Furigara string `json:"furigara"`
+	Label string `json:"label"`
 
-	EN_Meanings []string `json:"en_meanings"`
+	EnglishMeanings []string `json:"english_meanings"`
 
-	EN_Examples []Example `json:"en_examples"`
+	EnglishExamples []Example `json:"english_examples"`
 
-	CN_Type string `json:"cn_type"`
+	ChineseType string `json:"chinese_type"`
 
-	CN_Meanings []string `json:"cn_meanings"`
+	ChineseMeanings []string `json:"chinese_meanings"`
 
-	CN_Examples []Example `json:"cn_examples"`
+	ChineseExamples []Example `json:"chinese_examples"`
 
 	Audio []byte `json:"audio"`
 
