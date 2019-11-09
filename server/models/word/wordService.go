@@ -8,11 +8,18 @@ import (
 	"server/models"
 )
 
+func NewExample() Example {
+	example := Example{}
+	example.Japanese = ""
+	example.Translation = ""
+	return example
+}
 
 
 // Constructor for Word
 func NewWord() *Word {
 	word := &Word{}
+	word.ID = primitive.NewObjectID()
 	word.Text = ""
 	word.Label = ""
 	word.EnglishMeanings = []string{}

@@ -1,12 +1,15 @@
 package utils
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
+	"io"
 	"net/http"
+	"strings"
 )
 
 func Message(status bool, message string) (map[string]interface{}) {
@@ -59,5 +62,38 @@ func Union(a, b []primitive.ObjectID) (c []primitive.ObjectID) {
 		}
 	}
 	return
+}
+
+func ReaderToBytes(stream io.Reader) []byte {
+	buf := new(bytes.Buffer)
+	buf.ReadFrom(stream)
+	return buf.Bytes()
+}
+
+
+func BytesToFile(bytes []byte) {
+	// Convert bytes to mp3 file
+	//word := &Word{}
+	//filter := bson.D{{"text", "crawler"}}
+	//_ = db.Collection("word").FindOne(context.TODO(), filter).Decode(&word)
+	//file, _ := os.Create("./crawler.mp3")
+	//file.Write(word.Audio)
+	//fmt.Println(word.Audio)
+}
+
+func FindSubStringAndReplace(s string, m map[string]string) string {
+	for key, val := range m {
+		index := strings.Index(s, key)
+		head := ""
+		if index-1 >= 0 {
+			head = s[0:index-1]
+		}
+		tail := ""
+		if index+len(key) < len(s) {
+			tail = s[index+len(key):]
+		}
+		s = head + val + tail
+	}
+	return s
 }
 

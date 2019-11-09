@@ -1,14 +1,14 @@
 package main
 
 import (
-	."crawler/collectors"
+	."server/crawler/collectors"
 )
 
 func main() {
 
 
-	//CollectEN()
-	CollectCN()
+	CollectEN()
+	//CollectCN()
 
 }
 
