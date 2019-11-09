@@ -5,7 +5,9 @@ import (
 	"log"
 	"net/http"
 	. "server/models/task"
-	"server/models/word"
+	. "server/models/word"
+	."server/models/plan"
+	."server/models/session"
 	. "server/utils"
 	"strconv"
 )
@@ -14,30 +16,29 @@ func TaskGetController(w http.ResponseWriter, r *http.Request) {
 	// Get request data
 	date, _ := strconv.Atoi(mux.Vars(r)["date"])
 	email := r.Context().Value("email").(string)
-
 	// Check if task already exist
 	task := FindTaskByEmailAndDate(email, date)
 	// If task has been created
 	if task != nil {
-		wordIDs := task.GetWordIDs()
-		words := word.FindAllWordsByIDs(wordIDs)
-		response := Message(true, "Get task by date")
+		words := WordIdsToWords(task.GetWordIDs())
+		response := Message(true, "Get task by date, task has been created")
 		response["words"] = words
 		Respond(w, response)
 		return
 	}
+	// else, create new task
+	session := FindSessionByEmail(email)
+	plan := FindPlanByName(session.CurrentPlan)
 
-
+	task = NewTask(session, plan, date)
+	task.Save()
 
 
 	response := Message(true, "Get task by date")
+	words := WordIdsToWords(task.GetWordIDs())
 
 
-	words := *word.FindAllLimit()
 	response["words"] = words
-
-	log.Println("TaskGetController ","email:", email, " date:", date)
-
 	Respond(w, response)
 }
 

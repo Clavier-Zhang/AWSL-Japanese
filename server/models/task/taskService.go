@@ -91,6 +91,18 @@ func (task *Task) Save() {
 
 
 
+
+func (task *Task) GetWordIds() *[]primitive.ObjectID{
+	results := []primitive.ObjectID{}
+	for key, _ := range task.Records {
+		id, _ := primitive.ObjectIDFromHex(key)
+		results = append(results, id)
+	}
+	return &results
+}
+
+
+
 func DecodeTask(body io.Reader) *Task {
 	task := &Task{}
 	err := json.NewDecoder(body).Decode(task)
