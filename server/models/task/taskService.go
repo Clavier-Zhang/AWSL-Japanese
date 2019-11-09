@@ -9,6 +9,8 @@ import (
 	"io"
 	"log"
 	"server/models"
+	. "server/models/plan"
+	. "server/models/session"
 )
 
 func (task *Task) GetWordIDs() (results []primitive.ObjectID) {
@@ -18,14 +20,44 @@ func (task *Task) GetWordIDs() (results []primitive.ObjectID) {
 	return
 }
 
-func NewTask(email string, date int, wordIDs []primitive.ObjectID) *Task {
-	task := &Task{}
-	task.IsCompleted = false
-	task.Email = email
-	task.Date = date
-	for _, wordID := range wordIDs {
-		task.Records[wordID.Hex()] = *NewRecord(wordID)
+func Min(x, y int) int {
+	if x < y {
+		return x
 	}
+	return y
+}
+
+func NewTask(session *Session, plan *Plan, date int) *Task {
+	task := &Task{}
+	task.ID = primitive.NewObjectID()
+	task.IsCompleted = false
+	task.Email = session.Email
+	task.Date = date
+	task.Records = map[string]Record{}
+
+	var wordIds []primitive.ObjectID
+	remain := session.ScheduledWordCount
+	reviews := session.GetReviewWordIds(date)
+
+	// Get words from review
+	fromReviewCount := Min(remain, len(reviews))
+	for i := 0; i < fromReviewCount; i++ {
+		wordIds = append(wordIds, reviews[i])
+	}
+	remain -= fromReviewCount
+
+	// Get words from plan
+	planWordIds := session.GetNewWordIdsFromPlan(plan)
+	fromPlanCount := Min(remain, len(planWordIds))
+	for i := 0; i < fromPlanCount; i++ {
+		wordIds = append(wordIds, planWordIds[i])
+	}
+
+	// Create cards
+	for _, wordId := range wordIds {
+		task.Records[wordId.Hex()] = NewRecord(wordId)
+	}
+
 	return task
 }
 

@@ -10,8 +10,8 @@ type Record struct {
 
 }
 
-func NewRecord(wordID primitive.ObjectID) *Record {
-	record := &Record{}
+func NewRecord(wordID primitive.ObjectID) Record {
+	record := Record{}
 	record.WordID = wordID
 	record.ReviewCount = 0
 	return record

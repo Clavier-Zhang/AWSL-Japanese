@@ -4,8 +4,6 @@ import (
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
-	. "server/models/plan"
-	. "server/models/session"
 	. "server/models/task"
 	"server/models/word"
 	. "server/utils"
@@ -29,10 +27,6 @@ func TaskGetController(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Get DB data
-	session := FindSessionByEmail(email)
-	plan := FindPlanByName(session.CurrentPlan)
-	PrettyPrint(plan)
 
 
 

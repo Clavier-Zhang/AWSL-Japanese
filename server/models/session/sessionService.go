@@ -26,7 +26,7 @@ func (session *Session) GetReviewWordIds(today int) []primitive.ObjectID {
 	sort.Slice(results, func(i, j int) bool {
 		return results[i].value < results[j].value
 	})
-	var wordIDs []primitive.ObjectID
+	wordIDs := []primitive.ObjectID{}
 	for _, p := range results {
 		wordIDs = append(wordIDs, p.ID)
 	}
