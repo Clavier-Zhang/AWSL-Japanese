@@ -57,6 +57,13 @@ func (word *Word) Save() {
 
 }
 
+func (word *Word) Delete() {
+
+	filter := bson.D{{"text", word.Text}, {"label", word.Label}}
+	_, _ = models.DB.Collection("word").DeleteOne(context.TODO(), filter)
+
+}
+
 func WordIdsToWords(wordIDs []primitive.ObjectID) *[]Word {
 	words := []Word{}
 	filter := bson.M{"_id": bson.M{"$in": wordIDs}}

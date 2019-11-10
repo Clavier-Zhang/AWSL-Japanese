@@ -4,11 +4,13 @@ package collectors
 import (
 	"github.com/gocolly/colly"
 	"github.com/gocolly/colly/queue"
-	"go.mongodb.org/mongo-driver/bson/primitive"
+	"strconv"
+
+	//"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
 	. "server/models/word"
 	. "server/utils"
-	"strconv"
+	//"strconv"
 
 	//"strconv"
 	"unicode/utf8"
@@ -30,12 +32,12 @@ var taskQueue, _ = queue.New(threadNum, &queue.InMemoryQueueStorage{MaxSize: que
 var success = 0
 var fail = 0
 var errorLinks []string
-var successWordIds []primitive.ObjectID
-
-func CollectEN(level int) {
+var successWords []*Word
+var start time.Time
+func CollectEN(level int) []*Word {
 
 	// Start time
-	start := time.Now()
+	start = time.Now()
 
 	collector.OnHTML("div.concept_light.clearfix", analyzeENPage)
 
@@ -45,16 +47,88 @@ func CollectEN(level int) {
 
 	// End time
 	time := time.Since(start)
+
+	// Output
 	log.Printf("Time: %s, %d success, %d fail", time, success, fail)
 	PrettyPrint(errorLinks)
+
+	return successWords
 }
 
 
 func loadJLPT(level int) {
+	//_ = taskQueue.AddURL("https://jisho.org/search/%23jlpt-n1%20%23words?page=150")
 	for page := 1; page < 200; page++ {
 		url := baseENURL+"%23jlpt-n"+strconv.Itoa(level)+"%20%23words?page="+strconv.Itoa(page)
 		_ = taskQueue.AddURL(url)
 	}
+}
+
+
+
+
+func analyzeENPage(e *colly.HTMLElement) {
+
+	log.Printf("Time: %s, %d success, %d fail", time.Since(start), success, fail)
+
+	//log.Println("Start analyzing", e.Request.URL.String())
+
+	// Get Text
+	text := GetEnglishText(e)
+
+	if text == "" {
+		return
+	}
+
+	label := GetEnglishLabel(e, text)
+
+	if label == "" {
+		fail++
+		errorLinks = append(errorLinks, text)
+		errorLinks = append(errorLinks, e.Request.URL.String())
+		return
+	}
+
+	word := FindWordByTextAndLabel(text, label)
+
+	if word == nil {
+		word = NewWord(text, label)
+	}
+
+	word.EnglishMeanings = GetEnglishMeanings(e)
+
+	word.EnglishExamples = GetEnglishExamples(e)
+
+	word.Save()
+	successWords = append(successWords, word)
+	success++
+
+}
+
+func GetEnglishExamples(e *colly.HTMLElement) []Example {
+	var examples []Example
+	e.ForEach("div.sentence", func(_ int, e *colly.HTMLElement) {
+		example := NewExample()
+		// Get Japanese
+		e.ForEach("span.unlinked", func(_ int, e *colly.HTMLElement) {
+			example.Japanese = example.Japanese + e.Text
+		})
+		// Get Translation
+		example.Translation = e.ChildText("li.english")
+		examples = append(examples, example)
+	})
+	return examples
+}
+
+
+func GetEnglishMeanings(e *colly.HTMLElement) []string {
+	var meanings []string
+	e.ForEach("span.meaning-meaning", func(_ int, e *colly.HTMLElement) {
+		if e.ChildText("span.break-unit") == "" {
+			meanings = append(meanings, e.Text)
+		}
+	})
+	return meanings
 }
 
 func GetEnglishText(e *colly.HTMLElement) string {
@@ -104,53 +178,4 @@ func GetEnglishLabel(e *colly.HTMLElement, text string) string {
 		}
 	}
 	return label
-}
-
-
-func analyzeENPage(e *colly.HTMLElement) {
-
-	// Get Text
-	text := GetEnglishText(e)
-
-	if text == "" {
-		return
-	}
-
-	label := GetEnglishLabel(e, text)
-
-	if label == "" {
-		fail++
-		errorLinks = append(errorLinks, text)
-		errorLinks = append(errorLinks, e.Request.URL.String())
-		return
-	}
-
-	word := FindWordByTextAndLabel(text, label)
-
-	if word == nil {
-		word = NewWord(text, label)
-	}
-
-	// Get EN_Meaning
-	e.ForEach("span.meaning-meaning", func(_ int, e *colly.HTMLElement) {
-		if e.ChildText("span.break-unit") == "" {
-			word.EnglishMeanings = append(word.EnglishMeanings, e.Text)
-		}
-	})
-
-	// Get Examples
-	e.ForEach("div.sentence", func(_ int, e *colly.HTMLElement) {
-		example := NewExample()
-		// Get Japanese
-		e.ForEach("span.unlinked", func(_ int, e *colly.HTMLElement) {
-			example.Japanese = example.Japanese + e.Text
-		})
-		// Get Translation
-		example.Translation = e.ChildText("li.english")
-		word.EnglishExamples = append(word.EnglishExamples, example)
-	})
-
-	word.Save()
-	success++
-
 }
