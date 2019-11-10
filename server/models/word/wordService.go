@@ -17,11 +17,11 @@ func NewExample() Example {
 
 
 // Constructor for Word
-func NewWord() *Word {
+func NewWord(text string, label string) *Word {
 	word := &Word{}
 	word.ID = primitive.NewObjectID()
-	word.Text = ""
-	word.Label = ""
+	word.Text = text
+	word.Label = label
 	word.EnglishMeanings = []string{}
 	word.EnglishExamples = []Example{}
 	word.ChineseType = ""

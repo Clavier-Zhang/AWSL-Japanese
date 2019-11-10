@@ -4,9 +4,12 @@ package collectors
 import (
 	"github.com/gocolly/colly"
 	"github.com/gocolly/colly/queue"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
 	. "server/models/word"
 	. "server/utils"
+	"strconv"
+
 	//"strconv"
 	"unicode/utf8"
 	"time"
@@ -26,56 +29,47 @@ var taskQueue, _ = queue.New(threadNum, &queue.InMemoryQueueStorage{MaxSize: que
 // Results report
 var success = 0
 var fail = 0
-var total = 0
 var errorLinks []string
+var successWordIds []primitive.ObjectID
 
-
-func CollectEN() {
+func CollectEN(level int) {
 
 	// Start time
 	start := time.Now()
 
 	collector.OnHTML("div.concept_light.clearfix", analyzeENPage)
 
-	loadJLPT()
+	loadJLPT(level)
 
 	_ = taskQueue.Run(collector)
 
 	// End time
 	time := time.Since(start)
-	log.Printf("%d Tasks takes time %s, %d success, %d fail", total, time, success, fail)
+	log.Printf("Time: %s, %d success, %d fail", time, success, fail)
 	PrettyPrint(errorLinks)
 }
 
 
-func loadJLPT() {
-	_ = taskQueue.AddURL("https://jisho.org/search/%23jlpt-n5%20%23words?page=33")
-	//for level := 5; level < 6; level++ {
-	//	for page := 1; page < 50; page++ {
-	//		url := baseENURL+"%23jlpt-n"+strconv.Itoa(level)+"%20%23words?page="+strconv.Itoa(page)
-	//		_ = taskQueue.AddURL(url)
-	//	}
-	//}
+func loadJLPT(level int) {
+	for page := 1; page < 200; page++ {
+		url := baseENURL+"%23jlpt-n"+strconv.Itoa(level)+"%20%23words?page="+strconv.Itoa(page)
+		_ = taskQueue.AddURL(url)
+	}
 }
 
+func GetEnglishText(e *colly.HTMLElement) string {
+	return e.ChildText("span.text")
+}
 
-func analyzeENPage(e *colly.HTMLElement) {
-
-	total++
-
-	word := NewWord()
-
-	// Get Text
-	text := e.ChildText("span.text")
-
+func GetEnglishLabel(e *colly.HTMLElement, text string) string {
 	// Get Label
-	labels := []string{}
+	var labels []string
 	// Common label
 	e.ForEach("span.furigana span", func(_ int, e *colly.HTMLElement) {
 		labels = append(labels, e.Text)
 	})
-	justifies := map[string]string{}
 	// Justify label
+	justifies := map[string]string{}
 	e.ForEach("span.furigana ruby", func(_ int, e *colly.HTMLElement) {
 		key := ""
 		value := ""
@@ -88,23 +82,18 @@ func analyzeENPage(e *colly.HTMLElement) {
 		justifies[key] = value
 	})
 
-	if text == "" {
-		fail++
-		return
-	}
-
 	label := ""
 
+	// If is <justify label>
 	if len(justifies) != 0 {
 		label = FindSubStringAndReplace(text, justifies)
 
+		// If is common label
 	} else {
 
+		// Special case, need manually handle
 		if len(labels) != utf8.RuneCountInString(text) {
-			fail++
-			errorLinks = append(errorLinks, text)
-			errorLinks = append(errorLinks, e.Request.URL.String())
-			return
+			return ""
 		}
 		for i, c := range text {
 			if labels[i/3] != "" {
@@ -114,11 +103,33 @@ func analyzeENPage(e *colly.HTMLElement) {
 			}
 		}
 	}
+	return label
+}
 
 
-	word.Label = label
-	word.Text = text
+func analyzeENPage(e *colly.HTMLElement) {
 
+	// Get Text
+	text := GetEnglishText(e)
+
+	if text == "" {
+		return
+	}
+
+	label := GetEnglishLabel(e, text)
+
+	if label == "" {
+		fail++
+		errorLinks = append(errorLinks, text)
+		errorLinks = append(errorLinks, e.Request.URL.String())
+		return
+	}
+
+	word := FindWordByTextAndLabel(text, label)
+
+	if word == nil {
+		word = NewWord(text, label)
+	}
 
 	// Get EN_Meaning
 	e.ForEach("span.meaning-meaning", func(_ int, e *colly.HTMLElement) {
@@ -139,12 +150,7 @@ func analyzeENPage(e *colly.HTMLElement) {
 		word.EnglishExamples = append(word.EnglishExamples, example)
 	})
 
-
-	if word.Text != "" && word.Label != "" {
-		success++
-		PrettyPrint(word)
-	}
-
-
+	word.Save()
+	success++
 
 }
