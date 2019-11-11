@@ -29,14 +29,17 @@ var taskQueue, _ = queue.New(threadNum, &queue.InMemoryQueueStorage{MaxSize: que
 
 
 // Results report
-var success = 0
-var fail = 0
+var success int
+var fail int
 var errorLinks []string
 var successWords []*Word
 var start time.Time
 func CollectEN(level int) []*Word {
 
-	// Start time
+	success = 0
+	fail = 0
+	errorLinks = []string{}
+	successWords = []*Word{}
 	start = time.Now()
 
 	collector.OnHTML("div.concept_light.clearfix", analyzeENPage)
@@ -106,7 +109,7 @@ func analyzeENPage(e *colly.HTMLElement) {
 }
 
 func GetEnglishExamples(e *colly.HTMLElement) []Example {
-	var examples []Example
+	examples := []Example{}
 	e.ForEach("div.sentence", func(_ int, e *colly.HTMLElement) {
 		example := NewExample()
 		// Get Japanese
@@ -122,7 +125,7 @@ func GetEnglishExamples(e *colly.HTMLElement) []Example {
 
 
 func GetEnglishMeanings(e *colly.HTMLElement) []string {
-	var meanings []string
+	meanings := []string{}
 	e.ForEach("span.meaning-meaning", func(_ int, e *colly.HTMLElement) {
 		if e.ChildText("span.break-unit") == "" {
 			meanings = append(meanings, e.Text)
@@ -137,7 +140,7 @@ func GetEnglishText(e *colly.HTMLElement) string {
 
 func GetEnglishLabel(e *colly.HTMLElement, text string) string {
 	// Get Label
-	var labels []string
+	labels := []string{}
 	// Common label
 	e.ForEach("span.furigana span", func(_ int, e *colly.HTMLElement) {
 		labels = append(labels, e.Text)

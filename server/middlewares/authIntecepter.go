@@ -3,7 +3,6 @@ package middlewares
 import (
 	"context"
 	"github.com/dgrijalva/jwt-go"
-	"log"
 	"net/http"
 	user2 "server/models/user"
 	u "server/utils"
@@ -20,7 +19,6 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 
 		//check if request does not need authentication, serve the request if it doesn't need it
 		for _, value := range notAuth {
-
 			if value == requestPath {
 				next.ServeHTTP(w, r)
 				return
@@ -31,21 +29,19 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 		tokenHeader := r.Header.Get("Authorization") //Grab the token from the header
 
 		if tokenHeader == "" { //Token is missing, returns with error code 403 Unauthorized
-			log.Println("Missing auth token")
 			response = u.Message(false, "Missing auth token")
 			w.WriteHeader(http.StatusForbidden)
 			w.Header().Add("Content-Type", "application/json")
-			u.Respond(w, response)
+			u.Respond(w, response, "Interceptor: Missing auth token")
 			return
 		}
 
 		splitted := strings.Split(tokenHeader, " ") //The token normally comes in format `Bearer {token-body}`, we check if the retrieved token matched this requirement
 		if len(splitted) != 2 {
-			log.Println("Invalid/Malformed auth token")
 			response = u.Message(false, "Invalid/Malformed auth token")
 			w.WriteHeader(http.StatusForbidden)
 			w.Header().Add("Content-Type", "application/json")
-			u.Respond(w, response)
+			u.Respond(w, response, "Interceptor: Invalid/Malformed auth token")
 			return
 		}
 
@@ -57,20 +53,18 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 		})
 
 		if err != nil { //Malformed token, returns with http code 403 as usual
-			log.Println("Malformed authentication token")
 			response = u.Message(false, "Malformed authentication token")
 			w.WriteHeader(http.StatusForbidden)
 			w.Header().Add("Content-Type", "application/json")
-			u.Respond(w, response)
+			u.Respond(w, response, "Interceptor: Malformed authentication token")
 			return
 		}
 
 		if !token.Valid { //Token is invalid, maybe not signed on this server
-			log.Println("Token is not valid.")
 			response = u.Message(false, "Token is not valid.")
 			w.WriteHeader(http.StatusForbidden)
 			w.Header().Add("Content-Type", "application/json")
-			u.Respond(w, response)
+			u.Respond(w, response, "Interceptor: Token is not valid")
 			return
 		}
 
@@ -78,11 +72,10 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 
 		user := user2.FindByToken(tokenPart)
 		if user == nil {
-			log.Println("User not exist")
 			response = u.Message(false, "User not exist")
 			w.WriteHeader(http.StatusForbidden)
 			w.Header().Add("Content-Type", "application/json")
-			u.Respond(w, response)
+			u.Respond(w, response, "Interceptor: User not exist")
 			return
 		}
 

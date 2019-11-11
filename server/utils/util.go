@@ -8,6 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
 	"io"
+	"log"
 	"net/http"
 	"strings"
 )
@@ -16,8 +17,9 @@ func Message(status bool, message string) (map[string]interface{}) {
 	return map[string]interface{} {"status" : status, "message" : message}
 }
 
-func Respond(w http.ResponseWriter, data map[string] interface{})  {
-	PrettyPrint(data)
+func Respond(w http.ResponseWriter, data map[string] interface{}, message string)  {
+	log.Println(message)
+	//PrettyPrint(data)
 	w.Header().Add("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(data)
 }

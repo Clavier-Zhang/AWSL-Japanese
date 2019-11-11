@@ -39,6 +39,8 @@ func CollectCN(words *[]*Word) []primitive.ObjectID {
 
 	// Start time for execution time
 	start := time.Now()
+	m = map[string]*Word{}
+	textsMap = map[string]bool{}
 
 	// Set Collector
 	c := colly.NewCollector()
@@ -47,8 +49,7 @@ func CollectCN(words *[]*Word) []primitive.ObjectID {
 
 	c.OnHTML("body", analyzeCNPage)
 
-	m = map[string]*Word{}
-	textsMap = map[string]bool{}
+
 	for _, word := range *words {
 		m[word.Text+word.Label] = word
 		textsMap[word.Text] = true

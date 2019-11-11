@@ -13,10 +13,10 @@ func HomeController(w http.ResponseWriter, r *http.Request) {
 	// Find session
 	session := FindSessionByEmail(email)
 
+	// If session not exists
 	if session == nil {
-		result := Message(false, "BUG: Session not exist")
-		Respond(w, result)
-		return
+		session = NewSession(email)
+		session.Save()
 	}
 
 	// Find plan
@@ -24,7 +24,7 @@ func HomeController(w http.ResponseWriter, r *http.Request) {
 
 	if plan == nil {
 		result := Message(false, "BUG: Plan "+session.CurrentPlan+" not exist")
-		Respond(w, result)
+		Respond(w, result, "")
 		return
 	}
 
@@ -34,5 +34,6 @@ func HomeController(w http.ResponseWriter, r *http.Request) {
 	result["progressingWordCount"] = session.GetProgressingWordCount()
 	result["currentPlan"] = session.CurrentPlan
 	result["currentPlanLeftWordCount"] = len(session.GetNewWordIdsFromPlan(plan))
-	Respond(w, result)
+	result["scheduledWordsCount"] = session.ScheduledWordCount
+	Respond(w, result, "HomeController")
 }

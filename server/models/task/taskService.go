@@ -34,6 +34,7 @@ func NewTask(session *Session, plan *Plan, date int) *Task {
 	task.Email = session.Email
 	task.Date = date
 	task.Records = map[string]Record{}
+	task.NewWordsCount = 0
 
 	var wordIds []primitive.ObjectID
 	remain := session.ScheduledWordCount
@@ -49,14 +50,18 @@ func NewTask(session *Session, plan *Plan, date int) *Task {
 	// Get words from plan
 	planWordIds := session.GetNewWordIdsFromPlan(plan)
 	fromPlanCount := Min(remain, len(planWordIds))
+	task.NewWordsCount = fromPlanCount
 	for i := 0; i < fromPlanCount; i++ {
 		wordIds = append(wordIds, planWordIds[i])
 	}
 
 	// Create cards
 	for _, wordId := range wordIds {
+		session.Cards[wordId.Hex()] = NewCard(wordId)
 		task.Records[wordId.Hex()] = NewRecord(wordId)
 	}
+
+	session.Save()
 
 	return task
 }

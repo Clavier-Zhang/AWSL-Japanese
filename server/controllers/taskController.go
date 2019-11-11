@@ -22,8 +22,9 @@ func TaskGetController(w http.ResponseWriter, r *http.Request) {
 	if task != nil {
 		words := WordIdsToWords(task.GetWordIDs())
 		response := Message(true, "Get task by date, task has been created")
+		response["newWordsCount"] = task.NewWordsCount
 		response["words"] = words
-		Respond(w, response)
+		Respond(w, response, "TaskGetController: task has been created")
 		return
 	}
 	// else, create new task
@@ -37,9 +38,10 @@ func TaskGetController(w http.ResponseWriter, r *http.Request) {
 	response := Message(true, "Get task by date")
 	words := WordIdsToWords(task.GetWordIDs())
 
-
+	response["newWordsCount"] = task.NewWordsCount
 	response["words"] = words
-	Respond(w, response)
+	Respond(w, response, "TaskGetController: Create new task")
+
 }
 
 
@@ -55,5 +57,5 @@ func TaskSubmitController(w http.ResponseWriter, r *http.Request) {
 
 	//log.Println("TaskGetController ","email:", vars["email"], " date: ", vars["date"])
 
-	Respond(w, result)
+	Respond(w, result, "TaskSubmitController")
 }

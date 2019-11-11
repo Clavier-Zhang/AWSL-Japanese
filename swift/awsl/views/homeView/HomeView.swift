@@ -35,6 +35,7 @@ struct HomeView: View {
                 HStack(spacing: 100) {
                     CountLabel(label: "单词书", title: homeResponse.currentPlan)
                     CountLabel(label: "剩余", count: homeResponse.currentPlanLeftWordCount)
+                    CountLabel(label: "每日计划", count: homeResponse.scheduledWordsCount)
                     CountLabel(label: "选择>>", icon: "book")
                 }
                 
@@ -43,14 +44,14 @@ struct HomeView: View {
                 if (task.date == Date().toNum()) {
                     HStack(spacing: 100) {
                         CountLabel(label: "新单词", count: task.getNewCount())
-                        CountLabel(label: "计划单词", count: task.getScheduledCount())
                         CountLabel(label: "剩余单词", count: task.getRemainCount())
+                        CountLabel(label: "总共", count: task.getTotalCount())
                     }
                 } else {
                     HStack(spacing: 100) {
                         CountLabel(label: "新单词", title: "N/A")
-                        CountLabel(label: "计划单词", title: "N/A")
                         CountLabel(label: "剩余单词", title: "N/A")
+                        CountLabel(label: "总共", title: "N/A")
                     }
                 }
                 
@@ -73,36 +74,42 @@ struct HomeView: View {
     }
     
     func pressStart() {
+        print("print start")
         
         let today = Date().toNum()
         
         func handleSuccess(data: Data) -> Void {
-            let res : Response? = dataToObj(data: data)
+            let res : TaskResponse? = dataToObj(data: data)
             if let res = res {
+                print(res)
                 if (res.status) {
-                    let task = Task(words: res.words!, date: today, newCount: 54)
+                    let task = Task(words: res.words, date: today, newCount: res.newWordsCount)
                     task.save()
                     self.toStudyCardView = true
 
                 } else {
-                    print("Fetch task fail")
+                    print("Decode task fail")
                 }
             }
         }
         
-        // Already fetch today's task
-        let task: Task? = Local.getTask()
-        if let task = task, task.date == today {
-            if (!task.submitted) {
-                toStudyCardView = true
-            } else {
-                print("Submitted")
-            }
-            
-        // Otherwise
-        } else {
-            Remote.sendGetRequest(path: "/task/get/"+String(today), handleSuccess: handleSuccess, token: Local.getToken())
-        }
+        Remote.sendGetRequest(path: "/task/get/"+String(today), handleSuccess: handleSuccess, token: Local.getToken())
+        
+//        // Already fetch today's task
+//        let task: Task? = Local.getTask()
+//        if let task = task, task.date == today {
+//            print("already has task")
+//            if (!task.submitted) {
+//                toStudyCardView = true
+//            } else {
+//                print("Submitted")
+//            }
+//
+//        // Otherwise
+//        } else {
+//            print("fetch task", "/task/get/"+String(today))
+//            Remote.sendGetRequest(path: "/task/get/"+String(today), handleSuccess: handleSuccess, token: Local.getToken())
+//        }
     
     }
     

@@ -19,9 +19,9 @@ struct LearnPhase: View {
             
             WordRow(task: task, withFurigara: true)
             
-            MeaningRow(meanings: task.getWord().cn_meanings, type: task.getWord().cn_type)
+            MeaningRow(meanings: task.getWord().chinese_meanings, type: task.getWord().chinese_type)
             
-            ExampleRow(examples: task.getWord().cn_examples)
+            ExampleRow(examples: task.getWord().chinese_examples)
 
             Spacer().frame(height: 50)
             

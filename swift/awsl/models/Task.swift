@@ -47,6 +47,10 @@ struct Task: Codable {
         return newWords.count+finishedWords.count
     }
     
+    func getTotalCount() -> Int {
+        return finishedWords.count + newWords.count
+    }
+    
     func getNewCount() -> Int {
         return newCount
     }
@@ -70,7 +74,7 @@ struct Task: Codable {
     
     func getWord() -> Word {
         if (isEmpty()) {
-            return Word()
+            return Word(ID: Data(), text: "", label: "", english_meanings: [], english_examples: [], chinese_type: "", chinese_meanings: [], chinese_examples: [], audio: Data())
         }
         return newWords[0]
     }

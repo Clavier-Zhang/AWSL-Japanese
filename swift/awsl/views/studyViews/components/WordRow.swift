@@ -25,7 +25,7 @@ struct WordRow: View {
         self.task = task
         self.text = task.getWord().text
         if (withFurigara) {
-            self.text += (" " + "【" + task.getWord().furigara + "】")
+            self.text += (" " + "【" + task.getWord().label + "】")
         }
     }
     
@@ -65,7 +65,7 @@ struct WordRow: View {
     
     func getText() -> String {
         if (withFurigara) {
-            return task.getWord().text + task.getWord().furigara
+            return task.getWord().text + task.getWord().label
         }
         return task.getWord().text
     }

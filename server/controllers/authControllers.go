@@ -14,7 +14,7 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 
 	// Decoding fails
 	if requestUser == nil {
-		Respond(w, Message(false, "Invalid request body"))
+		Respond(w, Message(false, "Invalid request body"), "")
 		return
 	}
 
@@ -25,7 +25,7 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 
 	// Not found in database
 	if dbUser == nil {
-		Respond(w, Message(false, "Email not exist"))
+		Respond(w, Message(false, "Email not exist"), "")
 		return
 	}
 
@@ -43,7 +43,7 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 	response := Message(true, "Login Success")
 	response["user"] = requestUser
 
-	Respond(w, response)
+	Respond(w, response, "")
 }
 
 
@@ -56,7 +56,7 @@ func UserCreateController(w http.ResponseWriter, r *http.Request) {
 	// Decoding fails
 	if requestUser == nil {
 		log.Println("Invalid request body")
-		Respond(w, Message(false, "Invalid request body"))
+		Respond(w, Message(false, "Invalid request body"), "")
 		return
 	}
 
@@ -68,21 +68,21 @@ func UserCreateController(w http.ResponseWriter, r *http.Request) {
 	// Email has been used
 	if dbUser != nil {
 		log.Println("Email has been used")
-		Respond(w, Message(false, "Email has been used"))
+		Respond(w, Message(false, "Email has been used"), "")
 		return
 	}
 
 	// Wrong email format
 	if !strings.Contains(requestUser.Email, "@") {
 		log.Println("Wrong email format")
-		Respond(w, Message(false, "Wrong email format"))
+		Respond(w, Message(false, "Wrong email format"), "")
 		return
 	}
 
 	// Wrong password length
 	if len(requestUser.Password) < 6 {
 		log.Println("Wrong password length")
-		Respond(w, Message(false, "Wrong password length"))
+		Respond(w, Message(false, "Wrong password length"), "")
 		return
 	}
 
@@ -96,7 +96,7 @@ func UserCreateController(w http.ResponseWriter, r *http.Request) {
 
 	if !ok {
 		log.Println("Unknown DB errors")
-		Respond(w, Message(false, "Unknown DB errors"))
+		Respond(w, Message(false, "Unknown DB errors"), "")
 		return
 	}
 
@@ -104,6 +104,6 @@ func UserCreateController(w http.ResponseWriter, r *http.Request) {
 	requestUser.Password = ""
 	response := Message(true, "create user")
 	response["user"] = requestUser
-	Respond(w, response)
+	Respond(w, response, "UserCreateController")
 
 }

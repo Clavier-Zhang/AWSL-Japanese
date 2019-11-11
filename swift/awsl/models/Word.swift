@@ -10,40 +10,44 @@ import Foundation
 
 struct Word: Codable {
     
-    init() {
-
-        text = ""
-        
-        furigara = ""
-        
-        en_meanings = [String]()
-        
-        en_examples = [Example]()
-        
-        cn_type = ""
-        
-        cn_meanings = [String]()
-        
-        cn_examples = [Example]()
-        
-        audio = Data()
-    }
+//    init() {
+//
+//        _id = ""
+//
+//        text = ""
+//
+//        label = ""
+//
+//        english_meanings = [String]()
+//
+//        english_examples = [Example]()
+//
+//        chinese_type = ""
+//
+//        chinese_meanings = [String]()
+//
+//        chinese_examples = [Example]()
+//
+//        audio = Data()
+//    }
     
     // From server
     
+    let ID: Data
+    
     let text: String
     
-    let furigara: String
+    let label: String
     
-    let en_meanings: [String]
+    let english_meanings: [String]
     
-    let en_examples: [Example]
+    let english_examples: [Example]
     
-    let cn_type: String
+    let chinese_type: String
     
-    let cn_meanings: [String]
+    let chinese_meanings: [String]
     
-    let cn_examples: [Example]
+    let chinese_examples: [Example]
     
     var audio: Data
     

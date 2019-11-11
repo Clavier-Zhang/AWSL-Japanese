@@ -18,5 +18,7 @@ type Task struct {
 
 	Records map[string]Record `json:"records"`
 
+	NewWordsCount int `json:"new_words_count"`
+
 }
 
