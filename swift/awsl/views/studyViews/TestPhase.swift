@@ -21,6 +21,8 @@ struct TestPhase: View {
     
     @State var images: [UIImage] = [UIImage]()
     
+    @State var image: UIImage = UIImage()
+    
     var body: some View {
         VStack(spacing: 20) {
             
@@ -39,6 +41,12 @@ struct TestPhase: View {
                 }
             }
             
+            Image(uiImage: image)
+            
+//            ForEach(_,id,self.images) {
+//                Image(uiImage: self.images[id])
+//            }
+           
             // Recognized text
             Text(label)
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 40, alignment: .leading)
@@ -56,10 +64,17 @@ struct TestPhase: View {
     }
     
     func pressSubmit() {
-        label = canvas.getText()
+        
+        print("press submit")
+        image = canvas.getImage()
+        
+//        label = canvas.getText()
+//        images = canvas.getImages()
+        print("label:", label)
+
         // Check the answer
-        task.setCorrect()
-        currentPhase = LEARN_PHASE
+//        task.setCorrect()
+//        currentPhase = LEARN_PHASE
     }
     
     func pressUnableToSpell() {

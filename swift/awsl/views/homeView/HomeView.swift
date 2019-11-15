@@ -18,6 +18,7 @@ struct HomeView: View {
     // Navigation
     @State var toStudyCardView = false
     @State var toFinishStudyView = false
+    @State var disableStart = false
     
     var body: some View {
         NavigationView {
@@ -58,7 +59,10 @@ struct HomeView: View {
                                            
                 Spacer().frame(height: 50)
                 
-                RedButton(text: "开始", action: pressStart)
+                
+                
+                RedButton(text: "开始", action: pressStart, isDisabled: disableStart)
+                
                 
                 // Navigation Links
                 NavigationLink(destination: StudyCardView(), isActive: $toStudyCardView) {
@@ -76,12 +80,13 @@ struct HomeView: View {
     func pressStart() {
         print("print start")
         
+        disableStart = true
+        
         let today = Date().toNum()
         
         func handleSuccess(data: Data) -> Void {
             let res : TaskResponse? = dataToObj(data: data)
             if let res = res {
-                print(res)
                 if (res.status) {
                     let task = Task(words: res.words, date: today, newCount: res.newWordsCount)
                     task.save()
@@ -91,31 +96,31 @@ struct HomeView: View {
                     print("Decode task fail")
                 }
             }
+            disableStart = false
         }
         
-        Remote.sendGetRequest(path: "/task/get/"+String(today), handleSuccess: handleSuccess, token: Local.getToken())
-        
-//        // Already fetch today's task
-//        let task: Task? = Local.getTask()
-//        if let task = task, task.date == today {
-//            print("already has task")
-//            if (!task.submitted) {
-//                toStudyCardView = true
-//            } else {
-//                print("Submitted")
-//            }
-//
-//        // Otherwise
-//        } else {
-//            print("fetch task", "/task/get/"+String(today))
-//            Remote.sendGetRequest(path: "/task/get/"+String(today), handleSuccess: handleSuccess, token: Local.getToken())
-//        }
+        // Already fetch today's task
+        let task: Task? = Local.getTask()
+        if let task = task, task.date == today {
+            print("Today's task has been fetched")
+            if (!task.submitted) {
+                toStudyCardView = true
+            } else {
+                print("Task has been submitted")
+            }
+
+        // Otherwise
+        } else {
+            print("Fetch today's task")
+            Remote.sendGetRequest(path: "/task/get/"+String(today), handleSuccess: handleSuccess, token: Local.getToken())
+        }
     
     }
     
     func homeAppear() {
         
         task = Local.getTask()
+        disableStart = false
         
         func handleSuccess(data: Data) -> Void {
             let res : HomeResponse? = dataToObj(data: data)

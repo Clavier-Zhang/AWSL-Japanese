@@ -12,17 +12,20 @@ struct RedButton: View {
     
     var text: String
     
+    var isDisabled: Bool
+    
     var action: () -> Void
     
-    init(text: String, action: @escaping () -> Void) {
+    init(text: String, action: @escaping () -> Void, isDisabled: Bool = false) {
         self.text = text
         self.action = action
+        self.isDisabled = isDisabled
     }
     
     var body: some View {
         Button(action: action) {
             Text(text)
-        }.buttonStyle(LoginButtonStyle())
+        }.disabled(isDisabled).buttonStyle(LoginButtonStyle())
     }
     
 }

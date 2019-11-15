@@ -30,12 +30,14 @@ class HandwritingRecognizer {
     }
     
     public static func splitText(uiimage: UIImage) -> [UIImage] {
+        print("spilit text")
         let matrix = uiimage.toMatrix()
         if (matrix.count == 0) {
             return [UIImage]()
         }
         // Get char intervals
         let intervals = getCharRanges(matrix: matrix);
+        print(intervals)
         
         var rects = [CGRect]()
         // Get square chars
@@ -88,6 +90,7 @@ class HandwritingRecognizer {
 
             rects.append(CGRect(x: left, y: top, width: side, height: side))
         }
+        print(rects)
         
         return uiimage.toUIImages(rects: rects)
     }
