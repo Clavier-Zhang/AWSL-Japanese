@@ -64,6 +64,7 @@ valid_generator = image_gen_train.flow_from_directory(batch_size=batch_size,
 
 
 model_new = Sequential([
+    
     Conv2D(32, (3, 3), activation='relu', input_shape=(IMG_HEIGHT, IMG_WIDTH ,1)),
 
 
