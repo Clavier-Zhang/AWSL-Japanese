@@ -19,6 +19,8 @@ struct TestPhase: View {
     
     @State var label: String = ""
     
+    @State var disableSubmit: Bool = false
+    
     @State var images: [UIImage] = [UIImage]()
     
     @State var image: UIImage = UIImage()
@@ -31,7 +33,7 @@ struct TestPhase: View {
             
             // Buttons
             HStack {
-                WideButton(label: "提交", action: pressSubmit, center: true)
+                WideButton(label: "提交", action: pressSubmit, center: true).disabled(disableSubmit)
                 WideButton(label: "不会拼", action: pressUnableToSpell, center: true)
             }
             
@@ -64,17 +66,16 @@ struct TestPhase: View {
     }
     
     func pressSubmit() {
+        disableSubmit = true
         
         print("press submit")
-        image = canvas.getImage()
-        
-//        label = canvas.getText()
-//        images = canvas.getImages()
+        label = canvas.getText()
         print("label:", label)
 
         // Check the answer
 //        task.setCorrect()
 //        currentPhase = LEARN_PHASE
+        disableSubmit = false
     }
     
     func pressUnableToSpell() {
