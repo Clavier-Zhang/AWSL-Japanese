@@ -49,7 +49,7 @@ extension UIImage {
     }
     
     func toCVPixelBuffer() -> CVPixelBuffer {
-        return self.pixelBufferGray(width: 32, height: 32)!
+        return self.pixelBufferGray(width: 64, height: 64)!
     }
     
     func pixelBufferGray(width: Int, height: Int) -> CVPixelBuffer? {
