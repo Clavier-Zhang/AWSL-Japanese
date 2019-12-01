@@ -17,6 +17,7 @@ func Test_Save_Find_Delete(t *testing.T) {
 	email := "test@gmail.com"
 	session := NewSession(email)
 	id := session.ID
+	session.Delete()
 
 	assert.Nil(t, FindSessionByEmail(email))
 	session.Save()

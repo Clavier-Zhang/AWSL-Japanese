@@ -2,6 +2,7 @@ package session
 
 import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"math"
 	"strconv"
 	"time"
 )
@@ -50,4 +51,39 @@ func GetDateGap(d1 int, d2 int) int {
 
 func (card Card) SetLevel(level int) {
 	card.Level = level
+}
+
+func (card *Card) ReceiveResponseQuality(reviewCount int, today int) {
+	q := 5.0
+	needReview := false
+	if reviewCount == 0 {
+		// Easy
+		card.Level = 10
+
+	} else if reviewCount == 1 {
+		// Correct
+		q = 5
+		card.Level++
+
+	} else if reviewCount <= 4 {
+		q = 4
+		needReview = true
+
+	} else {
+		q = 3
+		needReview = true
+	}
+
+	EF := card.EF
+	newEF := EF+(0.1-(5.0-q)*(0.08+(5.0-q)*0.02))
+	newEF = math.Max(1.3, newEF)
+	newEF = math.Min(2.5, newEF)
+	card.EF = newEF
+
+	if needReview {
+		card.Level = 1
+	}
+
+	card.LastReviewDate = today
+
 }

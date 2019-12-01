@@ -1,13 +1,12 @@
 package task
 
-
 import (
 	//"github.com/stretchr/testify/assert"
 
 	"github.com/stretchr/testify/assert"
 	//"go.mongodb.org/mongo-driver/bson/primitive"
-	."server/models/plan"
-	."server/models/session"
+	. "server/models/plan"
+	. "server/models/session"
 	//"github.com/stretchr/testify/assert"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"testing"
@@ -56,5 +55,27 @@ func Test_New_Task(t *testing.T) {
 	assert.NotEmpty(t, task.Records[id2.Hex()])
 	assert.NotEmpty(t, task.Records[id3.Hex()])
 	assert.NotEmpty(t, task.Records[id4.Hex()])
+
+}
+
+
+func Test_Report(t *testing.T) {
+
+	id1 := primitive.NewObjectID()
+	report := Report{111, 111, []ReportCard{}}
+	card := ReportCard{id1, 3}
+	report.ReportCards = append(report.ReportCards, card)
+
+	task := Task{}
+	task.Records = map[string]Record{}
+	task.Records[id1.Hex()] = Record{id1, 0}
+	ok := task.HandleReport(report)
+	assert.True(t, ok)
+	assert.Equal(t, task.Records[id1.Hex()].ReviewCount, report.ReportCards[0].ReviewCount)
+
+	id2 := primitive.NewObjectID()
+	task.Records[id2.Hex()] = Record{id2, 5}
+	ok = task.HandleReport(report)
+	assert.False(t, ok)
 
 }

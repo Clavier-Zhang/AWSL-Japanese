@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"github.com/gorilla/mux"
-	"log"
 	"net/http"
 	. "server/models/plan"
 	. "server/models/session"
@@ -49,16 +48,28 @@ func TaskSubmitController(w http.ResponseWriter, r *http.Request) {
 	// Get data
 	email := r.Context().Value("email").(string)
 	report := DecodeReport(r.Body)
-	log.Println("print report")
-	PrettyPrint(*report)
+	task := FindTaskByEmailAndDate(email, report.Date)
+	session := FindSessionByEmail(email)
 
-	//println(report.Date)
+	// Update task
+	ok := task.HandleReport(*report)
+	if !ok {
+		result := Message(false, "Report does not match task")
+		Respond(w, result, "TaskSubmitController: Report does not match task")
+		return
+	}
+
+	// Update session
+	for id, record := range task.Records {
+		card := session.Cards[id]
+		card.ReceiveResponseQuality(record.ReviewCount, task.Date)
+		session.Cards[id] = card
+	}
+
+	// Save session and task
+	session.Save()
+	task.Save()
 
 	result := Message(true, "Submit task")
-
-	log.Println("TaskGetController ","email:", email, " date: ", "123")
-
-	//log.Println("TaskGetController ","email:", vars["email"], " date: ", vars["date"])
-
-	Respond(w, result, "TaskSubmitController")
+	Respond(w, result, "TaskSubmitController: Success, "+email)
 }

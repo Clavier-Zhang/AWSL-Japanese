@@ -54,3 +54,32 @@ func Test_Get_Interval(t *testing.T) {
 
 
 }
+
+func Test_ReceiveResponseQuality(t *testing.T) {
+
+	today := GetToday()
+
+	// Easy
+	card := NewCard(primitive.NewObjectID())
+	card.ReceiveResponseQuality(0, today)
+	assert.True(t, card.GetInterval() >= 10)
+	assert.Equal(t, card.EF, 2.5)
+	assert.Equal(t, card.LastReviewDate, today)
+
+	// Correct
+	card = NewCard(primitive.NewObjectID())
+	card.ReceiveResponseQuality(1, today)
+	assert.Equal(t, card.EF, 2.5)
+	assert.Equal(t, card.Level, 2)
+
+	card = NewCard(primitive.NewObjectID())
+	card.ReceiveResponseQuality(4, today)
+	assert.Equal(t, card.EF, 2.5)
+	assert.Equal(t, card.Level, 1)
+
+	card = NewCard(primitive.NewObjectID())
+	card.ReceiveResponseQuality(5, today)
+	assert.Equal(t, card.EF, 2.36)
+	assert.Equal(t, card.Level, 1)
+
+}

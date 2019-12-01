@@ -2,11 +2,9 @@ package task
 
 import (
 	"context"
-	"encoding/json"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
-	"io"
 	"log"
 	"server/models"
 	. "server/models/plan"
@@ -106,13 +104,22 @@ func (task *Task) GetWordIds() *[]primitive.ObjectID{
 	return &results
 }
 
+func (task *Task) HandleReport(report Report) bool {
 
+	success := 0
+	total := len(task.Records)
 
-func DecodeTask(body io.Reader) *Task {
-	task := &Task{}
-	err := json.NewDecoder(body).Decode(task)
-	if err != nil {
-		return nil
+	for _, card := range report.ReportCards {
+
+		id := card.ID.Hex()
+		if task.Records[id] != (Record{}) {
+			record :=  NewRecord(card.ID)
+			record.ReviewCount = card.ReviewCount
+			task.Records[id] = record
+			success++
+		}
 	}
-	return task
+
+	return success == total
 }
+

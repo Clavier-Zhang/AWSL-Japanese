@@ -34,8 +34,6 @@ type ReportCard struct {
 
 }
 
-
-
 func DecodeReport(body io.Reader) *Report {
 	report := &Report{}
 	err := json.NewDecoder(body).Decode(report)
