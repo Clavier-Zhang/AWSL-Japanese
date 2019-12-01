@@ -30,19 +30,19 @@ struct SubmissionPhase: View {
     
     func pressSubmit() {
         print("submit")
+        let report = Report(task: task)
+        print(report)
         
-        // Make submission body
+  
         
-        task.clearData()
-        
-        let data = objToData(obj: task)
+        let data = objToData(obj: report)
         
         func handleSuccess(data: Data) {
             let res : Response? = dataToObj(data: data)
             if let res = res {
                 print("success submit task")
                 if (res.status) {
-                    task.submitted = true
+//                    task.submitted = true
                     task.save()
                     
                     print(res)
@@ -57,9 +57,7 @@ struct SubmissionPhase: View {
         
         back()
         
-        
-        
-        
+
     }
     
 

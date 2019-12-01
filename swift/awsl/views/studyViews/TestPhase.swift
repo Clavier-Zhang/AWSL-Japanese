@@ -67,14 +67,21 @@ struct TestPhase: View {
     
     func pressSubmit() {
         disableSubmit = true
+        let expectedLabel = task.getWord().label
+        let writtenLabel = canvas.getText()
+        label = writtenLabel
         
-        print("press submit")
-        label = canvas.getText()
-        print("label:", label)
+        print(task.getWord())
+        
+        if (expectedLabel == writtenLabel) {
+            task.setCorrect()
+            currentPhase = LEARN_PHASE
+        } else {
+            print("wrong")
+        }
+        
 
-        // Check the answer
-//        task.setCorrect()
-//        currentPhase = LEARN_PHASE
+
         disableSubmit = false
     }
     

@@ -4,10 +4,10 @@ import (
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+	. "server/models/plan"
+	. "server/models/session"
 	. "server/models/task"
 	. "server/models/word"
-	."server/models/plan"
-	."server/models/session"
 	. "server/utils"
 	"strconv"
 )
@@ -48,8 +48,11 @@ func TaskGetController(w http.ResponseWriter, r *http.Request) {
 func TaskSubmitController(w http.ResponseWriter, r *http.Request) {
 	// Get data
 	email := r.Context().Value("email").(string)
-	task := DecodeTask(r.Body)
-	println(task)
+	report := DecodeReport(r.Body)
+	log.Println("print report")
+	PrettyPrint(*report)
+
+	//println(report.Date)
 
 	result := Message(true, "Submit task")
 

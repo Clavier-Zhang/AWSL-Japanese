@@ -98,6 +98,7 @@ struct HomeView: View {
             }
             disableStart = false
         }
+
         
         // Already fetch today's task
         let task: Task? = Local.getTask()
@@ -106,6 +107,7 @@ struct HomeView: View {
             if (!task.submitted) {
                 toStudyCardView = true
             } else {
+                disableStart = false
                 print("Task has been submitted")
             }
 

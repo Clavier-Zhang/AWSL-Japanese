@@ -52,7 +52,7 @@ func NewSession(email string) *Session {
 	session.ID = primitive.NewObjectID()
 	session.Email = email
 	session.CurrentPlan = "N5"
-	session.ScheduledWordCount = 50
+	session.ScheduledWordCount = 10
 	session.Cards = map[string]Card{}
 	return session
 }
