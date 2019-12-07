@@ -47,6 +47,10 @@ struct HomeView: View {
                         CountLabel(label: "新单词", count: task.getNewCount())
                         CountLabel(label: "剩余单词", count: task.getRemainCount())
                         CountLabel(label: "总共", count: task.getTotalCount())
+                        Button(action: pressSettings) {
+                            CountLabel(label: "设置>>", icon: "gear")
+                        }
+                        
                     }
                 } else {
                     HStack(spacing: 100) {
@@ -60,8 +64,12 @@ struct HomeView: View {
                 Spacer().frame(height: 50)
                 
                 
+                if task.isValid() && task.submitted {
+                    Text("已完成")
+                } else {
+                    RedButton(text: "开始", action: pressStart, isDisabled: disableStart)
+                }
                 
-                RedButton(text: "开始", action: pressStart, isDisabled: disableStart)
                 
                 
                 // Navigation Links
@@ -78,8 +86,6 @@ struct HomeView: View {
     }
     
     func pressStart() {
-        print("print start")
-        
         disableStart = true
         
         let today = Date().toNum()
@@ -91,25 +97,16 @@ struct HomeView: View {
                     let task = Task(words: res.words, date: today, newCount: res.newWordsCount)
                     task.save()
                     self.toStudyCardView = true
-
-                } else {
-                    print("Decode task fail")
                 }
             }
             disableStart = false
         }
 
-        
-        // Already fetch today's task
-        let task: Task? = Local.getTask()
-        if let task = task, task.date == today {
+        // Today's task is valid, but not finished
+        if task.isValid() {
             print("Today's task has been fetched")
-            if (!task.submitted) {
-                toStudyCardView = true
-            } else {
-                disableStart = false
-                print("Task has been submitted")
-            }
+            toStudyCardView = true
+            disableStart = false
 
         // Otherwise
         } else {
@@ -122,8 +119,17 @@ struct HomeView: View {
     func homeAppear() {
         
         task = Local.getTask()
-        disableStart = false
         
+        if task.isValid() && task.isEmpty() && !task.submitted {
+            submitTask()
+        }
+        
+//        print(task)
+//        task.submitted = false
+//        task.save()
+//        task = Local.getTask()
+        
+        // Fetch homedata
         func handleSuccess(data: Data) -> Void {
             let res : HomeResponse? = dataToObj(data: data)
             if let res = res {
@@ -138,6 +144,31 @@ struct HomeView: View {
         
         Remote.sendGetRequest(path: "/user/home", handleSuccess: handleSuccess, token: Local.getToken())
 
+    }
+    
+    func submitTask() {
+        print("submit task")
+        let report = Report(task: task)
+            let data = objToData(obj: report)
+                    
+            func handleSuccess(data: Data) {
+                let res : Response? = dataToObj(data: data)
+                if let res = res {
+                    print("success submit task")
+                    if (res.status) {
+                    task.submitted = true
+                    task.save()
+                    } else {
+                        print("Status false")
+                    }
+                }
+            }
+        
+            Remote.sendPostRequest(path: "/task/submit", data: data, handleSuccess: handleSuccess, token: Local.getToken())
+    }
+    
+    func pressSettings() {
+        print("233")
     }
 
 }

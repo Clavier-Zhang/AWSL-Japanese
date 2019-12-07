@@ -141,6 +141,24 @@ struct Task: Codable {
     func save() {
         Local.save(key: "task", obj: self)
     }
+    
+    func isValid() -> Bool {
+        let today = Date().toNum()
+        return date == today
+    }
+    
+    func getTime() -> String {
+        let hours = studyTime / 3600
+        let minutes = (studyTime % 3600) / 60
+        let seconds = studyTime % 3600 % 60
+        return String(hours) + " 小时 " + String(minutes) + " 分 "
+    }
+    
+    mutating func getTopReviewWords(count: Int) -> [Word] {
+        finishedWords.sort(by: { $0.reviewCount! > $1.reviewCount! })
+        let upper = min(count, finishedWords.count)
+        return Array(finishedWords[..<upper])
+    }
 
     
 }

@@ -32,6 +32,8 @@
 		257DFBFD232B35DD00AA7772 /* CountLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257DFBFC232B35DD00AA7772 /* CountLabel.swift */; };
 		258508EA23525BC800435F93 /* ExampleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258508E923525BC800435F93 /* ExampleRow.swift */; };
 		258508EC23526C4A00435F93 /* RedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258508EB23526C4A00435F93 /* RedButton.swift */; };
+		25B55422239C2CA30040E09E /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B55421239C2CA30040E09E /* Settings.swift */; };
+		25B55427239C30560040E09E /* ReviewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B55426239C30560040E09E /* ReviewList.swift */; };
 		25BA93E023614CD800F505E0 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BA93DF23614CD800F505E0 /* UIImageExtension.swift */; };
 		25BA93E323614E1C00F505E0 /* UIIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BA93E223614E1C00F505E0 /* UIIViewExtension.swift */; };
 		25BA93E62365208F00F505E0 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BA93E52365208F00F505E0 /* DateExtension.swift */; };
@@ -75,6 +77,8 @@
 		257DFBFC232B35DD00AA7772 /* CountLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountLabel.swift; sourceTree = "<group>"; };
 		258508E923525BC800435F93 /* ExampleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleRow.swift; sourceTree = "<group>"; };
 		258508EB23526C4A00435F93 /* RedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedButton.swift; sourceTree = "<group>"; };
+		25B55421239C2CA30040E09E /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		25B55426239C30560040E09E /* ReviewList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewList.swift; sourceTree = "<group>"; };
 		25BA93DF23614CD800F505E0 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		25BA93E223614E1C00F505E0 /* UIIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIIViewExtension.swift; sourceTree = "<group>"; };
 		25BA93E52365208F00F505E0 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
@@ -131,12 +135,12 @@
 		2520423B232C730D00281016 /* studyViews */ = {
 			isa = PBXGroup;
 			children = (
+				25B55423239C30130040E09E /* submissionPhase */,
 				25092379234D87A1003348F1 /* components */,
 				257DFBF9232B28DD00AA7772 /* StudyCardView.swift */,
 				2520423C232D7F1D00281016 /* SelfEvaluationPhase.swift */,
 				25204240232DAA0400281016 /* TestPhase.swift */,
 				25BEE770233C32E90074F510 /* LearnPhase.swift */,
-				2509238023501365003348F1 /* SubmissionPhase.swift */,
 			);
 			path = studyViews;
 			sourceTree = "<group>";
@@ -164,7 +168,6 @@
 		256D82F72352B4C40054DAF0 /* components */ = {
 			isa = PBXGroup;
 			children = (
-				257DFBFC232B35DD00AA7772 /* CountLabel.swift */,
 				256D82F82352B4F00054DAF0 /* UserProfile.swift */,
 			);
 			path = components;
@@ -184,10 +187,20 @@
 		257DFBFB232B2B6500AA7772 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				257DFBFC232B35DD00AA7772 /* CountLabel.swift */,
 				25092373234D7369003348F1 /* ErrorMessage.swift */,
 				258508EB23526C4A00435F93 /* RedButton.swift */,
 			);
 			path = common;
+			sourceTree = "<group>";
+		};
+		25B55423239C30130040E09E /* submissionPhase */ = {
+			isa = PBXGroup;
+			children = (
+				2509238023501365003348F1 /* SubmissionPhase.swift */,
+				25B55426239C30560040E09E /* ReviewList.swift */,
+			);
+			path = submissionPhase;
 			sourceTree = "<group>";
 		};
 		25BA93E123614E0100F505E0 /* extensions */ = {
@@ -208,6 +221,7 @@
 				25E97579234CB7C400F0583E /* Task.swift */,
 				2509237A234EB3AC003348F1 /* Word.swift */,
 				25DF5EF72393514F0007951F /* Report.swift */,
+				25B55421239C2CA30040E09E /* Settings.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -357,6 +371,7 @@
 				25092370234D6CBD003348F1 /* EmailField.swift in Sources */,
 				257DFBEA23287C6E00AA7772 /* HomeView.swift in Sources */,
 				256D82F92352B4F00054DAF0 /* UserProfile.swift in Sources */,
+				25B55427239C30560040E09E /* ReviewList.swift in Sources */,
 				25DF5EF6239242910007951F /* hiraganaModel.mlmodel in Sources */,
 				25092378234D83E1003348F1 /* WideButton.swift in Sources */,
 				2509238123501365003348F1 /* SubmissionPhase.swift in Sources */,
@@ -370,6 +385,7 @@
 				257DFBFA232B28DD00AA7772 /* StudyCardView.swift in Sources */,
 				2509237B234EB3AC003348F1 /* Word.swift in Sources */,
 				258508EA23525BC800435F93 /* ExampleRow.swift in Sources */,
+				25B55422239C2CA30040E09E /* Settings.swift in Sources */,
 				25E14A3F232733EC00050264 /* SceneDelegate.swift in Sources */,
 				257DFBFD232B35DD00AA7772 /* CountLabel.swift in Sources */,
 				25BA93E023614CD800F505E0 /* UIImageExtension.swift in Sources */,
