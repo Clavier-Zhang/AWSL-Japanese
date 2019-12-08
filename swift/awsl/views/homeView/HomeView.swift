@@ -18,7 +18,11 @@ struct HomeView: View {
     // Navigation
     @State var toStudyCardView = false
     @State var toFinishStudyView = false
+    @State var toSettingsView = false
+    @State var toBookListView = false
     @State var disableStart = false
+    
+    @State var planListResponse = PlanListResponse()
     
     var body: some View {
         NavigationView {
@@ -37,7 +41,9 @@ struct HomeView: View {
                     CountLabel(label: "单词书", title: homeResponse.currentPlan)
                     CountLabel(label: "剩余", count: homeResponse.currentPlanLeftWordCount)
                     CountLabel(label: "每日计划", count: homeResponse.scheduledWordsCount)
-                    CountLabel(label: "选择>>", icon: "book")
+                    Button(action: pressBook) {
+                        CountLabel(label: "选择>>", icon: "book")
+                    }
                 }
                 
                 Divider()
@@ -74,6 +80,14 @@ struct HomeView: View {
                 
                 // Navigation Links
                 NavigationLink(destination: StudyCardView(), isActive: $toStudyCardView) {
+                    EmptyView()
+                }
+                
+                NavigationLink(destination: SettingsView(), isActive: $toSettingsView) {
+                    EmptyView()
+                }
+                
+                NavigationLink(destination: PlanListView(data: planListResponse), isActive: $toBookListView) {
                     EmptyView()
                 }
                 
@@ -117,17 +131,12 @@ struct HomeView: View {
     }
     
     func homeAppear() {
-        
+        // update home view
         task = Local.getTask()
         
         if task.isValid() && task.isEmpty() && !task.submitted {
             submitTask()
         }
-        
-//        print(task)
-//        task.submitted = false
-//        task.save()
-//        task = Local.getTask()
         
         // Fetch homedata
         func handleSuccess(data: Data) -> Void {
@@ -168,8 +177,31 @@ struct HomeView: View {
     }
     
     func pressSettings() {
-        print("233")
+        toSettingsView = true
     }
+    
+    func pressBook() {
+        
+        func handleSuccess(data: Data) -> Void {
+            let res : PlanListResponse? = dataToObj(data: data)
+            if let res = res {
+                NSLog("BookListView: Fetch plan list data")
+                if (res.status) {
+                    planListResponse = res
+                    toBookListView = true
+                    
+                } else {
+                    NSLog("BookListView: Fetch plan list data fail")
+                }
+            }
+        }
+        
+        Remote.sendGetRequest(path: "/plan/list", handleSuccess: handleSuccess, token: Local.getToken())
+        
+        
+    }
+    
+
 
 }
 

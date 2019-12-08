@@ -21,6 +21,9 @@ func main() {
 	router.HandleFunc("/api/task/get/{date}", TaskGetController).Methods("GET")
 	router.HandleFunc("/api/task/submit", TaskSubmitController).Methods("POST")
 
+	// Plan
+	router.HandleFunc("/api/plan/list", PlanListGetController).Methods("GET")
+
 	// Middleware
 	router.Use(JwtAuthentication)
 

@@ -34,6 +34,9 @@
 		258508EC23526C4A00435F93 /* RedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258508EB23526C4A00435F93 /* RedButton.swift */; };
 		25B55422239C2CA30040E09E /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B55421239C2CA30040E09E /* Settings.swift */; };
 		25B55427239C30560040E09E /* ReviewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B55426239C30560040E09E /* ReviewList.swift */; };
+		25B5542A239C513C0040E09E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B55429239C513C0040E09E /* SettingsView.swift */; };
+		25B55430239C80530040E09E /* PlanListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B5542F239C80530040E09E /* PlanListView.swift */; };
+		25B55432239CBE700040E09E /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B55431239CBE700040E09E /* Plan.swift */; };
 		25BA93E023614CD800F505E0 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BA93DF23614CD800F505E0 /* UIImageExtension.swift */; };
 		25BA93E323614E1C00F505E0 /* UIIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BA93E223614E1C00F505E0 /* UIIViewExtension.swift */; };
 		25BA93E62365208F00F505E0 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BA93E52365208F00F505E0 /* DateExtension.swift */; };
@@ -79,6 +82,9 @@
 		258508EB23526C4A00435F93 /* RedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedButton.swift; sourceTree = "<group>"; };
 		25B55421239C2CA30040E09E /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		25B55426239C30560040E09E /* ReviewList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewList.swift; sourceTree = "<group>"; };
+		25B55429239C513C0040E09E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		25B5542F239C80530040E09E /* PlanListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListView.swift; sourceTree = "<group>"; };
+		25B55431239CBE700040E09E /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
 		25BA93DF23614CD800F505E0 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		25BA93E223614E1C00F505E0 /* UIIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIIViewExtension.swift; sourceTree = "<group>"; };
 		25BA93E52365208F00F505E0 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
@@ -122,7 +128,6 @@
 		25092379234D87A1003348F1 /* components */ = {
 			isa = PBXGroup;
 			children = (
-				25E9757D234D545700F0583E /* recognizer */,
 				25092377234D83E1003348F1 /* WideButton.swift */,
 				2520423E232DA18A00281016 /* ProgressBar.swift */,
 				25092382235015A8003348F1 /* WordRow.swift */,
@@ -135,11 +140,11 @@
 		2520423B232C730D00281016 /* studyViews */ = {
 			isa = PBXGroup;
 			children = (
+				257DFBF9232B28DD00AA7772 /* StudyCardView.swift */,
+				25B5542D239C7F4E0040E09E /* testPhase */,
 				25B55423239C30130040E09E /* submissionPhase */,
 				25092379234D87A1003348F1 /* components */,
-				257DFBF9232B28DD00AA7772 /* StudyCardView.swift */,
 				2520423C232D7F1D00281016 /* SelfEvaluationPhase.swift */,
-				25204240232DAA0400281016 /* TestPhase.swift */,
 				25BEE770233C32E90074F510 /* LearnPhase.swift */,
 			);
 			path = studyViews;
@@ -176,7 +181,9 @@
 		257DFBEC23288C5900AA7772 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				25B5542E239C80270040E09E /* planView */,
 				25E14A40232733EC00050264 /* ContentView.swift */,
+				25B55428239C51180040E09E /* settingsView */,
 				2509236E234D6C5A003348F1 /* authViews */,
 				25E9757B234D541600F0583E /* homeView */,
 				2520423B232C730D00281016 /* studyViews */,
@@ -203,6 +210,32 @@
 			path = submissionPhase;
 			sourceTree = "<group>";
 		};
+		25B55428239C51180040E09E /* settingsView */ = {
+			isa = PBXGroup;
+			children = (
+				25B55429239C513C0040E09E /* SettingsView.swift */,
+			);
+			path = settingsView;
+			sourceTree = "<group>";
+		};
+		25B5542D239C7F4E0040E09E /* testPhase */ = {
+			isa = PBXGroup;
+			children = (
+				25E9757D234D545700F0583E /* recognizer */,
+				25204240232DAA0400281016 /* TestPhase.swift */,
+				25204242232DAED100281016 /* WritingPad.swift */,
+			);
+			path = testPhase;
+			sourceTree = "<group>";
+		};
+		25B5542E239C80270040E09E /* planView */ = {
+			isa = PBXGroup;
+			children = (
+				25B5542F239C80530040E09E /* PlanListView.swift */,
+			);
+			path = planView;
+			sourceTree = "<group>";
+		};
 		25BA93E123614E0100F505E0 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,6 +255,7 @@
 				2509237A234EB3AC003348F1 /* Word.swift */,
 				25DF5EF72393514F0007951F /* Report.swift */,
 				25B55421239C2CA30040E09E /* Settings.swift */,
+				25B55431239CBE700040E09E /* Plan.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -289,7 +323,6 @@
 			isa = PBXGroup;
 			children = (
 				25DF5EF5239242910007951F /* hiraganaModel.mlmodel */,
-				25204242232DAED100281016 /* WritingPad.swift */,
 				2567037E2336F71C00A9BBE8 /* Recognizer.swift */,
 			);
 			path = recognizer;
@@ -383,6 +416,7 @@
 				25BA93E62365208F00F505E0 /* DateExtension.swift in Sources */,
 				25BEE771233C32E90074F510 /* LearnPhase.swift in Sources */,
 				257DFBFA232B28DD00AA7772 /* StudyCardView.swift in Sources */,
+				25B55430239C80530040E09E /* PlanListView.swift in Sources */,
 				2509237B234EB3AC003348F1 /* Word.swift in Sources */,
 				258508EA23525BC800435F93 /* ExampleRow.swift in Sources */,
 				25B55422239C2CA30040E09E /* Settings.swift in Sources */,
@@ -391,6 +425,7 @@
 				25BA93E023614CD800F505E0 /* UIImageExtension.swift in Sources */,
 				25BA93E323614E1C00F505E0 /* UIIViewExtension.swift in Sources */,
 				25DF5EF82393514F0007951F /* Report.swift in Sources */,
+				25B5542A239C513C0040E09E /* SettingsView.swift in Sources */,
 				2520423D232D7F1D00281016 /* SelfEvaluationPhase.swift in Sources */,
 				257DFBF8232B27FA00AA7772 /* styles.swift in Sources */,
 				25092372234D70C5003348F1 /* PasswordField.swift in Sources */,
@@ -401,6 +436,7 @@
 				257DFBF02329123D00AA7772 /* LoginView.swift in Sources */,
 				25E14A41232733EC00050264 /* ContentView.swift in Sources */,
 				25CFC29023482A1C003D8512 /* User.swift in Sources */,
+				25B55432239CBE700040E09E /* Plan.swift in Sources */,
 				25092383235015A8003348F1 /* WordRow.swift in Sources */,
 				25204241232DAA0400281016 /* TestPhase.swift in Sources */,
 				2520423F232DA18A00281016 /* ProgressBar.swift in Sources */,

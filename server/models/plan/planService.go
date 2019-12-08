@@ -5,6 +5,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"log"
 	"server/models"
 )
 
@@ -15,6 +16,26 @@ func NewPlan(name string, creator string) *Plan {
 	plan.Name = name
 	plan.WordIDs = map[string]bool{}
 	return plan
+}
+
+func FindAllPlans() *[]Plan {
+	plans := []Plan{}
+	filter := bson.D{}
+	cur, err := models.DB.Collection("plan").Find(context.TODO(), filter)
+	if err != nil {
+		return nil
+	}
+	for cur.Next(context.TODO()) {
+		var plan Plan
+		err := cur.Decode(&plan)
+		if err != nil {
+			log.Fatal(err)
+		}
+		plan.WordIDs = nil
+		plans = append(plans, plan)
+	}
+
+	return &plans
 }
 
 func FindPlanByName(name string) *Plan {

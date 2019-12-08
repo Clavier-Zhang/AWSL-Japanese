@@ -51,3 +51,19 @@ struct HomeResponse : Codable {
     var scheduledWordsCount: Int = -1
     
 }
+
+struct PlanListResponse : Codable {
+    
+    var status: Bool = true
+    
+    var message: String = ""
+    
+    var numOptions: [Int] = [Int]()
+    
+    var planOptions: [Plan] = [Plan]()
+    
+    var currentNumOption: Int = 0
+    
+    var currentPlanOption: Int = 0
+    
+}
