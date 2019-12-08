@@ -99,3 +99,8 @@ func FindSubStringAndReplace(s string, m map[string]string) string {
 	return s
 }
 
+func DecodeToMap(body io.Reader) map[string]interface{}{
+	data := &map[string]interface{}{}
+	_ = json.NewDecoder(body).Decode(data)
+	return *data
+}

@@ -158,22 +158,21 @@ struct HomeView: View {
     func submitTask() {
         print("submit task")
         let report = Report(task: task)
-            let data = objToData(obj: report)
+        let data = objToData(obj: report)
                     
-            func handleSuccess(data: Data) {
-                let res : Response? = dataToObj(data: data)
-                if let res = res {
-                    print("success submit task")
-                    if (res.status) {
-                    task.submitted = true
-                    task.save()
-                    } else {
-                        print("Status false")
-                    }
+        func handleSuccess(data: Data) {
+            let res : Response? = dataToObj(data: data)
+            if let res = res {
+                print("success submit task")
+                if (res.status) {
+                task.submitted = true
+                task.save()
+                } else {
+                    print("Status false")
                 }
             }
-        
-            Remote.sendPostRequest(path: "/task/submit", data: data, handleSuccess: handleSuccess, token: Local.getToken())
+        }
+        Remote.sendPostRequest(path: "/task/submit", data: data, handleSuccess: handleSuccess, token: Local.getToken())
     }
     
     func pressSettings() {
@@ -181,7 +180,6 @@ struct HomeView: View {
     }
     
     func pressBook() {
-        
         func handleSuccess(data: Data) -> Void {
             let res : PlanListResponse? = dataToObj(data: data)
             if let res = res {
@@ -189,19 +187,13 @@ struct HomeView: View {
                 if (res.status) {
                     planListResponse = res
                     toBookListView = true
-                    
                 } else {
                     NSLog("BookListView: Fetch plan list data fail")
                 }
             }
         }
-        
         Remote.sendGetRequest(path: "/plan/list", handleSuccess: handleSuccess, token: Local.getToken())
-        
-        
     }
-    
-
 
 }
 

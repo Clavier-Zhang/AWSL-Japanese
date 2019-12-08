@@ -18,6 +18,7 @@ struct SignUpView: View {
     @State var repassword: String = ""
     
     // Navigation
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State var toHome: Bool = false
     
     // Message
@@ -66,7 +67,7 @@ struct SignUpView: View {
     }
     
     
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     func back() -> Void {
         presentationMode.wrappedValue.dismiss()
     }

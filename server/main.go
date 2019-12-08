@@ -24,6 +24,9 @@ func main() {
 	// Plan
 	router.HandleFunc("/api/plan/list", PlanListGetController).Methods("GET")
 
+	// Session
+	router.HandleFunc("/api/session/update", SessionUpdateController).Methods("POST")
+
 	// Middleware
 	router.Use(JwtAuthentication)
 

@@ -52,9 +52,11 @@
 		25E14A46232733ED00050264 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25E14A45232733ED00050264 /* Preview Assets.xcassets */; };
 		25E14A49232733ED00050264 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25E14A47232733ED00050264 /* LaunchScreen.storyboard */; };
 		25E9757A234CB7C400F0583E /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E97579234CB7C400F0583E /* Task.swift */; };
+		F36834E4258DFBDBBF254559 /* Pods_awsl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1703CAC361960E52E1F08080 /* Pods_awsl.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1703CAC361960E52E1F08080 /* Pods_awsl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_awsl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2509236F234D6CBD003348F1 /* EmailField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailField.swift; sourceTree = "<group>"; };
 		25092371234D70C5003348F1 /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
 		25092373234D7369003348F1 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
@@ -102,6 +104,8 @@
 		25E14A48232733ED00050264 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		25E14A4A232733ED00050264 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25E97579234CB7C400F0583E /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		90365B163D62C7AE5A335978 /* Pods-awsl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-awsl.debug.xcconfig"; path = "Target Support Files/Pods-awsl/Pods-awsl.debug.xcconfig"; sourceTree = "<group>"; };
+		FDD423FA84373CD3A2BE692B /* Pods-awsl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-awsl.release.xcconfig"; path = "Target Support Files/Pods-awsl/Pods-awsl.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F36834E4258DFBDBBF254559 /* Pods_awsl.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,8 +186,8 @@
 		257DFBEC23288C5900AA7772 /* views */ = {
 			isa = PBXGroup;
 			children = (
-				25B5542E239C80270040E09E /* planView */,
 				25E14A40232733EC00050264 /* ContentView.swift */,
+				25B5542E239C80270040E09E /* planView */,
 				25B55428239C51180040E09E /* settingsView */,
 				2509236E234D6C5A003348F1 /* authViews */,
 				25E9757B234D541600F0583E /* homeView */,
@@ -265,6 +270,8 @@
 			children = (
 				25E14A3B232733EC00050264 /* awsl */,
 				25E14A3A232733EC00050264 /* Products */,
+				C288CBB59DB590A39F33CA4D /* Pods */,
+				C79554D0074636BD4F0FA1FB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -328,6 +335,24 @@
 			path = recognizer;
 			sourceTree = "<group>";
 		};
+		C288CBB59DB590A39F33CA4D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				90365B163D62C7AE5A335978 /* Pods-awsl.debug.xcconfig */,
+				FDD423FA84373CD3A2BE692B /* Pods-awsl.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		C79554D0074636BD4F0FA1FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1703CAC361960E52E1F08080 /* Pods_awsl.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -335,9 +360,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 25E14A4D232733ED00050264 /* Build configuration list for PBXNativeTarget "awsl" */;
 			buildPhases = (
+				57C1595AB60C4468F234D007 /* [CP] Check Pods Manifest.lock */,
 				25E14A35232733EC00050264 /* Sources */,
 				25E14A36232733EC00050264 /* Frameworks */,
 				25E14A37232733EC00050264 /* Resources */,
+				4777BBDBD25C6D7E6476FB6B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -393,6 +420,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4777BBDBD25C6D7E6476FB6B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-awsl/Pods-awsl-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-awsl/Pods-awsl-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-awsl/Pods-awsl-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		57C1595AB60C4468F234D007 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-awsl-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		25E14A35232733EC00050264 /* Sources */ = {
@@ -574,6 +643,7 @@
 		};
 		25E14A4E232733ED00050264 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 90365B163D62C7AE5A335978 /* Pods-awsl.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -594,6 +664,7 @@
 		};
 		25E14A4F232733ED00050264 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FDD423FA84373CD3A2BE692B /* Pods-awsl.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

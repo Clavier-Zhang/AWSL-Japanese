@@ -7,10 +7,7 @@
 //
 
 import SwiftUI
-import Combine
-
-
-
+import NotificationBannerSwift
 
 struct PlanListView: View {
     
@@ -19,6 +16,10 @@ struct PlanListView: View {
     
     // Navigation
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
+    @State var isAnime = true
+    
+    let banner = StatusBarNotificationBanner(title: "11")
     
     var body: some View {
         NavigationView {
@@ -39,7 +40,7 @@ struct PlanListView: View {
                             }
                         }.pickerStyle(WheelPickerStyle())
                     }
-                    
+                    ActivityIndicator(isAnimating: $isAnime, style: .large)
                     RedButton(text: "保存", action: pressSave)
                     
                 }.frame(width: 800, height: fullHeight)
@@ -51,8 +52,6 @@ struct PlanListView: View {
         .navigationBarItems(leading: BackButton)
         
     }
-    
-
     
     var BackButton : some View {
         HStack {
@@ -70,10 +69,48 @@ struct PlanListView: View {
     }
     
     func pressSave() {
-        let plan = data.planOptions[data.currentPlanOption]
+        let plan = data.planOptions[data.currentPlanOption].name
         let num = data.numOptions[data.currentNumOption]
-        print(plan)
-        print(num)
+        
+        struct Body : Codable {
+            let plan: String
+            let num: Int
+        }
+        
+        let body = Body(plan: plan, num: num)
+        let data = objToData(obj: body)
+        
+        func handleSuccess(data: Data) {
+            let res : Response? = dataToObj(data: data)
+            if let res = res {
+                print("success update plan list")
+                if (res.status) {
+
+                } else {
+                    print("Status false")
+                }
+            }
+        }
+        banner.show()
+        
+        Remote.sendPostRequest(path: "/session/update", data: data, handleSuccess: handleSuccess, token: Local.getToken())
+
     }
     
+    
+}
+
+
+
+struct ActivityIndicator: UIViewRepresentable {
+    @Binding var isAnimating: Bool
+    let style: UIActivityIndicatorView.Style
+
+    func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
+        return UIActivityIndicatorView(style: style)
+    }
+
+    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
+        isAnimating ? uiView.startAnimating() : uiView.stopAnimating()
+    }
 }
