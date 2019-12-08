@@ -17,7 +17,7 @@ struct PlanListView: View {
     // Navigation
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State var isAnime = true
+    @State var isLoadingSave = false
     
     let banner = StatusBarNotificationBanner(title: "11")
     
@@ -40,8 +40,8 @@ struct PlanListView: View {
                             }
                         }.pickerStyle(WheelPickerStyle())
                     }
-                    ActivityIndicator(isAnimating: $isAnime, style: .large)
-                    RedButton(text: "保存", action: pressSave)
+                    
+                    RedButton(text: "保存", isLoading: isLoadingSave, action: pressSave)
                     
                 }.frame(width: 800, height: fullHeight)
             }.frame(width: fullWidth, height: fullHeight+300)
@@ -69,6 +69,7 @@ struct PlanListView: View {
     }
     
     func pressSave() {
+        isLoadingSave = true
         let plan = data.planOptions[data.currentPlanOption].name
         let num = data.numOptions[data.currentNumOption]
         
@@ -80,20 +81,41 @@ struct PlanListView: View {
         let body = Body(plan: plan, num: num)
         let data = objToData(obj: body)
         
-        func handleSuccess(data: Data) {
-            let res : Response? = dataToObj(data: data)
-            if let res = res {
-                print("success update plan list")
-                if (res.status) {
-
-                } else {
-                    print("Status false")
-                }
-            }
-        }
+        
         banner.show()
         
-        Remote.sendPostRequest(path: "/session/update", data: data, handleSuccess: handleSuccess, token: Local.getToken())
+        let myGroup = DispatchGroup()
+
+        for i in 0 ..< 5 {
+            myGroup.enter()
+            
+            func handleSuccess(data: Data) {
+                let res : Response? = dataToObj(data: data)
+                if let res = res {
+                    print("success update plan list")
+                    if (res.status) {
+                        
+                    } else {
+                        print("Status false")
+                    }
+                }
+                isLoadingSave = false
+                myGroup.leave()
+            }
+            
+            Remote.sendPostRequest(path: "/session/update", data: data, handleSuccess: handleSuccess, token: Local.getToken())
+            
+   
+        }
+
+        myGroup.notify(queue: .main) {
+            print("Finished all requests.")
+        }
+        
+        
+            
+        
+        
 
     }
     
@@ -102,15 +124,3 @@ struct PlanListView: View {
 
 
 
-struct ActivityIndicator: UIViewRepresentable {
-    @Binding var isAnimating: Bool
-    let style: UIActivityIndicatorView.Style
-
-    func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
-        return UIActivityIndicatorView(style: style)
-    }
-
-    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
-        isAnimating ? uiView.startAnimating() : uiView.stopAnimating()
-    }
-}

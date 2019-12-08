@@ -25,7 +25,7 @@ struct LearnPhase: View {
 
             Spacer().frame(height: 50)
             
-            RedButton(text: "下一个", action: pressNext)
+            RedButton(text: "下一个", isLoading: false, action: pressNext)
 
         }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
     }

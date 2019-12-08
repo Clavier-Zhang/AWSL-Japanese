@@ -44,7 +44,7 @@ struct LoginView: View {
                     // Buttons
                     VStack(spacing: 20) {
                         // Sign In
-                        RedButton(text: "登录", action: login)
+                        RedButton(text: "登录", isLoading: false, action: login)
                         // Sign Up
                         NavigationLink(destination: SignUpView()) {
                             Text("注册")

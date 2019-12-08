@@ -20,7 +20,7 @@ struct HomeView: View {
     @State var toFinishStudyView = false
     @State var toSettingsView = false
     @State var toBookListView = false
-    @State var disableStart = false
+    @State var isLoadingStart = false
     
     @State var planListResponse = PlanListResponse()
     
@@ -73,7 +73,7 @@ struct HomeView: View {
                 if task.isValid() && task.submitted {
                     Text("已完成")
                 } else {
-                    RedButton(text: "开始", action: pressStart, isDisabled: disableStart)
+                    RedButton(text: "开始", isLoading: isLoadingStart, action: pressStart)
                 }
                 
                 
@@ -100,7 +100,7 @@ struct HomeView: View {
     }
     
     func pressStart() {
-        disableStart = true
+        isLoadingStart = true
         
         let today = Date().toNum()
         
@@ -113,15 +113,15 @@ struct HomeView: View {
                     self.toStudyCardView = true
                 }
             }
-            disableStart = false
+            isLoadingStart = false
         }
 
         // Today's task is valid, but not finished
         if task.isValid() {
             print("Today's task has been fetched")
+            isLoadingStart = false
             toStudyCardView = true
-            disableStart = false
-
+            
         // Otherwise
         } else {
             print("Fetch today's task")

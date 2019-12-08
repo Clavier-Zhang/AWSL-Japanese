@@ -28,7 +28,7 @@ struct SubmissionPhase: View {
                 
                 Spacer().frame(height: 50)
                     
-                RedButton(text: "返回", action: back)
+                RedButton(text: "返回", isLoading: false, action: back)
                 
                 Spacer().frame(height: 200)
                 

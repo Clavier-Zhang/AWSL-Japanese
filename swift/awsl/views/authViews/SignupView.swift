@@ -46,9 +46,9 @@ struct SignUpView: View {
                     // Buttons
                     VStack(spacing: 20) {
                         // Submit
-                        RedButton(text: "提交", action: signup)
+                        RedButton(text: "提交", isLoading: false, action: signup)
                         // Back
-                        RedButton(text: "返回", action: back)
+                        RedButton(text: "返回", isLoading: false, action: back)
                     }
 
                     Spacer().frame(height: 200)

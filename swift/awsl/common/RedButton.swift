@@ -10,22 +10,20 @@ import SwiftUI
 
 struct RedButton: View {
     
-    var text: String
+    @State var text: String
     
-    var isDisabled: Bool
+    @State var isLoading: Bool
     
-    var action: () -> Void
-    
-    init(text: String, action: @escaping () -> Void, isDisabled: Bool = false) {
-        self.text = text
-        self.action = action
-        self.isDisabled = isDisabled
-    }
+    @State var action: () -> Void
     
     var body: some View {
         Button(action: action) {
-            Text(text)
-        }.disabled(isDisabled).buttonStyle(LoginButtonStyle())
+            HStack {
+                ActivityIndicator(isAnimating: $isLoading, style: .medium)
+                Text(text)
+                Spacer().frame(width: 20)
+            }
+        }.disabled(isLoading).buttonStyle(LoginButtonStyle())
     }
     
 }
@@ -40,4 +38,17 @@ struct LoginButtonStyle: ButtonStyle {
             .cornerRadius(20)
     }
 
+}
+
+struct ActivityIndicator: UIViewRepresentable {
+    @Binding var isAnimating: Bool
+    let style: UIActivityIndicatorView.Style
+
+    func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
+        return UIActivityIndicatorView(style: style)
+    }
+
+    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
+        isAnimating ? uiView.startAnimating() : uiView.stopAnimating()
+    }
 }
