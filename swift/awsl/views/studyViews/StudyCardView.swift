@@ -44,7 +44,7 @@ struct StudyCardView: View {
                         } else if (currentPhase == LEARN_PHASE) {
                             LearnPhase(currentPhase: $currentPhase, task: $task)
                         } else if (currentPhase == SUBMISSION_PHASE) {
-                            SubmissionPhase(back: back)
+                            SubmissionPhase(task: $task, back: pressBack)
                         }
                         
                     }
@@ -61,27 +61,11 @@ struct StudyCardView: View {
                 .onAppear(perform: onAppear)
                 .onDisappear(perform: onDisappear)
         }
-            .navigationViewStyle(StackNavigationViewStyle())
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: BackButton)
+        .modifier(NavigationViewBackStyle(pressBack: pressBack))
             
-
     }
     
-    
-    
-    var BackButton : some View {
-        HStack {
-            Spacer().frame(width: 20)
-            Button(action: back) {
-                Image(systemName: "house")
-                    .aspectRatio(contentMode: .fit)
-                    .foregroundColor(.white)
-            }
-        }
-    }
-    
-    func back() {
+    func pressBack() {
         presentationMode.wrappedValue.dismiss()
     }
     

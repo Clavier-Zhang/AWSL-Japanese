@@ -23,6 +23,8 @@ struct LoginView: View {
     @State var toHome: Bool = false
     
     @State var message: String = ""
+    
+    @State var isLoading = false
 
     var body: some View {
         NavigationView {
@@ -44,7 +46,7 @@ struct LoginView: View {
                     // Buttons
                     VStack(spacing: 20) {
                         // Sign In
-                        RedButton(text: "登录", isLoading: false, action: login)
+                        RedButton(text: "登录", isLoading: $isLoading, action: login)
                         // Sign Up
                         NavigationLink(destination: SignUpView()) {
                             Text("注册")

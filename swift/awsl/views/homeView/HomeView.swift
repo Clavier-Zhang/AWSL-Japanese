@@ -73,7 +73,7 @@ struct HomeView: View {
                 if task.isValid() && task.submitted {
                     Text("已完成")
                 } else {
-                    RedButton(text: "开始", isLoading: isLoadingStart, action: pressStart)
+                    RedButton(text: "开始", isLoading: $isLoadingStart, action: pressStart)
                 }
                 
                 
@@ -96,7 +96,8 @@ struct HomeView: View {
                 .background(base)
                 .foregroundColor(fontBase)
                 .onAppear(perform: homeAppear)
-        }.modifier(NavigationViewHiddenStyle())
+        }
+            .modifier(NavigationViewHiddenStyle())
     }
     
     func pressStart() {
@@ -133,11 +134,7 @@ struct HomeView: View {
     func homeAppear() {
         // update home view
         task = Local.getTask()
-        
-        if task.isValid() && task.isEmpty() && !task.submitted {
-            submitTask()
-        }
-        
+
         // Fetch homedata
         func handleSuccess(data: Data) -> Void {
             let res : HomeResponse? = dataToObj(data: data)
@@ -153,26 +150,6 @@ struct HomeView: View {
         
         Remote.sendGetRequest(path: "/user/home", handleSuccess: handleSuccess, token: Local.getToken())
 
-    }
-    
-    func submitTask() {
-        print("submit task")
-        let report = Report(task: task)
-        let data = objToData(obj: report)
-                    
-        func handleSuccess(data: Data) {
-            let res : Response? = dataToObj(data: data)
-            if let res = res {
-                print("success submit task")
-                if (res.status) {
-                task.submitted = true
-                task.save()
-                } else {
-                    print("Status false")
-                }
-            }
-        }
-        Remote.sendPostRequest(path: "/task/submit", data: data, handleSuccess: handleSuccess, token: Local.getToken())
     }
     
     func pressSettings() {

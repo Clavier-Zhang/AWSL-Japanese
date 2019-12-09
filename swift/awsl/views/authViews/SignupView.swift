@@ -24,6 +24,8 @@ struct SignUpView: View {
     // Message
     @State var message: String = ""
     
+    @State var isLoading = false
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -46,9 +48,9 @@ struct SignUpView: View {
                     // Buttons
                     VStack(spacing: 20) {
                         // Submit
-                        RedButton(text: "提交", isLoading: false, action: signup)
+                        RedButton(text: "提交", isLoading: $isLoading, action: signup)
                         // Back
-                        RedButton(text: "返回", isLoading: false, action: back)
+                        RedButton(text: "返回", isLoading: $isLoading, action: back)
                     }
 
                     Spacer().frame(height: 200)

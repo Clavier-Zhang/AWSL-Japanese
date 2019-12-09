@@ -17,9 +17,9 @@ struct PlanListView: View {
     // Navigation
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State var isLoadingSave = false
     
-    let banner = StatusBarNotificationBanner(title: "11")
+    @State var status : Bool = false
+    @State var isLoadingSave = false
     
     var body: some View {
         NavigationView {
@@ -41,30 +41,20 @@ struct PlanListView: View {
                         }.pickerStyle(WheelPickerStyle())
                     }
                     
-                    RedButton(text: "保存", isLoading: isLoadingSave, action: pressSave)
+                    RedButton(text: "保存", isLoading: $isLoadingSave, action: pressSave)
                     
-                }.frame(width: 800, height: fullHeight)
-            }.frame(width: fullWidth, height: fullHeight+300)
+                }
+                .frame(width: 900, height: fullHeight)
+            }
+            .frame(width: fullWidth, height: fullHeight+300)
             .background(base)
             .foregroundColor(fontBase)
-        }.navigationViewStyle(StackNavigationViewStyle())
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: BackButton)
+        }
+        .modifier(NavigationViewBackStyle(pressBack: pressBack))
         
     }
     
-    var BackButton : some View {
-        HStack {
-            Spacer().frame(width: 20)
-            Button(action: back) {
-                Image(systemName: "house")
-                    .aspectRatio(contentMode: .fit)
-                    .foregroundColor(.white)
-            }
-        }
-    }
-    
-    func back() {
+    func pressBack() {
         presentationMode.wrappedValue.dismiss()
     }
     
@@ -81,41 +71,36 @@ struct PlanListView: View {
         let body = Body(plan: plan, num: num)
         let data = objToData(obj: body)
         
-        
-        banner.show()
-        
-        let myGroup = DispatchGroup()
+        let wait = DispatchGroup()
 
-        for i in 0 ..< 5 {
-            myGroup.enter()
-            
-            func handleSuccess(data: Data) {
-                let res : Response? = dataToObj(data: data)
-                if let res = res {
-                    print("success update plan list")
-                    if (res.status) {
-                        
-                    } else {
-                        print("Status false")
-                    }
+        func handleSuccess(data: Data) {
+            let res : Response? = dataToObj(data: data)
+            if let res = res {
+                NSLog("PlanListView: Update plan and schedul")
+                self.status = res.status
+                if (res.status) {
+                    
+                } else {
+                    print("PlanListView: Server return fail")
                 }
-                isLoadingSave = false
-                myGroup.leave()
             }
-            
-            Remote.sendPostRequest(path: "/session/update", data: data, handleSuccess: handleSuccess, token: Local.getToken())
-            
-   
-        }
-
-        myGroup.notify(queue: .main) {
-            print("Finished all requests.")
+            isLoadingSave = false
+            wait.leave()
         }
         
+        wait.enter()
         
+        Remote.sendPostRequest(path: "/session/update", data: data, handleSuccess: handleSuccess, token: Local.getToken())
             
-        
-        
+        wait.notify(queue: .main) {
+            if (self.status) {
+                let banner = StatusBarNotificationBanner(title: "更新设置成功", style: .success)
+                banner.show()
+            } else {
+                let banner = StatusBarNotificationBanner(title: "更新设置成功失败", style: .danger)
+                banner.show()
+            }
+        }
 
     }
     

@@ -12,18 +12,18 @@ struct RedButton: View {
     
     @State var text: String
     
-    @State var isLoading: Bool
+    @State var isLoading: Binding<Bool>
     
     @State var action: () -> Void
     
     var body: some View {
         Button(action: action) {
             HStack {
-                ActivityIndicator(isAnimating: $isLoading, style: .medium)
+                ActivityIndicator(isAnimating: isLoading, style: .medium)
                 Text(text)
                 Spacer().frame(width: 20)
             }
-        }.disabled(isLoading).buttonStyle(LoginButtonStyle())
+        }.disabled(isLoading.wrappedValue).buttonStyle(LoginButtonStyle())
     }
     
 }
@@ -41,7 +41,9 @@ struct LoginButtonStyle: ButtonStyle {
 }
 
 struct ActivityIndicator: UIViewRepresentable {
+    
     @Binding var isAnimating: Bool
+    
     let style: UIActivityIndicatorView.Style
 
     func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {

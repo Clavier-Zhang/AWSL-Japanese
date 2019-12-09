@@ -51,6 +51,13 @@ func TaskSubmitController(w http.ResponseWriter, r *http.Request) {
 	task := FindTaskByEmailAndDate(email, report.Date)
 	session := FindSessionByEmail(email)
 
+	// Check task has been submitted
+	if task.IsCompleted {
+		result := Message(false, "Task has been submmitted")
+		Respond(w, result, "TaskSubmitController: Task has been submmitted")
+		return
+	}
+
 	// Update task
 	ok := task.HandleReport(*report)
 	if !ok {
@@ -67,6 +74,7 @@ func TaskSubmitController(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Save session and task
+	task.IsCompleted = true
 	session.Save()
 	task.Save()
 

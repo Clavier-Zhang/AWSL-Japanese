@@ -12,7 +12,7 @@ struct Remote {
     
     static let baseURL = "http://192.168.31.158:8000/api"
     
-    static func sendGetRequest(path: String, handleSuccess: @escaping (Data) -> Void, token: String) -> Void {
+    static func sendGetRequest(path: String, handleSuccess: @escaping (Data) -> Void, token: String, afterRequest: Any = ()) -> Void {
         
         let url = URL(string: baseURL + path)!
         
@@ -26,7 +26,9 @@ struct Remote {
                 return
             } else {
                 print("ERROR: Request failed")
-                print(response)
+            }
+            if let afterRequest = afterRequest as? ()->Void {
+                afterRequest()
             }
         }
                       

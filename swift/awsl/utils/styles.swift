@@ -32,3 +32,28 @@ struct NavigationViewHiddenStyle: ViewModifier {
             .navigationViewStyle(StackNavigationViewStyle())
     }
 }
+
+struct NavigationViewBackStyle: ViewModifier {
+    
+    var pressBack : () -> Void
+    
+    func body(content: Content) -> some View {
+        content
+            .navigationViewStyle(StackNavigationViewStyle())
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: BackButton)
+    }
+    
+    var BackButton : some View {
+        HStack {
+            Spacer().frame(width: 20)
+            Button(action: pressBack) {
+                Image(systemName: "house")
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundColor(.white)
+            }
+        }
+    }
+    
+
+}
