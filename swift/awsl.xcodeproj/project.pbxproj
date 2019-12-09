@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,8 @@
 		2509238123501365003348F1 /* SubmissionPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2509238023501365003348F1 /* SubmissionPhase.swift */; };
 		25092383235015A8003348F1 /* WordRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25092382235015A8003348F1 /* WordRow.swift */; };
 		2509238723515DC9003348F1 /* MeaningRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2509238623515DC9003348F1 /* MeaningRow.swift */; };
+		250B3092239DF0FB00BB3027 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250B3091239DF0FB00BB3027 /* ChartView.swift */; };
+		250B3094239DF3B500BB3027 /* PlanRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250B3093239DF3B500BB3027 /* PlanRow.swift */; };
 		2520423D232D7F1D00281016 /* SelfEvaluationPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2520423C232D7F1D00281016 /* SelfEvaluationPhase.swift */; };
 		2520423F232DA18A00281016 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2520423E232DA18A00281016 /* ProgressBar.swift */; };
 		25204241232DAA0400281016 /* TestPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25204240232DAA0400281016 /* TestPhase.swift */; };
@@ -65,6 +67,8 @@
 		2509238023501365003348F1 /* SubmissionPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmissionPhase.swift; sourceTree = "<group>"; };
 		25092382235015A8003348F1 /* WordRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordRow.swift; sourceTree = "<group>"; };
 		2509238623515DC9003348F1 /* MeaningRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeaningRow.swift; sourceTree = "<group>"; };
+		250B3091239DF0FB00BB3027 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		250B3093239DF3B500BB3027 /* PlanRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanRow.swift; sourceTree = "<group>"; };
 		2520423C232D7F1D00281016 /* SelfEvaluationPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfEvaluationPhase.swift; sourceTree = "<group>"; };
 		2520423E232DA18A00281016 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		25204240232DAA0400281016 /* TestPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPhase.swift; sourceTree = "<group>"; };
@@ -142,6 +146,14 @@
 			path = components;
 			sourceTree = "<group>";
 		};
+		250B3090239DF0E500BB3027 /* chartView */ = {
+			isa = PBXGroup;
+			children = (
+				250B3091239DF0FB00BB3027 /* ChartView.swift */,
+			);
+			path = chartView;
+			sourceTree = "<group>";
+		};
 		2520423B232C730D00281016 /* studyViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				25E14A40232733EC00050264 /* ContentView.swift */,
+				250B3090239DF0E500BB3027 /* chartView */,
 				25B5542E239C80270040E09E /* planView */,
 				25B55428239C51180040E09E /* settingsView */,
 				2509236E234D6C5A003348F1 /* authViews */,
@@ -313,6 +326,7 @@
 			children = (
 				256D82F72352B4C40054DAF0 /* components */,
 				257DFBE923287C6E00AA7772 /* HomeView.swift */,
+				250B3093239DF3B500BB3027 /* PlanRow.swift */,
 			);
 			path = homeView;
 			sourceTree = "<group>";
@@ -341,7 +355,6 @@
 				90365B163D62C7AE5A335978 /* Pods-awsl.debug.xcconfig */,
 				FDD423FA84373CD3A2BE692B /* Pods-awsl.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -475,6 +488,7 @@
 				256D82F92352B4F00054DAF0 /* UserProfile.swift in Sources */,
 				25B55427239C30560040E09E /* ReviewList.swift in Sources */,
 				25DF5EF6239242910007951F /* hiraganaModel.mlmodel in Sources */,
+				250B3094239DF3B500BB3027 /* PlanRow.swift in Sources */,
 				25092378234D83E1003348F1 /* WideButton.swift in Sources */,
 				2509238123501365003348F1 /* SubmissionPhase.swift in Sources */,
 				2567037F2336F71C00A9BBE8 /* Recognizer.swift in Sources */,
@@ -507,6 +521,7 @@
 				25CFC29023482A1C003D8512 /* User.swift in Sources */,
 				25B55432239CBE700040E09E /* Plan.swift in Sources */,
 				25092383235015A8003348F1 /* WordRow.swift in Sources */,
+				250B3092239DF0FB00BB3027 /* ChartView.swift in Sources */,
 				25204241232DAA0400281016 /* TestPhase.swift in Sources */,
 				2520423F232DA18A00281016 /* ProgressBar.swift in Sources */,
 				257DFBF2232A64F300AA7772 /* constants.swift in Sources */,

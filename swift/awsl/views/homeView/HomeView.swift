@@ -19,10 +19,9 @@ struct HomeView: View {
     @State var toStudyCardView = false
     @State var toFinishStudyView = false
     @State var toSettingsView = false
-    @State var toBookListView = false
+
     @State var isLoadingStart = false
-    
-    @State var planListResponse = PlanListResponse()
+    @State var toChartView = false
     
     var body: some View {
         NavigationView {
@@ -32,19 +31,14 @@ struct HomeView: View {
                     UserProfile(user: user)
                     CountLabel(label: "已完成", count: homeResponse.finishedWordCount)
                     CountLabel(label: "进行中", count: homeResponse.progressingWordCount)
-                    CountLabel(label: "详细>>", icon: "chart.bar")
+                    Button(action: pressChart) {
+                        CountLabel(label: "详细>>", icon: "chart.bar")
+                    }
                 }
                 
                 Divider()
                 
-                HStack(spacing: 100) {
-                    CountLabel(label: "单词书", title: homeResponse.currentPlan)
-                    CountLabel(label: "剩余", count: homeResponse.currentPlanLeftWordCount)
-                    CountLabel(label: "每日计划", count: homeResponse.scheduledWordsCount)
-                    Button(action: pressBook) {
-                        CountLabel(label: "选择>>", icon: "book")
-                    }
-                }
+                PlanRow(homeResponse: $homeResponse)
                 
                 Divider()
                
@@ -69,7 +63,6 @@ struct HomeView: View {
                                            
                 Spacer().frame(height: 50)
                 
-                
                 if task.isValid() && task.submitted {
                     Text("已完成")
                 } else {
@@ -79,17 +72,23 @@ struct HomeView: View {
                 
                 
                 // Navigation Links
-                NavigationLink(destination: StudyCardView(), isActive: $toStudyCardView) {
-                    EmptyView()
+                HStack {
+                    
+                    NavigationLink(destination: StudyCardView(), isActive: $toStudyCardView) {
+                        EmptyView()
+                    }
+                    
+                    NavigationLink(destination: SettingsView(), isActive: $toSettingsView) {
+                        EmptyView()
+                    }
+                    
+                    NavigationLink(destination: ChartView(), isActive: $toChartView) {
+                        EmptyView()
+                    }
+                    
                 }
                 
-                NavigationLink(destination: SettingsView(), isActive: $toSettingsView) {
-                    EmptyView()
-                }
-                
-                NavigationLink(destination: PlanListView(data: planListResponse), isActive: $toBookListView) {
-                    EmptyView()
-                }
+
                 
             }
                 .frame(width: fullWidth, height: fullHeight+300)
@@ -156,20 +155,8 @@ struct HomeView: View {
         toSettingsView = true
     }
     
-    func pressBook() {
-        func handleSuccess(data: Data) -> Void {
-            let res : PlanListResponse? = dataToObj(data: data)
-            if let res = res {
-                NSLog("BookListView: Fetch plan list data")
-                if (res.status) {
-                    planListResponse = res
-                    toBookListView = true
-                } else {
-                    NSLog("BookListView: Fetch plan list data fail")
-                }
-            }
-        }
-        Remote.sendGetRequest(path: "/plan/list", handleSuccess: handleSuccess, token: Local.getToken())
+    func pressChart() {
+        toChartView = true
     }
 
 }

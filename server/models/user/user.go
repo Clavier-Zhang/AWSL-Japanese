@@ -24,6 +24,8 @@ type User struct {
 
 	name string `json:"name"`
 
+	avatar []byte `json:"avatar"`
+
 }
 
 

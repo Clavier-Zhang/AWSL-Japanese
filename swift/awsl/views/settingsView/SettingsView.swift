@@ -36,7 +36,8 @@ struct SettingsView: View {
             .frame(width: fullWidth, height: fullHeight+300)
             .background(base)
             .foregroundColor(fontBase)
-        }.modifier(NavigationViewBackStyle(pressBack: pressBack))
+        }
+        .modifier(NavigationViewBackStyle(pressBack: pressBack))
 
     }
     
