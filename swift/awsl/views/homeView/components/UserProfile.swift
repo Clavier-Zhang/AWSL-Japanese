@@ -20,7 +20,7 @@ struct UserProfile: View {
     
     var body: some View {
         HStack (spacing: 10) {
-            Image("1")
+            Image("avatar")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 50, height: 50)
@@ -28,7 +28,7 @@ struct UserProfile: View {
             Text(user.email)
             
             
-            Button(action: action) {
+            Button(action: logout) {
                 HStack {
                     Text("退出")
                 }
@@ -42,7 +42,11 @@ struct UserProfile: View {
         }.frame(minWidth: 0, maxWidth: .infinity)
     }
     
-    func action() {
+    func logout() {
+        User.delete()
+        Task.delete()
+        Settings.delete()
+        
         toLoginView = true
     }
 }

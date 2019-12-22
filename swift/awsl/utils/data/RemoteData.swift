@@ -52,7 +52,6 @@ struct Remote {
                 return
             } else {
                 print("ERROR: Request failed")
-                print(response)
             }
         }
                       

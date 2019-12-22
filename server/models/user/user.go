@@ -28,7 +28,6 @@ type User struct {
 
 }
 
-
 func (user *User) ExistEmail() bool {
 	var result User
 	filter := bson.D{{"email", user.Email}}
@@ -44,26 +43,6 @@ func FindByToken(token string) *User {
 		return nil
 	}
 	return &result
-}
-
-
-func FindByEmail(email string) *User {
-	user := &User{}
-	filter := bson.D{{"email", email}}
-	err := models.DB.Collection("user").FindOne(context.TODO(), filter).Decode(&user)
-	// If not found
-	if err != nil {
-		return nil
-	}
-	return user
-}
-
-func (user *User) Insert() bool {
-	if user.ExistEmail() {
-		return false
-	}
-	_, _ = models.DB.Collection("user").InsertOne(context.TODO(), user)
-	return true
 }
 
 func (user *User) Update() bool {

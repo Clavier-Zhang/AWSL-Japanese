@@ -11,11 +11,11 @@ import Foundation
 
 struct User: Codable {
     
-    let email: String
+    var email: String
     
-    let password: String
+    var password: String
     
-    let token: String
+    var token: String
     
     static func get() -> User {
         var user : User? = Local.get(key: "user")
@@ -32,7 +32,12 @@ struct User: Codable {
     }
     
     func isValid() -> Bool {
-        return email != "" && token != "" && password != ""
+        return email != "" && token != ""
+    }
+    
+    static func delete() {
+        let user = User(email: "", password: "", token: "")
+        user.save()
     }
     
 }

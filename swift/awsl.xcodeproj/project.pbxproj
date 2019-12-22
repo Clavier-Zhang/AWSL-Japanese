@@ -174,11 +174,11 @@
 		2567037D2336F5FA00A9BBE8 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				25E9757C234D544200F0583E /* data */,
 				25BA93E123614E0100F505E0 /* extensions */,
+				25D6091923AEC42C00152164 /* notification.swift */,
 				257DFBF7232B27FA00AA7772 /* styles.swift */,
 				257DFBF1232A64F300AA7772 /* constants.swift */,
-				25E9757C234D544200F0583E /* data */,
-				25D6091923AEC42C00152164 /* notification.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -195,6 +195,7 @@
 		256D82F72352B4C40054DAF0 /* components */ = {
 			isa = PBXGroup;
 			children = (
+				250B3093239DF3B500BB3027 /* PlanRow.swift */,
 				256D82F82352B4F00054DAF0 /* UserProfile.swift */,
 			);
 			path = components;
@@ -331,7 +332,6 @@
 			children = (
 				256D82F72352B4C40054DAF0 /* components */,
 				257DFBE923287C6E00AA7772 /* HomeView.swift */,
-				250B3093239DF3B500BB3027 /* PlanRow.swift */,
 			);
 			path = homeView;
 			sourceTree = "<group>";

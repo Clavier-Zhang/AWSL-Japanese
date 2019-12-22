@@ -55,14 +55,6 @@ struct Local {
         save(key: "task", obj: task)
     }
     
-//    static func getSettings() -> Settings {
-//        let task: Settings? = self.get(key: "settings")
-//        if let settings = settings {
-//            return settings
-//        }
-//        return Settings()
-//    }
-    
     static func getToken() -> String {
         let user : User? = Local.get(key: "user")
         if let user = user {

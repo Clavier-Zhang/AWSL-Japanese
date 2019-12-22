@@ -21,9 +21,9 @@ struct SignUpView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State var toHome: Bool = false
     
-    // Message
+    // Request
+    @State var status = false
     @State var message: String = ""
-    
     @State var isLoading = false
     
     var body: some View {
@@ -49,66 +49,66 @@ struct SignUpView: View {
                     Spacer().frame(height: 10)
                     
                     VStack(spacing: 20) {
-                        // Submit
                         RedButton(text: "提交", isLoading: $isLoading, action: signup)
-                        // Back
-                        RedButton(text: "返回", isLoading: $isLoading, action: back)
+                        RedButton(text: "返回", action: back)
                     }
 
                     Spacer().frame(height: 200)
                     
                 }.frame(width: 300, height: fullHeight)
                 
-                // Navigation Links
                 NavigationLink(destination: HomeView(), isActive: $toHome) {
                     EmptyView()
                 }
+                
             }
-                .frame(width: fullWidth, height: fullHeight+300)
-                .background(base)
-                .foregroundColor(fontBase)
-        }.modifier(NavigationViewHiddenStyle())
+            .modifier(BaseViewStyle())
+        }
+        .modifier(NavigationViewHiddenStyle())
     }
-    
-    
     
     func back() -> Void {
         presentationMode.wrappedValue.dismiss()
     }
     
-    
-    func signup() -> Void {
+    func signup() {
         
         if (password != repassword) {
-            message = "Re-Password does not match"
+            notification("注册失败: 两次输入密码不一致", .danger)
             return
         }
         
-        let user = User(email: self.email, password: self.password, token: "")
+        isLoading = true
+        let wait = DispatchGroup()
+        wait.enter()
         
+        let user = User(email: self.email, password: self.password, token: "")
         let data = objToData(obj: user)
 
         func handleSuccess(data: Data) -> Void {
-            
             let res : Response? = dataToObj(data: data)
-            
-            if res == nil {
-                self.message = "Decoder error"
-            }
-            
             if let res = res {
-                print(res)
+                status = res.status
+                message = res.message
                 if (res.status) {
-                    user.save()
-                    self.toHome = true
-                } else {
-                    self.message = res.message
+                    res.user!.save()
                 }
             }
+            wait.leave()
         }
 
         Remote.sendPostRequest(path: "/user/create", data: data, handleSuccess: handleSuccess)
         
+        wait.notify(queue: .main) {
+            if (self.status) {
+                notification("注册成功", .success)
+                self.toHome = true
+            } else {
+                notification("注册失败: "+self.message, .danger)
+            }
+            self.isLoading = false
+        }
     }
+    
 }
 

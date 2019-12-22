@@ -15,7 +15,7 @@ struct Report : Codable {
         studyTime = task.studyTime
         reportCards = [ReportCard]()
         for word in task.finishedWords {
-            var card = ReportCard(
+            let card = ReportCard(
                 ID: word.ID,
                 reviewCount: word.reviewCount!
             )

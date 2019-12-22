@@ -12,18 +12,27 @@ struct RedButton: View {
     
     @State var text: String
     
-    @State var isLoading: Binding<Bool>
+    @State var isLoading: Binding<Bool>?
     
     @State var action: () -> Void
+    
+    @State var defaultIsLoading = false
     
     var body: some View {
         Button(action: action) {
             HStack {
-                ActivityIndicator(isAnimating: isLoading, style: .medium)
+                ActivityIndicator(isAnimating: getLoadingStatus(), style: .medium)
                 Text(text)
                 Spacer().frame(width: 20)
             }
-        }.disabled(isLoading.wrappedValue).buttonStyle(LoginButtonStyle())
+        }.disabled(getLoadingStatus().wrappedValue).buttonStyle(LoginButtonStyle())
+    }
+    
+    func getLoadingStatus() -> Binding<Bool> {
+        if let isLoading = isLoading {
+            return isLoading
+        }
+        return $defaultIsLoading
     }
     
 }

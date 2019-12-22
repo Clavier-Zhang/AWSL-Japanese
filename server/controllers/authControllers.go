@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"log"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"net/http"
 	"server/models/user"
 	. "server/utils"
@@ -12,18 +12,16 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 
 	requestUser := user.DecodeUser(r.Body)
 
-	PrettyPrint(requestUser)
-
 	// Decoding fails
 	if requestUser == nil {
-		Respond(w, Message(false, "Invalid request body"), "")
+		Respond(w, Message(false, "Invalid request body"), "Invalid request body")
 		return
 	}
 
 	// Email to lowercase
 	requestUser.Email = strings.ToLower(requestUser.Email)
 
-	dbUser := user.FindByEmail(requestUser.Email)
+	dbUser := user.FindUserByEmail(requestUser.Email)
 
 	// Not found in database
 	if dbUser == nil {
@@ -38,12 +36,12 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//Create JWT token
-	requestUser.Token = user.NewToken()
-	requestUser.Update()
+	dbUser.Token = user.NewToken()
+	dbUser.Save()
 
-	requestUser.Password = ""
+	dbUser.Password = ""
 	response := Message(true, "Login Success")
-	response["user"] = requestUser
+	response["user"] = dbUser
 
 	Respond(w, response, "UserLoginController: Success")
 }
@@ -51,61 +49,50 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 
 func UserCreateController(w http.ResponseWriter, r *http.Request) {
 
-	log.Println("User Create Controller")
-
 	requestUser := user.DecodeUser(r.Body)
 
 	// Decoding fails
 	if requestUser == nil {
-		log.Println("Invalid request body")
-		Respond(w, Message(false, "Invalid request body"), "")
+		Respond(w, Message(false, "Invalid request body"), "Invalid request body")
 		return
 	}
 
 	// Email to lowercase
 	requestUser.Email = strings.ToLower(requestUser.Email)
 
-	dbUser := user.FindByEmail(requestUser.Email)
+	dbUser := user.FindUserByEmail(requestUser.Email)
 
 	// Email has been used
 	if dbUser != nil {
-		log.Println("Email has been used")
-		Respond(w, Message(false, "Email has been used"), "")
+		Respond(w, Message(false, "Email has been used"), "Email has been used")
 		return
 	}
 
 	// Wrong email format
 	if !strings.Contains(requestUser.Email, "@") {
-		log.Println("Wrong email format")
-		Respond(w, Message(false, "Wrong email format"), "")
+		Respond(w, Message(false, "Wrong email format"), "Wrong email format")
 		return
 	}
 
 	// Wrong password length
 	if len(requestUser.Password) < 6 {
-		log.Println("Wrong password length")
-		Respond(w, Message(false, "Wrong password length"), "")
+		Respond(w, Message(false, "Wrong password length"), "Wrong password length")
 		return
 	}
 
 	// Convert password to hash
 	requestUser.Password = NewHashPassword(requestUser.Password)
+	requestUser.ID = primitive.NewObjectID()
 
 	// Generate token
 	requestUser.Token = user.NewToken()
 
-	ok := requestUser.Insert()
-
-	if !ok {
-		log.Println("Unknown DB errors")
-		Respond(w, Message(false, "Unknown DB errors"), "")
-		return
-	}
+	requestUser.Save()
 
 	// Response success
 	requestUser.Password = ""
 	response := Message(true, "create user")
 	response["user"] = requestUser
-	Respond(w, response, "UserCreateController")
+	Respond(w, response, "UserCreateController: Success create user " + requestUser.Email)
 
 }

@@ -137,6 +137,17 @@ struct Task: Codable {
         
     }
     
+    static func get() -> Task {
+        let task: Task? = Local.get(key: "task")
+        if let task = task {
+            return task
+        }
+        return Task(words: [Word](), date: 0, newCount: 0)
+    }
+    
+    static func delete() {
+        Task(words: [Word](), date: 0, newCount: 0).save()
+    }
     
     func save() {
         Local.save(key: "task", obj: self)
@@ -150,7 +161,7 @@ struct Task: Codable {
     func getTime() -> String {
         let hours = studyTime / 3600
         let minutes = (studyTime % 3600) / 60
-        let seconds = studyTime % 3600 % 60
+//        let seconds = studyTime % 3600 % 60
         return String(hours) + " 小时 " + String(minutes) + " 分 "
     }
     

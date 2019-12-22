@@ -32,6 +32,10 @@ struct Settings : Codable {
         Local.save(key: "settings", obj: self)
     }
     
+    static func delete() {
+        Settings().save()
+    }
+    
     func isHandwriting() -> Bool {
         return modeOptions[choosedMode] == "手写"
     }
