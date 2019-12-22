@@ -12,6 +12,8 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 
 	requestUser := user.DecodeUser(r.Body)
 
+	PrettyPrint(requestUser)
+
 	// Decoding fails
 	if requestUser == nil {
 		Respond(w, Message(false, "Invalid request body"), "")
@@ -25,13 +27,13 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 
 	// Not found in database
 	if dbUser == nil {
-		Respond(w, Message(false, "Email not exist"), "")
+		Respond(w, Message(false, "Email not exist"), "UserLoginController: Fail")
 		return
 	}
 
 	// Password not match
 	if !SameHashPassword(dbUser.Password, requestUser.Password) {
-		Message(false, "Password not match")
+		Respond(w, Message(false, "Password not match"), "UserLoginController: Fail, Password")
 		return
 	}
 
@@ -43,7 +45,7 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 	response := Message(true, "Login Success")
 	response["user"] = requestUser
 
-	Respond(w, response, "")
+	Respond(w, response, "UserLoginController: Success")
 }
 
 

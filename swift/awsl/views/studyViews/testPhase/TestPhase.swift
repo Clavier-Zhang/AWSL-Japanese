@@ -11,6 +11,10 @@ import SwiftUI
 
 struct TestPhase: View {
     
+    @State var settings = Settings.get()
+    
+    @State var isCorrect = true
+    
     @Binding var currentPhase : String
     
     @Binding var task: Task
@@ -20,10 +24,6 @@ struct TestPhase: View {
     @State var label: String = ""
     
     @State var disableSubmit: Bool = false
-    
-    @State var images: [UIImage] = [UIImage]()
-    
-    @State var image: UIImage = UIImage()
     
     var body: some View {
         VStack(spacing: 20) {
@@ -37,51 +37,54 @@ struct TestPhase: View {
                 WideButton(label: "不会拼", action: pressUnableToSpell, center: true)
             }
             
-            HStack {
-                ForEach(images, id: \.self) { image in
-                    Image(uiImage: image)
-                }
-            }
             
-            Image(uiImage: image)
-            
-//            ForEach(_,id,self.images) {
-//                Image(uiImage: self.images[id])
-//            }
-           
-            // Recognized text
-            Text(label)
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 40, alignment: .leading)
-                .padding()
-                .background(base)
-        
-            // Writing pad
-            canvas.frame(width: 700, height: 150)
+            if settings.isHandwriting() {
+                // Handwriting
+                    Text(label)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 40, alignment: .leading)
+                        .padding()
+                        .background(base)
+                        .border(isCorrect ? base : red)
+                
+                    // Writing pad
+                    canvas.frame(width: 700, height: 150)
 
-            // Instructions
-            Text("在上方区域写出假名")
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60, alignment: .center)
+                    Text("在上方区域写出假名")
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60, alignment: .center)
+            } else {
+                // Type
+                
+                TextField("在此输入假名", text: $label) {
+                    self.pressSubmit()
+                }
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 40, alignment: .leading)
+                    .padding()
+                    .background(base)
+                .border(isCorrect ? base : red)
+
+            }
         }
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
     }
     
     func pressSubmit() {
         disableSubmit = true
         let expectedLabel = task.getWord().label
-        let writtenLabel = canvas.getText()
-        label = writtenLabel
         
-        print(task.getWord())
+        // Handwriting
+        if settings.isHandwriting() {
+            let writtenLabel = canvas.getText()
+            label = writtenLabel
+        }
         
-        if (expectedLabel == writtenLabel) {
+        if (expectedLabel == label) {
             task.setCorrect()
             currentPhase = LEARN_PHASE
         } else {
             print("wrong")
+            isCorrect = false
         }
         
-
-
         disableSubmit = false
     }
     

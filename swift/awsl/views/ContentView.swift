@@ -9,12 +9,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var user = User.get()
+    
     var body: some View {
-        
-//        LoginView()
-
-            HomeView()
-
-//        StudyCardView()
+        VStack {
+            if user.isValid() {
+                HomeView()
+            } else {
+                LoginView()
+            }
+        }
     }
 }

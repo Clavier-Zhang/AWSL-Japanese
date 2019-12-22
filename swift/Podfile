@@ -6,6 +6,7 @@ target 'awsl' do
   use_frameworks!
 
   # Pods for awsl
-  pod 'NotificationBannerSwift', '~> 3.0.0'
+  pod 'NotificationBannerSwift'
+  pod 'Charts'
 
 end

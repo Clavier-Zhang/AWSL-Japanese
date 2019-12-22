@@ -8,8 +8,7 @@
 
 
 import SwiftUI
-import Combine
-
+import NotificationBannerSwift
 
 
 struct LoginView: View {
@@ -31,6 +30,7 @@ struct LoginView: View {
             VStack {
                 VStack {
                     
+                    
                     EmailField(bind: $email)
 
                     Divider()
@@ -40,8 +40,6 @@ struct LoginView: View {
                     PasswordField(bind: $password)
                     
                     Divider()
-                    
-                    ErrorMessage(message)
                     
                     // Buttons
                     VStack(spacing: 20) {
@@ -60,16 +58,16 @@ struct LoginView: View {
                     
                     Spacer().frame(height: 200)
 
-                }.frame(width: 300, height: fullHeight)
+                }
+                .frame(width: 300, height: fullHeight)
             }
             .frame(width: fullWidth, height: fullHeight+300)
             .background(base)
             .foregroundColor(fontBase)
         }
-            .modifier(NavigationViewHiddenStyle())
+        .modifier(NavigationViewHiddenStyle())
     }
-    
-    
+
     
     private func login() -> Void {
         
@@ -82,15 +80,17 @@ struct LoginView: View {
             let res : Response? = dataToObj(data: data)
             
             if res == nil {
-                self.message = "Decode fails"
+//                notification("未知错误", .danger)
             }
+            
             if let res = res {
-                print(res)
                 if (res.status) {
-                    Local.save(key: "user", obj: res.user)
+//                    notification("登陆成功", .success)
+                    user.save()
                     self.toHome = true
                 } else {
-                    self.message = res.message
+                    
+
                 }
             }
         }
@@ -99,4 +99,10 @@ struct LoginView: View {
         
         
     }
+//
+//    func notification(_ message: String, _ type: BannerStyle) {
+//        let banner = StatusBarNotificationBanner(title: message, style: type)
+//        banner.show()
+//    }
+
 }

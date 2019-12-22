@@ -10,27 +10,6 @@ import Foundation
 
 struct Word: Codable {
     
-//    init() {
-//
-//        _id = ""
-//
-//        text = ""
-//
-//        label = ""
-//
-//        english_meanings = [String]()
-//
-//        english_examples = [Example]()
-//
-//        chinese_type = ""
-//
-//        chinese_meanings = [String]()
-//
-//        chinese_examples = [Example]()
-//
-//        audio = Data()
-//    }
-    
     // From server
     
     let ID: Data

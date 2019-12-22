@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import SwiftUICharts
+import Charts
 
 struct ChartView: View {
     
@@ -16,8 +18,12 @@ struct ChartView: View {
     var body: some View {
         NavigationView {
             VStack {
+                TestChart()
+//                LineView(data: [8,23,54,32,12,37,7,23,43], title: "Line chart").padding().frame(width: 400, height: 400)
+//                LineChartView(data: [8,23,54,32,12,37,7,23,43], title: "Title", legend: "Legendary") // legend is optional
                 Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
             }
+            .modifier(BaseViewStyle())
         }
         .modifier(NavigationViewBackStyle(pressBack: pressBack))
     }

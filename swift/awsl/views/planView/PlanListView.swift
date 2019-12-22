@@ -24,10 +24,8 @@ struct PlanListView: View {
     var body: some View {
         NavigationView {
             VStack {
-                VStack (spacing: 50) {
+                VStack (spacing: 10) {
                     
-                    HStack (spacing: 20) {
-                        // Plan options
                         Picker(selection: $data.currentPlanOption, label: Text("单词书")) {
                             ForEach(0..<self.data.planOptions.count) {
                                 Text(String(self.data.planOptions[$0].name)).tag($0)
@@ -39,19 +37,15 @@ struct PlanListView: View {
                                 Text(String(self.data.numOptions[$0])).tag($0)
                             }
                         }.pickerStyle(WheelPickerStyle())
-                    }
                     
                     RedButton(text: "保存", isLoading: $isLoadingSave, action: pressSave)
                     
                 }
-                .frame(width: 900, height: fullHeight)
+                .frame(width: 400, height: fullHeight)
             }
-            .frame(width: fullWidth, height: fullHeight+300)
-            .background(base)
-            .foregroundColor(fontBase)
+            .modifier(BaseViewStyle())
         }
         .modifier(NavigationViewBackStyle(pressBack: pressBack))
-        
     }
     
     func pressBack() {

@@ -27,13 +27,15 @@ struct HomeView: View {
         NavigationView {
             VStack(spacing: 50) {
                 
+                UserProfile(user: user)
+                
                 HStack (spacing: 100) {
-                    UserProfile(user: user)
                     CountLabel(label: "已完成", count: homeResponse.finishedWordCount)
                     CountLabel(label: "进行中", count: homeResponse.progressingWordCount)
-                    Button(action: pressChart) {
-                        CountLabel(label: "详细>>", icon: "chart.bar")
-                    }
+//                    ****** Future
+//                    Button(action: pressChart) {
+//                        CountLabel(label: "详细>>", icon: "chart.bar")
+//                    }
                 }
                 
                 Divider()
@@ -57,6 +59,9 @@ struct HomeView: View {
                         CountLabel(label: "新单词", title: "N/A")
                         CountLabel(label: "剩余单词", title: "N/A")
                         CountLabel(label: "总共", title: "N/A")
+                        Button(action: pressSettings) {
+                            CountLabel(label: "设置>>", icon: "gear")
+                        }
                     }
                 }
                 
@@ -91,12 +96,10 @@ struct HomeView: View {
 
                 
             }
-                .frame(width: fullWidth, height: fullHeight+300)
-                .background(base)
-                .foregroundColor(fontBase)
-                .onAppear(perform: homeAppear)
+            .modifier(BaseViewStyle())
+            .onAppear(perform: homeAppear)
         }
-            .modifier(NavigationViewHiddenStyle())
+        .modifier(NavigationViewHiddenStyle())
     }
     
     func pressStart() {

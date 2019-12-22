@@ -42,9 +42,7 @@ struct SubmissionPhase: View {
                 
             }.frame(width: 550, alignment: .top)
         }
-            .frame(width: fullWidth, height: fullHeight+300)
-            .background(base)
-            .foregroundColor(fontBase)
+        .modifier(BaseViewStyle())
 
     }
     

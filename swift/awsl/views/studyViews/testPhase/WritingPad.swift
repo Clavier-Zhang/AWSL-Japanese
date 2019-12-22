@@ -77,3 +77,19 @@ final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDeleg
     }
     
 }
+
+
+
+final class TestChart : NSObject, UIViewRepresentable, UIPencilInteractionDelegate {
+    
+    var view = UITableView()
+    
+    func makeUIView(context: Context) -> UITableView {
+        return view
+    }
+
+    func updateUIView(_ view: UITableView, context: Context) {
+        self.view = view
+    }
+   
+}

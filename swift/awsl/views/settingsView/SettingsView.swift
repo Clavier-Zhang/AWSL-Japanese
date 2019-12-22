@@ -20,16 +20,26 @@ struct SettingsView: View {
             
             VStack {
                 VStack {
-                    Picker("", selection: $settings.choosedLanguage) {
-                        ForEach(0 ..< settings.languageOptions.count) { index in
-                            Text(self.settings.languageOptions[index]).tag(index)
-                        }
-                    }.pickerStyle(SegmentedPickerStyle())
-                    Text("语言")
+//                      ******Future
+//                    Picker("", selection: $settings.choosedLanguage) {
+//                        ForEach(0 ..< settings.languageOptions.count) { index in
+//                            Text(self.settings.languageOptions[index]).tag(index)
+//                        }
+//                    }.pickerStyle(SegmentedPickerStyle())
+//                    Text("语言")
+                    HStack {
+                        Text("模式")
+                        Picker("", selection: $settings.choosedMode) {
+                            ForEach(0 ..< settings.modeOptions.count) { index in
+                                Text(self.settings.modeOptions[index]).tag(index)
+                            }
+                        }.pickerStyle(SegmentedPickerStyle())
+                    }
                     
                     
                     
-                }.frame(width: 800)
+                    
+                }.frame(width: 500)
                 
                 
             }

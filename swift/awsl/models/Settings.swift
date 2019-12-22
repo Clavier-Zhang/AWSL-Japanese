@@ -14,6 +14,10 @@ struct Settings : Codable {
     
     var choosedLanguage : Int = 0
     
+    var modeOptions : [String] = ["手写", "键盘"]
+    
+    var choosedMode : Int = 0
+    
     static func get() -> Settings {
         var settings : Settings? = Local.get(key: "settings")
         if let settings = settings {
@@ -26,5 +30,9 @@ struct Settings : Codable {
     
     func save() {
         Local.save(key: "settings", obj: self)
+    }
+    
+    func isHandwriting() -> Bool {
+        return modeOptions[choosedMode] == "手写"
     }
 }

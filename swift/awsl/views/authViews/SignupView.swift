@@ -29,23 +29,25 @@ struct SignUpView: View {
     var body: some View {
         NavigationView {
             VStack {
-                VStack {
+                VStack(spacing: 20) {
                     
-                    EmailField(bind: $email)
+                    VStack {
+                        EmailField(bind: $email)
+                        Divider()
+                    }
                     
-                    Divider()
+                    VStack {
+                        PasswordField(bind: $password)
+                        Divider()
+                    }
                     
-                    Spacer().frame(height: 20)
+                    VStack {
+                        PasswordField(bind: $repassword)
+                        Divider()
+                    }
                     
-                    PasswordField(bind: $password)
+                    Spacer().frame(height: 10)
                     
-                    Divider()
-                    
-                    PasswordField(bind: $repassword)
-                    
-                    ErrorMessage(message)
-                    
-                    // Buttons
                     VStack(spacing: 20) {
                         // Submit
                         RedButton(text: "提交", isLoading: $isLoading, action: signup)
@@ -97,7 +99,7 @@ struct SignUpView: View {
             if let res = res {
                 print(res)
                 if (res.status) {
-                    Local.save(key: "user", obj: res.user)
+                    user.save()
                     self.toHome = true
                 } else {
                     self.message = res.message

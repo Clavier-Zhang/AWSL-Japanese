@@ -10,6 +10,8 @@ import SwiftUI
 
 struct UserProfile: View {
     
+    @State var toLoginView = false
+    
     var user: User
     
     init(user: User) {
@@ -17,22 +19,41 @@ struct UserProfile: View {
     }
     
     var body: some View {
-        HStack (spacing: 20) {
+        HStack (spacing: 10) {
             Image("1")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 100, height: 100)
+                .frame(width: 50, height: 50)
                 .clipShape(Capsule())
+            Text(user.email)
             
-            VStack (alignment: .leading) {
-                Text("Claveir")
-                    .font(.largeTitle)
-                    .bold()
-                    .frame(height: 30)
-                Spacer().frame(height: 30)
-                Text(user.email)
+            
+            Button(action: action) {
+                HStack {
+                    Text("退出")
+                }
             }
-        }
+            .buttonStyle(LogoutButtonStyle())
+            
+            NavigationLink(destination: LoginView(), isActive: $toLoginView) {
+                EmptyView()
+            }
+            
+        }.frame(minWidth: 0, maxWidth: .infinity)
+    }
+    
+    func action() {
+        toLoginView = true
     }
 }
 
+struct LogoutButtonStyle: ButtonStyle {
+
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .frame(width: 90, height: 30)
+            .background(configuration.isPressed ? red.opacity(0.5) : red)
+            .cornerRadius(10)
+    }
+
+}

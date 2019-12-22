@@ -17,4 +17,22 @@ struct User: Codable {
     
     let token: String
     
+    static func get() -> User {
+        var user : User? = Local.get(key: "user")
+        if let user = user {
+            return user
+        }
+        user = User(email: "", password: "", token: "")
+        user!.save()
+        return user!
+    }
+    
+    func save() {
+        Local.save(key: "user", obj: self)
+    }
+    
+    func isValid() -> Bool {
+        return email != "" && token != "" && password != ""
+    }
+    
 }

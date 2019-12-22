@@ -57,3 +57,13 @@ struct NavigationViewBackStyle: ViewModifier {
     
 
 }
+
+
+struct BaseViewStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .frame(width: fullWidth, height: fullHeight+300)
+            .background(base)
+            .foregroundColor(fontBase)
+    }
+}
