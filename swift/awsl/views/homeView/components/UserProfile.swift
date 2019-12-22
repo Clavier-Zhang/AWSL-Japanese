@@ -46,7 +46,6 @@ struct UserProfile: View {
         User.delete()
         Task.delete()
         Settings.delete()
-        
         toLoginView = true
     }
 }

@@ -16,12 +16,23 @@ struct PlanRow: View {
     
     @State var planListResponse = PlanListResponse()
     
+    // Request
+    @State var message = ""
+    @State var status = false
+    
     var body: some View {
         VStack {
             HStack(spacing: 100) {
-                CountLabel(label: "单词书", title: homeResponse.currentPlan)
-                CountLabel(label: "剩余", count: homeResponse.currentPlanLeftWordCount)
-                CountLabel(label: "每日计划", count: homeResponse.scheduledWordsCount)
+                if homeResponse.isValid() {
+                    CountLabel(label: "单词书", title: homeResponse.currentPlan)
+                    CountLabel(label: "剩余", count: homeResponse.currentPlanLeftWordCount)
+                    CountLabel(label: "每日计划", count: homeResponse.scheduledWordsCount)
+                } else {
+                    CountLabel(label: "单词书", title: "N/A")
+                    CountLabel(label: "剩余", title: "N/A")
+                    CountLabel(label: "每日计划", title: "N/A")
+                }
+                
                 Button(action: pressBook) {
                     CountLabel(label: "选择>>", icon: "book")
                 }
@@ -34,9 +45,14 @@ struct PlanRow: View {
     }
     
     func pressBook() {
+        
+        let wait = DispatchGroup()
+        wait.enter()
+        
         func handleSuccess(data: Data) -> Void {
             let res : PlanListResponse? = dataToObj(data: data)
             if let res = res {
+                self.status = res.status
                 NSLog("BookListView: Fetch plan list data")
                 if (res.status) {
                     planListResponse = res
@@ -45,8 +61,23 @@ struct PlanRow: View {
                     NSLog("BookListView: Fetch plan list data fail")
                 }
             }
+            wait.leave()
         }
-        Remote.sendGetRequest(path: "/plan/list", handleSuccess: handleSuccess, token: Local.getToken())
+        
+        func handleFail() {
+            self.message = "无法连接到服务器"
+            wait.leave()
+        }
+        
+        Remote.sendGetRequest(path: "/plan/list", handleSuccess: handleSuccess, token: Local.getToken(), handleFail: handleFail)
+        
+        wait.notify(queue: .main) {
+            if self.status {
+//                notification("获取单词书列表成功", .success)
+            } else {
+                notification("获取单词书列表失败: "+self.message, .danger)
+            }
+        }
     }
 }
 

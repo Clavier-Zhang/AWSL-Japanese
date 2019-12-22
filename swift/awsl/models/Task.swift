@@ -18,15 +18,20 @@ let WRONG = "WRONG"
 
 struct Task: Codable {
     
-    init(words: [Word], date: Int, newCount: Int) {
+    init(words: [Word], date: Int, newCount: Int, isSubmitted: Bool) {
         self.newCount = newCount
         self.date = date
         self.newWords = words
+        self.isSubmitted = isSubmitted
         for i in 0..<self.newWords.count {
             self.newWords[i].isCorrect = true
             self.newWords[i].status = NEW
             self.newWords[i].remainRepetition = 1
             self.newWords[i].reviewCount = 0
+        }
+        if isSubmitted {
+            finishedWords = newWords
+            newWords = []
         }
     }
     
@@ -40,7 +45,7 @@ struct Task: Codable {
     
     var studyTime: Int = 0
     
-    var submitted: Bool = false
+    var isSubmitted: Bool = false
     
     // HomeView
     func getScheduledCount() -> Int {
@@ -142,11 +147,11 @@ struct Task: Codable {
         if let task = task {
             return task
         }
-        return Task(words: [Word](), date: 0, newCount: 0)
+        return Task(words: [Word](), date: 0, newCount: 0, isSubmitted: false)
     }
     
     static func delete() {
-        Task(words: [Word](), date: 0, newCount: 0).save()
+        Task(words: [Word](), date: 0, newCount: 0, isSubmitted: false).save()
     }
     
     func save() {
@@ -166,9 +171,10 @@ struct Task: Codable {
     }
     
     mutating func getTopReviewWords(count: Int) -> [Word] {
-        finishedWords.sort(by: { $0.reviewCount! > $1.reviewCount! })
-        let upper = min(count, finishedWords.count)
-        return Array(finishedWords[..<upper])
+        var copy = finishedWords
+        copy.sort(by: { $0.reviewCount! > $1.reviewCount! })
+        let upper = min(count, copy.count)
+        return Array(copy[..<upper])
     }
 
     

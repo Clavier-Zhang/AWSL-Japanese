@@ -11,5 +11,6 @@ import NotificationBannerSwift
 
 func notification(_ message: String, _ type: BannerStyle) {
     let banner = StatusBarNotificationBanner(title: message, style: type)
+    
     banner.show()
 }

@@ -11,44 +11,50 @@ import NotificationBannerSwift
 
 struct SubmissionPhase: View {
     
+    // Data
     @Binding var task: Task
     
+    // Navigation
     @State var back: () -> Void
-    
     @State var toHomeView: Bool = false
     
-    @State var isLoading = false
-    
-    
-    
     // Request
+    @State var isLoading = false
     @State var status = false
+    @State var message = "“"
 
     var body: some View {
         HStack {
-            VStack {
+            VStack(spacing: 50) {
                 
-                CountLabel(label: "用 时", title: task.getTime())
-
-                Spacer().frame(height: 80)
+                HStack {
+                    CountLabel(label: "用 时", title: task.getTime())
+                }
+                .padding()
+                .frame(minWidth: 0, maxWidth: .infinity)
+                .background(studyCardBase)
                 
-                ReviewList(reviewWords: task.getTopReviewWords(count: 5)).padding().background(studyCardBase)
                 
-                Spacer().frame(height: 50)
+                ReviewList(reviewWords: task.getTopReviewWords(count: 5))
+                    .padding()
+                    .background(studyCardBase)
                     
                 RedButton(text: "提交", isLoading: $isLoading, action: pressSubmit)
                 
-                Spacer().frame(height: 200)
+                Spacer().frame(height: 300)
                 
-            }.frame(width: 550, alignment: .top)
+            }
+            .frame(width: 550, alignment: .top)
         }
         .modifier(BaseViewStyle())
-
     }
     
     func pressSubmit() {
         
+        isLoading = true
         let wait = DispatchGroup()
+        wait.enter()
+        
         let report = Report(task: task)
         let data = objToData(obj: report)
 
@@ -56,34 +62,29 @@ struct SubmissionPhase: View {
             let res : Response? = dataToObj(data: data)
             if let res = res {
                 self.status = res.status
-                print("success submit task")
-                if (res.status) {
-                    task.submitted = true
-                    task.save()
-                } else {
-                    print("Status false")
-                }
+                self.message = res.message
             }
             wait.leave()
         }
         
-        wait.enter()
+        func handleFail() {
+            self.message = "无法连接到服务器"
+            wait.leave()
+        }
         
-        Remote.sendPostRequest(path: "/task/submit", data: data, handleSuccess: handleSuccess, token: Local.getToken())
+        Remote.sendPostRequest(path: "/task/submit", data: data, handleSuccess: handleSuccess, token: Local.getToken(), handleFail: handleFail)
             
         wait.notify(queue: .main) {
             if (self.status) {
-                let banner = StatusBarNotificationBanner(title: "提交成功", style: .success)
-                banner.show()
+                notification("提交成功", .success)
+                self.task.isSubmitted = true
+                self.task.save()
                 self.back()
             } else {
-                let banner = StatusBarNotificationBanner(title: "提交失败", style: .danger)
-                banner.show()
+                notification("提交失败: "+self.message, .danger)
             }
+            self.isLoading = false
         }
-        
-                    
-        
         
     }
     

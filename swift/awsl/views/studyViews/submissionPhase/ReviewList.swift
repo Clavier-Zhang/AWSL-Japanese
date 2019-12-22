@@ -15,22 +15,23 @@ struct ReviewList: View {
     var body: some View {
         VStack(spacing: 20) {
             
-            Text("复习:").frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+            HStack(alignment: .top) {
+                Text("高频复习单词").bold().frame(width: 250)
+                Text("释义").bold().frame(width: 250)
+            }
             
+
             ForEach(0..<reviewWords.count) { idx in
-                HStack {
+                HStack(alignment: .top) {
                     
                     Text(self.reviewWords[idx].text+"【"+self.reviewWords[idx].label+"】")
-                        .frame(width: 200, alignment: .leading)
+                        .frame(width: 250, alignment: .topLeading)
                     
                     Text(self.reviewWords[idx].chinese_meanings[0])
-                        .frame(width: 250, alignment: .leading)
-                    
-                    Text(String(self.reviewWords[idx].reviewCount!))
-                        .frame(width: 50, alignment: .center)
-
+                        .frame(width: 250, alignment: .topLeading)
                 
-                }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                }
+                .frame(minWidth: 0, maxWidth: .infinity, alignment: .topLeading)
                 
             }
         }

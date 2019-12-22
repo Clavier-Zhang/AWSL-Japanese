@@ -10,18 +10,14 @@ import SwiftUI
 
 struct HomeView: View {
     
-    // View data
+    // Data
     @State var homeResponse: HomeResponse = HomeResponse()
     @State var user: User = Local.get(key: "user")!
     @State var task: Task = Local.getTask()
     
-    // Navigation
-    @State var toStudyCardView = false
-    @State var toFinishStudyView = false
-    @State var toSettingsView = false
-
-    @State var isLoadingStart = false
-    @State var toChartView = false
+    // Request
+    @State var message = ""
+    @State var status = false
     
     var body: some View {
         NavigationView {
@@ -29,71 +25,19 @@ struct HomeView: View {
                 
                 UserProfile(user: user)
                 
-                HStack (spacing: 100) {
-                    CountLabel(label: "已完成", count: homeResponse.finishedWordCount)
-                    CountLabel(label: "进行中", count: homeResponse.progressingWordCount)
-//                    ****** Future
-//                    Button(action: pressChart) {
-//                        CountLabel(label: "详细>>", icon: "chart.bar")
-//                    }
-                }
+                SummaryRow(homeResponse: $homeResponse)
                 
                 Divider()
                 
                 PlanRow(homeResponse: $homeResponse)
                 
                 Divider()
-               
-                if (task.date == Date().toNum()) {
-                    HStack(spacing: 100) {
-                        CountLabel(label: "新单词", count: task.getNewCount())
-                        CountLabel(label: "剩余单词", count: task.getRemainCount())
-                        CountLabel(label: "总共", count: task.getTotalCount())
-                        Button(action: pressSettings) {
-                            CountLabel(label: "设置>>", icon: "gear")
-                        }
-                        
-                    }
-                } else {
-                    HStack(spacing: 100) {
-                        CountLabel(label: "新单词", title: "N/A")
-                        CountLabel(label: "剩余单词", title: "N/A")
-                        CountLabel(label: "总共", title: "N/A")
-                        Button(action: pressSettings) {
-                            CountLabel(label: "设置>>", icon: "gear")
-                        }
-                    }
-                }
                 
-                                           
+                TaskRow(task: $task)
+                
+                StartButton(task: $task)
+                
                 Spacer().frame(height: 50)
-                
-                if task.isValid() && task.submitted {
-                    Text("已完成")
-                } else {
-                    RedButton(text: "开始", isLoading: $isLoadingStart, action: pressStart)
-                }
-                
-                
-                
-                // Navigation Links
-                HStack {
-                    
-                    NavigationLink(destination: StudyCardView(), isActive: $toStudyCardView) {
-                        EmptyView()
-                    }
-                    
-                    NavigationLink(destination: SettingsView(), isActive: $toSettingsView) {
-                        EmptyView()
-                    }
-                    
-                    NavigationLink(destination: ChartView(), isActive: $toChartView) {
-                        EmptyView()
-                    }
-                    
-                }
-                
-
                 
             }
             .modifier(BaseViewStyle())
@@ -102,64 +46,39 @@ struct HomeView: View {
         .modifier(NavigationViewHiddenStyle())
     }
     
-    func pressStart() {
-        isLoadingStart = true
-        
-        let today = Date().toNum()
-        
-        func handleSuccess(data: Data) -> Void {
-            let res : TaskResponse? = dataToObj(data: data)
-            if let res = res {
-                if (res.status) {
-                    let task = Task(words: res.words, date: today, newCount: res.newWordsCount)
-                    task.save()
-                    self.toStudyCardView = true
-                }
-            }
-            isLoadingStart = false
-        }
-
-        // Today's task is valid, but not finished
-        if task.isValid() {
-            print("Today's task has been fetched")
-            isLoadingStart = false
-            toStudyCardView = true
-            
-        // Otherwise
-        } else {
-            print("Fetch today's task")
-            Remote.sendGetRequest(path: "/task/get/"+String(today), handleSuccess: handleSuccess, token: Local.getToken())
-        }
-    
-    }
-    
     func homeAppear() {
         // update home view
         task = Local.getTask()
+        
+        let wait = DispatchGroup()
+        wait.enter()
 
         // Fetch homedata
         func handleSuccess(data: Data) -> Void {
             let res : HomeResponse? = dataToObj(data: data)
             if let res = res {
-                NSLog("HomeView: Fetch home data")
+                self.status = res.status
+                self.message = res.message
                 if (res.status) {
                     self.homeResponse = res
-                } else {
-                    NSLog("HomeView: Fetch home data fail")
                 }
             }
+            wait.leave()
         }
         
-        Remote.sendGetRequest(path: "/user/home", handleSuccess: handleSuccess, token: Local.getToken())
+        func handleFail() {
+            self.message = "无法连接到服务器"
+            wait.leave()
+        }
+        
+        Remote.sendGetRequest(path: "/user/home", handleSuccess: handleSuccess, token: Local.getToken(), handleFail: handleFail)
+        
+        wait.notify(queue: .main) {
+            if (!self.status) {
+                notification("获取用户数据失败: "+self.message, .danger)
+            }
+        }
 
-    }
-    
-    func pressSettings() {
-        toSettingsView = true
-    }
-    
-    func pressChart() {
-        toChartView = true
     }
 
 }

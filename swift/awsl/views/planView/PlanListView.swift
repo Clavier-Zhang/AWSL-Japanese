@@ -18,7 +18,8 @@ struct PlanListView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     
-    @State var status : Bool = false
+    @State var status = false
+    @State var message = ""
     @State var isLoadingSave = false
     
     var body: some View {
@@ -66,33 +67,34 @@ struct PlanListView: View {
         let data = objToData(obj: body)
         
         let wait = DispatchGroup()
+        wait.enter()
 
         func handleSuccess(data: Data) {
             let res : Response? = dataToObj(data: data)
             if let res = res {
                 NSLog("PlanListView: Update plan and schedul")
                 self.status = res.status
-                if (res.status) {
-                    
-                } else {
-                    print("PlanListView: Server return fail")
-                }
+                self.message = res.message
             }
             isLoadingSave = false
             wait.leave()
         }
         
-        wait.enter()
+        func handleFail() {
+            self.message = "无法连接到服务器"
+            wait.leave()
+        }
         
-        Remote.sendPostRequest(path: "/session/update", data: data, handleSuccess: handleSuccess, token: Local.getToken())
+        
+        
+        Remote.sendPostRequest(path: "/session/update", data: data, handleSuccess: handleSuccess, token: Local.getToken(), handleFail: handleFail)
             
         wait.notify(queue: .main) {
+            self.isLoadingSave = false
             if (self.status) {
-                let banner = StatusBarNotificationBanner(title: "更新设置成功", style: .success)
-                banner.show()
+                notification("更新设置成功", .success)
             } else {
-                let banner = StatusBarNotificationBanner(title: "更新设置成功失败", style: .danger)
-                banner.show()
+                notification("更新设置成功失败: "+self.message, .danger)
             }
         }
 

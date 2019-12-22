@@ -23,6 +23,8 @@ func TaskGetController(w http.ResponseWriter, r *http.Request) {
 		response := Message(true, "Get task by date, task has been created")
 		response["newWordsCount"] = task.NewWordsCount
 		response["words"] = words
+		response["isSubmitted"] = task.IsCompleted
+		PrettyPrint(response)
 		Respond(w, response, "TaskGetController: task has been created")
 		return
 	}
@@ -39,6 +41,7 @@ func TaskGetController(w http.ResponseWriter, r *http.Request) {
 
 	response["newWordsCount"] = task.NewWordsCount
 	response["words"] = words
+	response["isSubmitted"] = task.IsCompleted
 	Respond(w, response, "TaskGetController: Create new task")
 
 }

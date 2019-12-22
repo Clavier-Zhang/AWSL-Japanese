@@ -25,7 +25,6 @@ struct StudyCardView: View {
         NavigationView {
             VStack {
                 VStack {
-
                     VStack {
                         
                         Spacer().frame(height: 30)
@@ -48,21 +47,16 @@ struct StudyCardView: View {
                         }
                         
                     }
-                        .frame(width: 700, height: 1.05*fullHeight)
-
+                    .frame(width: 700, height: 1.05*fullHeight)
                 }
-                    .frame(width: fullWidth, height: 1.05*fullHeight)
-                    .background(studyCardBase)
-                
+                .frame(width: fullWidth, height: 1.05*fullHeight)
+                .background(studyCardBase)
             }
-                .frame(width: fullWidth, height: fullHeight+300)
-                .background(base)
-                .foregroundColor(fontBase)
-                .onAppear(perform: onAppear)
-                .onDisappear(perform: onDisappear)
+            .modifier(BaseViewStyle())
+            .onAppear(perform: onAppear)
+            .onDisappear(perform: onDisappear)
         }
         .modifier(NavigationViewBackStyle(pressBack: pressBack))
-            
     }
     
     func pressBack() {

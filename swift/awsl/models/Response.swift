@@ -31,12 +31,14 @@ struct TaskResponse : Codable {
     
     var newWordsCount: Int
     
+    var isSubmitted : Bool
+    
 }
 
 
 struct HomeResponse : Codable {
     
-    var status: Bool = true
+    var status: Bool = false
     
     var message: String = ""
     
@@ -49,6 +51,10 @@ struct HomeResponse : Codable {
     var currentPlanLeftWordCount: Int = -1
     
     var scheduledWordsCount: Int = -1
+    
+    func isValid() -> Bool {
+        return status
+    }
     
 }
 

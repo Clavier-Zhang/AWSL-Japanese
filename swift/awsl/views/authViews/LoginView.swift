@@ -77,19 +77,22 @@ struct LoginView: View {
         
         func handleSuccess(data: Data) -> Void {
             let res : Response? = dataToObj(data: data)
-            
             if let res = res {
                 status = res.status
                 message = res.message
                 if (res.status) {
                     res.user!.save()
-                    print(res)
                 }
             }
             wait.leave()
         }
         
-        Remote.sendPostRequest(path: "/user/login", data: data, handleSuccess: handleSuccess)
+        func handleFail() {
+            self.message = "无法连接到服务器"
+            wait.leave()
+        }
+        
+        Remote.sendPostRequest(path: "/user/login", data: data, handleSuccess: handleSuccess, handleFail: handleFail)
         
         wait.notify(queue: .main) {
             if (self.status) {

@@ -10,9 +10,12 @@ import Foundation
 
 struct Remote {
     
+//    DEV
+//    static let baseURL = "http://47.89.243.163:8000/api"
+    
     static let baseURL = "http://192.168.31.158:8000/api"
     
-    static func sendGetRequest(path: String, handleSuccess: @escaping (Data) -> Void, token: String, afterRequest: Any = ()) -> Void {
+    static func sendGetRequest(path: String, handleSuccess: @escaping (Data) -> Void, token: String, handleFail: Any = ()) -> Void {
         
         let url = URL(string: baseURL + path)!
         
@@ -25,18 +28,19 @@ struct Remote {
                 handleSuccess(data)
                 return
             } else {
+                if let handleFail = handleFail as? ()->Void {
+                    handleFail()
+                }
                 print("ERROR: Request failed")
             }
-            if let afterRequest = afterRequest as? ()->Void {
-                afterRequest()
-            }
+            
         }
                       
         task.resume()
         
     }
     
-    static func sendPostRequest(path: String, data: Data, handleSuccess: @escaping (Data) -> Void, token: String = "") -> Void {
+    static func sendPostRequest(path: String, data: Data, handleSuccess: @escaping (Data) -> Void, token: String = "", handleFail: Any = ()) -> Void {
         
         // Create post request
         let url = URL(string: baseURL + path)!
@@ -51,6 +55,9 @@ struct Remote {
                 handleSuccess(data)
                 return
             } else {
+                if let handleFail = handleFail as? ()->Void {
+                    handleFail()
+                }
                 print("ERROR: Request failed")
             }
         }

@@ -96,8 +96,13 @@ struct SignUpView: View {
             }
             wait.leave()
         }
+        
+        func handleFail() {
+            self.message = "无法连接到服务器"
+            wait.leave()
+        }
 
-        Remote.sendPostRequest(path: "/user/create", data: data, handleSuccess: handleSuccess)
+        Remote.sendPostRequest(path: "/user/create", data: data, handleSuccess: handleSuccess, handleFail: handleFail)
         
         wait.notify(queue: .main) {
             if (self.status) {

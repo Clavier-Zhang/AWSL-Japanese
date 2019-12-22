@@ -48,7 +48,7 @@ struct Local {
         if let task = task {
             return task
         }
-        return Task(words: [Word](), date: 0, newCount: 0)
+        return Task(words: [Word](), date: 0, newCount: 0, isSubmitted: false)
     }
     
     static func saveTask(task: Task) {
