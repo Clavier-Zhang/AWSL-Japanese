@@ -24,7 +24,7 @@ func HomeController(w http.ResponseWriter, r *http.Request) {
 
 	if plan == nil {
 		result := Message(false, "BUG: Plan "+session.CurrentPlan+" not exist")
-		Respond(w, result, "")
+		Respond(w, result, "", email)
 		return
 	}
 
@@ -35,5 +35,5 @@ func HomeController(w http.ResponseWriter, r *http.Request) {
 	result["currentPlan"] = session.CurrentPlan
 	result["currentPlanLeftWordCount"] = len(session.GetNewWordIdsFromPlan(plan))
 	result["scheduledWordsCount"] = session.ScheduledWordCount
-	Respond(w, result, "HomeController")
+	Respond(w, result, "HomeController", email)
 }

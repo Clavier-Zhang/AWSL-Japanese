@@ -20,5 +20,5 @@ func SessionUpdateController(w http.ResponseWriter, r *http.Request) {
 	session.Save()
 
 	result := Message(true, "Update session")
-	Respond(w, result, "SessionUpdateController: Success, "+email)
+	Respond(w, result, "SessionUpdateController", email)
 }

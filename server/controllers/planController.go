@@ -32,5 +32,5 @@ func PlanListGetController(w http.ResponseWriter, r *http.Request) {
 	result["currentNumOption"] = currentNumOption
 	result["currentPlanOption"] = currentPlanOption
 
-	Respond(w, result, "PlanListGetController: Success, "+email)
+	Respond(w, result, "PlanListGetController", email)
 }

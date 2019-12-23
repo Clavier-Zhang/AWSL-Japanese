@@ -51,6 +51,8 @@ struct TestPhase: View {
 
                     Text("在上方区域写出假名")
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60, alignment: .center)
+                    Text("Double tap切换橡皮擦")
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60, alignment: .center)
             } else {
                 // Type
                 

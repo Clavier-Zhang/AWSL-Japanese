@@ -8,20 +8,49 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
 	"io"
-	"log"
+	//"log"
 	"net/http"
 	"strings"
+	"github.com/fatih/color"
+	"time"
 )
 
 func Message(status bool, message string) (map[string]interface{}) {
 	return map[string]interface{} {"status" : status, "message" : message}
 }
 
-func Respond(w http.ResponseWriter, data map[string] interface{}, message string)  {
-	log.Println(message)
-	//PrettyPrint(data)
+func Respond(w http.ResponseWriter, data map[string] interface{}, message string, email string)  {
+	// log time
+	c := color.New(color.FgYellow)
+	c.Print(time.Now().Format("2006-01-02 15:04:05"))
+
+	// log status
+	if data["status"] == true {
+		c = color.New(color.FgGreen)
+		c.Print(" SUCCESS ")
+	} else {
+		c = color.New(color.FgRed)
+		c.Print(" FAIL ")
+	}
+
+	// log email
+	c = color.New(color.FgBlue)
+	c.Print(email+" ")
+
+	// log message
+	fmt.Println(message)
+
+
 	w.Header().Add("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(data)
+
+	// Dont print long data
+	for key, _ := range data {
+		if key != "status" && key != "message" {
+			delete(data, key)
+		}
+	}
+	PrettyPrint(data)
 }
 
 // Generate random UUID
@@ -70,17 +99,6 @@ func ReaderToBytes(stream io.Reader) []byte {
 	buf := new(bytes.Buffer)
 	buf.ReadFrom(stream)
 	return buf.Bytes()
-}
-
-
-func BytesToFile(bytes []byte) {
-	// Convert bytes to mp3 file
-	//word := &Word{}
-	//filter := bson.D{{"text", "crawler"}}
-	//_ = db.Collection("word").FindOne(context.TODO(), filter).Decode(&word)
-	//file, _ := os.Create("./crawler.mp3")
-	//file.Write(word.Audio)
-	//fmt.Println(word.Audio)
 }
 
 func FindSubStringAndReplace(s string, m map[string]string) string {

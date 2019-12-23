@@ -24,8 +24,7 @@ func TaskGetController(w http.ResponseWriter, r *http.Request) {
 		response["newWordsCount"] = task.NewWordsCount
 		response["words"] = words
 		response["isSubmitted"] = task.IsCompleted
-		PrettyPrint(response)
-		Respond(w, response, "TaskGetController: task has been created")
+		Respond(w, response, "TaskGetController: task has been created", email)
 		return
 	}
 	// else, create new task
@@ -42,7 +41,7 @@ func TaskGetController(w http.ResponseWriter, r *http.Request) {
 	response["newWordsCount"] = task.NewWordsCount
 	response["words"] = words
 	response["isSubmitted"] = task.IsCompleted
-	Respond(w, response, "TaskGetController: Create new task")
+	Respond(w, response, "TaskGetController: Create new task", email)
 
 }
 
@@ -56,8 +55,8 @@ func TaskSubmitController(w http.ResponseWriter, r *http.Request) {
 
 	// Check task has been submitted
 	if task.IsCompleted {
-		result := Message(false, "Task has been submmitted")
-		Respond(w, result, "TaskSubmitController: Task has been submmitted")
+		result := Message(false, "Task has been submitted")
+		Respond(w, result, "TaskSubmitController: Task has been submitted", email)
 		return
 	}
 
@@ -65,7 +64,7 @@ func TaskSubmitController(w http.ResponseWriter, r *http.Request) {
 	ok := task.HandleReport(*report)
 	if !ok {
 		result := Message(false, "Report does not match task")
-		Respond(w, result, "TaskSubmitController: Report does not match task")
+		Respond(w, result, "TaskSubmitController: Report does not match task", email)
 		return
 	}
 
@@ -82,5 +81,5 @@ func TaskSubmitController(w http.ResponseWriter, r *http.Request) {
 	task.Save()
 
 	result := Message(true, "Submit task")
-	Respond(w, result, "TaskSubmitController: Success, "+email)
+	Respond(w, result, "TaskSubmitController", email)
 }

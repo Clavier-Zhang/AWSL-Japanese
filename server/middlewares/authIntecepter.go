@@ -32,7 +32,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 			response = u.Message(false, "Missing auth token")
 			w.WriteHeader(http.StatusForbidden)
 			w.Header().Add("Content-Type", "application/json")
-			u.Respond(w, response, "Interceptor: Missing auth token")
+			u.Respond(w, response, "Interceptor: Missing auth token", "")
 			return
 		}
 
@@ -41,7 +41,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 			response = u.Message(false, "Invalid/Malformed auth token")
 			w.WriteHeader(http.StatusForbidden)
 			w.Header().Add("Content-Type", "application/json")
-			u.Respond(w, response, "Interceptor: Invalid/Malformed auth token")
+			u.Respond(w, response, "Interceptor: Invalid/Malformed auth token", "")
 			return
 		}
 
@@ -56,7 +56,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 			response = u.Message(false, "Malformed authentication token")
 			w.WriteHeader(http.StatusForbidden)
 			w.Header().Add("Content-Type", "application/json")
-			u.Respond(w, response, "Interceptor: Malformed authentication token")
+			u.Respond(w, response, "Interceptor: Malformed authentication token", "")
 			return
 		}
 
@@ -64,7 +64,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 			response = u.Message(false, "Token is not valid.")
 			w.WriteHeader(http.StatusForbidden)
 			w.Header().Add("Content-Type", "application/json")
-			u.Respond(w, response, "Interceptor: Token is not valid")
+			u.Respond(w, response, "Interceptor: Token is not valid", "")
 			return
 		}
 
@@ -75,7 +75,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 			response = u.Message(false, "User not exist")
 			w.WriteHeader(http.StatusForbidden)
 			w.Header().Add("Content-Type", "application/json")
-			u.Respond(w, response, "Interceptor: User not exist")
+			u.Respond(w, response, "Interceptor: User not exist", "")
 			return
 		}
 
