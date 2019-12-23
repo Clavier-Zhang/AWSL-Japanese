@@ -34,7 +34,7 @@ func Respond(w http.ResponseWriter, data map[string] interface{}, message string
 	}
 
 	// log email
-	c = color.New(color.FgBlue)
+	c = color.New(color.FgCyan)
 	c.Print(email+" ")
 
 	// log message
