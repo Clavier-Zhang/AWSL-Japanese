@@ -62,7 +62,7 @@ struct StartButton: View {
                         self.task.save()
                     }
                 }
-                isLoadingStart = false
+                wait.leave()
             }
             
             func handleFail() {

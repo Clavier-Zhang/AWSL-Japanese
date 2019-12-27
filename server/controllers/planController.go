@@ -2,9 +2,9 @@ package controllers
 
 import (
 	"net/http"
-	."server/models/session"
-	."server/models/plan"
-	."server/utils"
+	. "server/models/plan"
+	. "server/models/session"
+	"server/utils"
 )
 
 func PlanListGetController(w http.ResponseWriter, r *http.Request) {
@@ -26,11 +26,11 @@ func PlanListGetController(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	result := Message(true, "Get plan list")
+	result := utils.Message(true, "Get plan list")
 	result["planOptions"] = planOptions
 	result["numOptions"] = numOptions
 	result["currentNumOption"] = currentNumOption
 	result["currentPlanOption"] = currentPlanOption
 
-	Respond(w, result, "PlanListGetController", email)
+	utils.Respond(w, result, "PlanListGetController", email)
 }

@@ -4,17 +4,17 @@ package collectors
 import (
 	"github.com/gocolly/colly"
 	"github.com/gocolly/colly/queue"
+	"server/utils"
 	"strconv"
 
 	//"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
 	. "server/models/word"
-	. "server/utils"
 	//"strconv"
 
+	"time"
 	//"strconv"
 	"unicode/utf8"
-	"time"
 )
 
 
@@ -53,7 +53,7 @@ func CollectEN(level int) []*Word {
 
 	// Output
 	log.Printf("Time: %s, %d success, %d fail", time, success, fail)
-	PrettyPrint(errorLinks)
+	utils.PrettyPrint(errorLinks)
 
 	return successWords
 }
@@ -163,7 +163,7 @@ func GetEnglishLabel(e *colly.HTMLElement, text string) string {
 
 	// If is <justify label>
 	if len(justifies) != 0 {
-		label = FindSubStringAndReplace(text, justifies)
+		label = utils.FindSubStringAndReplace(text, justifies)
 
 		// If is common label
 	} else {

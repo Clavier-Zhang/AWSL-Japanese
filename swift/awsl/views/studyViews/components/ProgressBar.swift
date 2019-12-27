@@ -30,14 +30,18 @@ struct ProgressBar: View {
                     Rectangle()
                         .fill(green)
                         .frame(width: (self.finished/self.total) * geometry.size.width)
-                    Text(String(Int(self.finished)))
+                    if (self.finished/self.total) * geometry.size.width > 10 {
+                        Text(String(Int(self.finished)))
+                    }
                 }
                 
                 ZStack {
                     Rectangle()
                         .fill(base)
                         .frame(width: (self.new/self.total) * geometry.size.width)
-                    Text(String(Int(self.new)))
+                    if (self.new/self.total) * geometry.size.width > 10 {
+                        Text(String(Int(self.new)))
+                    }
                 }
                 
                 
@@ -45,7 +49,9 @@ struct ProgressBar: View {
                     Rectangle()
                         .fill(yellow)
                         .frame(width: (self.review/self.total) * geometry.size.width)
-                    Text(String(Int(self.review)))
+                    if (self.review/self.total) * geometry.size.width > 10 {
+                        Text(String(Int(self.review)))
+                    }
                 }
                 
             }

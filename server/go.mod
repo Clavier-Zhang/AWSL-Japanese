@@ -31,6 +31,7 @@ require (
 	github.com/stretchr/testify v1.3.0
 	github.com/temoto/robotstxt v1.1.1 // indirect
 	github.com/tidwall/gjson v1.3.5
+	github.com/tidwall/pretty v1.0.0
 	github.com/xdg/scram v0.0.0-20180814205039-7eeb5667e42c // indirect
 	github.com/xdg/stringprep v1.0.0 // indirect
 	go.mongodb.org/mongo-driver v1.1.1

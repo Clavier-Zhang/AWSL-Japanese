@@ -2,18 +2,21 @@ package main
 
 import (
 	//"go.mongodb.org/mongo-driver/bson/primitive"
-	."server/crawler/collectors"
-	."server/models/plan"
+	. "server/crawler/collectors"
+	. "server/models/plan"
+	//. "server/models/word"
 	"strconv"
 
 	//."server/utils"
 )
 
 func main() {
-
-	for i:=1; i <=5; i++ {
+	//s := "https://dict.hjenglish.com/jp/jc/%E6%9C%AA%E3%81%A0???????"
+	//fmt.Println(s[:strings.Index(s, "?")])
+	for i:=1; i <=2; i++ {
 		addNPlan(i)
 	}
+	//CollectCN(&[]*Word{})
 
 
 }

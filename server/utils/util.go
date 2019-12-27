@@ -5,9 +5,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/google/uuid"
+	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
 	"io"
+	"os"
+
 	//"log"
 	"net/http"
 	"strings"
@@ -121,4 +124,9 @@ func DecodeToMap(body io.Reader) map[string]interface{}{
 	data := &map[string]interface{}{}
 	_ = json.NewDecoder(body).Decode(data)
 	return *data
+}
+
+func GetENV(key string) string {
+	_ = godotenv.Load()
+	return os.Getenv(key)
 }

@@ -4,7 +4,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"net/http"
 	"server/models/user"
-	. "server/utils"
+	"server/utils"
 	"strings"
 )
 
@@ -14,7 +14,7 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 
 	// Decoding fails
 	if requestUser == nil {
-		Respond(w, Message(false, "Invalid request body"), "Invalid request body", requestUser.Email)
+		utils.Respond(w, utils.Message(false, "Invalid request body"), "Invalid request body", requestUser.Email)
 		return
 	}
 
@@ -25,13 +25,13 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 
 	// Not found in database
 	if dbUser == nil {
-		Respond(w, Message(false, "Email not exist"), "UserLoginController: Fail", requestUser.Email)
+		utils.Respond(w, utils.Message(false, "Email not exist"), "UserLoginController: Fail", requestUser.Email)
 		return
 	}
 
 	// Password not match
-	if !SameHashPassword(dbUser.Password, requestUser.Password) {
-		Respond(w, Message(false, "Password not match"), "UserLoginController: Fail, Password", requestUser.Email)
+	if !utils.SameHashPassword(dbUser.Password, requestUser.Password) {
+		utils.Respond(w, utils.Message(false, "Password not match"), "UserLoginController: Fail, Password", requestUser.Email)
 		return
 	}
 
@@ -40,10 +40,10 @@ func UserLoginController(w http.ResponseWriter, r *http.Request) {
 	dbUser.Save()
 
 	dbUser.Password = ""
-	response := Message(true, "Login Success")
+	response := utils.Message(true, "Login Success")
 	response["user"] = dbUser
 
-	Respond(w, response, "UserLoginController", requestUser.Email)
+	utils.Respond(w, response, "UserLoginController", requestUser.Email)
 }
 
 
@@ -53,7 +53,7 @@ func UserCreateController(w http.ResponseWriter, r *http.Request) {
 
 	// Decoding fails
 	if requestUser == nil {
-		Respond(w, Message(false, "Invalid request body"), "Invalid request body", requestUser.Email)
+		utils.Respond(w, utils.Message(false, "Invalid request body"), "Invalid request body", requestUser.Email)
 		return
 	}
 
@@ -64,24 +64,24 @@ func UserCreateController(w http.ResponseWriter, r *http.Request) {
 
 	// Email has been used
 	if dbUser != nil {
-		Respond(w, Message(false, "Email has been used"), "Email has been used", requestUser.Email)
+		utils.Respond(w, utils.Message(false, "Email has been used"), "Email has been used", requestUser.Email)
 		return
 	}
 
 	// Wrong email format
 	if !strings.Contains(requestUser.Email, "@") {
-		Respond(w, Message(false, "Wrong email format"), "Wrong email format", requestUser.Email)
+		utils.Respond(w, utils.Message(false, "Wrong email format"), "Wrong email format", requestUser.Email)
 		return
 	}
 
 	// Wrong password length
 	if len(requestUser.Password) < 6 {
-		Respond(w, Message(false, "Wrong password length"), "Wrong password length", requestUser.Email)
+		utils.Respond(w, utils.Message(false, "Wrong password length"), "Wrong password length", requestUser.Email)
 		return
 	}
 
 	// Convert password to hash
-	requestUser.Password = NewHashPassword(requestUser.Password)
+	requestUser.Password = utils.NewHashPassword(requestUser.Password)
 	requestUser.ID = primitive.NewObjectID()
 
 	// Generate token
@@ -91,8 +91,8 @@ func UserCreateController(w http.ResponseWriter, r *http.Request) {
 
 	// Response success
 	requestUser.Password = ""
-	response := Message(true, "create user")
+	response := utils.Message(true, "create user")
 	response["user"] = requestUser
-	Respond(w, response, "UserCreateController", requestUser.Email)
+	utils.Respond(w, response, "UserCreateController", requestUser.Email)
 
 }

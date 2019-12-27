@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"net/http"
-	."server/models/session"
-	. "server/utils"
+	. "server/models/session"
+	"server/utils"
 )
 
 
@@ -11,7 +11,7 @@ import (
 func SessionUpdateController(w http.ResponseWriter, r *http.Request) {
 	// Get data
 	email := r.Context().Value("email").(string)
-	data := DecodeToMap(r.Body)
+	data := utils.DecodeToMap(r.Body)
 	session := FindSessionByEmail(email)
 
 	// Update session
@@ -19,6 +19,6 @@ func SessionUpdateController(w http.ResponseWriter, r *http.Request) {
 	session.CurrentPlan = data["plan"].(string)
 	session.Save()
 
-	result := Message(true, "Update session")
-	Respond(w, result, "SessionUpdateController", email)
+	result := utils.Message(true, "Update session")
+	utils.Respond(w, result, "SessionUpdateController", email)
 }

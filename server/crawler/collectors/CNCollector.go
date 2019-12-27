@@ -1,19 +1,31 @@
 package collectors
 
-
 import (
+	"fmt"
+	//"math/rand"
+
+	//"github.com/gocolly/colly/proxy"
+
+	//"github.com/gocolly/colly/proxy"
+	//"math/rand"
+
+	//"math/rand"
+	//"strconv"
+
+	//"strconv"
+
 	//"fmt"
 	"github.com/gocolly/colly"
 	"github.com/gocolly/colly/queue"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"server/utils"
 
 	//"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
 	"net/http"
+	. "server/models/word"
 	"strings"
 	"time"
-	."server/models/word"
-	."server/utils"
 )
 
 
@@ -22,24 +34,29 @@ const baseCNURL = "https://dict.hjenglish.com/jp/jc/"
 
 var cookies = []*http.Cookie{
 	{Name: "HJ_UID", Value: "2cd98d30-faa7-94ac-80ba-ec93268146c7"},
-	{Name: "HJ_SID", Value: "699b9cb7-f88f-afd4-c18a-69a70b1c7d72"},
+	{Name: "HJ_SID", Value: "e875787a-d9f4-9ce2-e3e8-ebbe7cb19515"},
 }
 
-var CN_Queue, _ = queue.New(70, &queue.InMemoryQueueStorage{MaxSize: 30000})
+var CN_Queue, _ = queue.New(1, &queue.InMemoryQueueStorage{MaxSize: 30000})
 
 // Results
-var CN_Success = 0
-var CN_Fail = 0
 var CN_Errors []string
 
 var m map[string]*Word
+var m_fails map[string]int
 var textsMap map[string]bool
 
+var proxies []string
+
+var count int
+
 func CollectCN(words *[]*Word) []primitive.ObjectID {
+	count = 0
 
 	// Start time for execution time
 	start := time.Now()
 	m = map[string]*Word{}
+	m_fails = map[string]int{}
 	textsMap = map[string]bool{}
 
 	// Set Collector
@@ -49,6 +66,33 @@ func CollectCN(words *[]*Word) []primitive.ObjectID {
 
 	c.OnHTML("body", analyzeCNPage)
 
+	c.OnResponse(func(r *colly.Response) {
+		if strings.Contains(r.Request.URL.String(), "notfound") {
+			s := r.Request.URL.String()
+			// remove not found
+			s = s[0:27]+s[36:]
+			m_fails[s[:strings.Index(s, "?")]] += 1
+			if m_fails[s[:strings.Index(s, "?")]] < 10 {
+				log.Println("fail times: ", m_fails[s[:strings.Index(s, "?")]])
+				fmt.Println("add fail "+s)
+				CN_Queue.AddURL(s+"?")
+			}
+		}
+		log.Println("OnResponse Visited", r.Request.URL)
+		fmt.Println("----------------------------------")
+	})
+
+	c.OnRequest(func(r *colly.Request) {
+		count += 1
+		if count == 20 {
+			count = 0
+			time.Sleep(time.Duration(60) * time.Second)
+		}
+	})
+
+	c.WithTransport(&http.Transport{
+		DisableKeepAlives: true,
+	})
 
 	for _, word := range *words {
 		m[word.Text+word.Label] = word
@@ -56,6 +100,7 @@ func CollectCN(words *[]*Word) []primitive.ObjectID {
 	}
 
 	loadCNQueue(m)
+
 
 	_ = CN_Queue.Run(c)
 
@@ -85,17 +130,14 @@ func CollectCN(words *[]*Word) []primitive.ObjectID {
 
 func loadCNQueue(m map[string]*Word) {
 	//_ = CN_Queue.AddURL("https://dict.hjenglish.com/jp/jc/%E6%B0%B4%E6%B0%97")
-
 	for text, _ := range textsMap {
-		_ = CN_Queue.AddURL(baseCNURL+text)
+		_ = CN_Queue.AddURL(baseCNURL+text+"?")
 	}
 }
 
 
 
 func analyzeCNPage(e *colly.HTMLElement) {
-
-	log.Printf(e.Request.URL.String())
 
 	e.ForEach("div.word-details-pane", func(_ int, e *colly.HTMLElement) {
 
@@ -119,12 +161,9 @@ func analyzeCNPage(e *colly.HTMLElement) {
 
 		word.Save()
 
-
 	})
 
 }
-
-
 
 func GetChineseText(e *colly.HTMLElement) string {
 	return e.ChildText("div.word-text h2")
@@ -172,6 +211,8 @@ func GetChineseExamples(e *colly.HTMLElement) []Example {
 func GetChineseAudio(e *colly.HTMLElement) []byte {
 	audioLink := e.ChildAttr("span.word-audio", "data-src")
 	resp, _ := http.Get(audioLink)
-	defer resp.Body.Close()
-	return ReaderToBytes(resp.Body)
+	if resp.Body != nil {
+		defer resp.Body.Close()
+	}
+	return utils.ReaderToBytes(resp.Body)
 }
