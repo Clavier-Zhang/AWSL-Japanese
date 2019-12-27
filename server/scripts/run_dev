@@ -1,3 +1,4 @@
 #! /usr/bin/env bash
 go build
-godotenv -f ./.env.dev ./server
+> ./logs/dev_log
+godotenv -f ./.env.dev ./server > ./logs/dev_log &

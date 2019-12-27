@@ -1,2 +1,2 @@
 #! /usr/bin/env bash
-godotenv -f ./.env.dev.test go test ./... --cover
+godotenv -f ./.env.test go test ./... --cover

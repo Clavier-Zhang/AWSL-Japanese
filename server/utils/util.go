@@ -11,11 +11,12 @@ import (
 	"io"
 	"os"
 
+	//"github.com/fatih/color"
 	//"log"
 	"net/http"
 	"strings"
-	"github.com/fatih/color"
 	"time"
+	. "github.com/logrusorgru/aurora"
 )
 
 func Message(status bool, message string) (map[string]interface{}) {
@@ -23,27 +24,24 @@ func Message(status bool, message string) (map[string]interface{}) {
 }
 
 func Respond(w http.ResponseWriter, data map[string] interface{}, message string, email string)  {
+
 	// log time
-	c := color.New(color.FgYellow)
-	c.Print(time.Now().Format("2006-01-02 15:04:05"))
+	fmt.Print(Bold(Yellow(time.Now().Format("2006-01-02 15:04:05"))))
 
 	// log status
 	if data["status"] == true {
-		c = color.New(color.FgGreen)
-		c.Print(" SUCCESS ")
+		fmt.Print(Bold(Green(" SUCCESS ")))
 	} else {
-		c = color.New(color.FgRed)
-		c.Print(" FAIL ")
+		fmt.Print(Bold(Red(" FAIL ")))
 	}
 
 	// log email
-	c = color.New(color.FgCyan)
-	c.Print(email+" ")
+	fmt.Print(Bold(Cyan(email+" ")))
 
 	// log message
 	fmt.Println(message)
 
-
+	// log content
 	w.Header().Add("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(data)
 

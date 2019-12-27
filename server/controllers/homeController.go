@@ -8,6 +8,7 @@ import (
 )
 
 func HomeController(w http.ResponseWriter, r *http.Request) {
+
 	// Get parameter
 	email := r.Context().Value("email").(string)
 	// Find session
