@@ -1,0 +1,4 @@
+#! /usr/bin/env bash
+go build
+> ./logs/dev_log
+godotenv -f ./.env.release ./server > ./logs/release_log &
