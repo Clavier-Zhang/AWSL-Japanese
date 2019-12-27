@@ -8,6 +8,7 @@ DerivedData/
 .vscode/
 hiragana/
 .idea/
+./logs/*
 
 ## Various settings
 *.pbxuser
