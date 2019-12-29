@@ -15,9 +15,11 @@ struct MeaningRow: View {
     @State var type: String
     
     var body: some View {
-        VStack {
+        HStack {
+            Spacer().frame(width: 20)
             
             ScrollView {
+                
                 Spacer().frame(height: 10)
                 
                 // Type
@@ -34,12 +36,12 @@ struct MeaningRow: View {
                     Spacer().frame(height: 10)
                 }
             }
+            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
             
-            
+            Spacer().frame(width: 20)
         }
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 150, alignment: .leading)
-            .padding(.horizontal)
-            .background(base)
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 150, maxHeight: 150)
+        .background(base)
     }
 }
 

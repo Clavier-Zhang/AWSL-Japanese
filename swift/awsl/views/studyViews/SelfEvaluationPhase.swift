@@ -23,19 +23,19 @@ struct SelfEvaluationPhase: View {
         VStack(spacing: 20) {
             
             WordRow(task: task, withFurigara: false)
+            
             if (task.getStatus() == NEW) {
                 WideButton(label: "太简单", action: pressEasy)
             }
             
-            
-            Spacer().frame(height: 400)
+            Spacer().frame(height: fullHeight-700)
             
             WideButton(label: "认识", action: pressKnow)
+            
             WideButton(label: "不认识", action: pressNotKnow)
 
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
-
     }
     
     func pressNotKnow() {

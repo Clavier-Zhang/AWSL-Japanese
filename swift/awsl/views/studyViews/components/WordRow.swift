@@ -11,7 +11,6 @@ import AVFoundation
 
 struct WordRow: View {
     
-    // Audio player
     @State var player : AVAudioPlayer?
     
     var task: Task
@@ -31,23 +30,23 @@ struct WordRow: View {
     
     var body: some View {
         HStack {
+            Spacer().frame(width: 20)
             // Text
             Text(text)
                 .font(large)
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
+                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
             // Audio Button
             Button(action: playAudio) {
                 Divider()
                 Image(systemName: "speaker")
                     .frame(width: 20)
                     .padding(.horizontal)
+                Spacer().frame(width: 10)
             }
-
         }
-            .padding(.horizontal)
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
-            .background(base)
-            .onAppear(perform: playAudio)
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
+        .background(base)
+        .onAppear(perform: playAudio)
     }
     
     func playAudio() {

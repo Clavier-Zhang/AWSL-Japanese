@@ -40,28 +40,26 @@ struct TestPhase: View {
             
             if settings.isHandwriting() {
                 // Handwriting
-                    Text(label)
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 40, alignment: .leading)
-                        .padding()
-                        .background(base)
-                        .border(isCorrect ? base : red)
+                Text(label)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 40, alignment: .leading)
+                    .padding()
+                    .background(base)
+                    .border(isCorrect ? base : red)
                 
-                    // Writing pad
-                    canvas.frame(width: 700, height: 150)
+                // Writing pad
+                canvas.frame(width: 700, height: 150)
 
-                    Text("在上方区域写出假名")
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60, alignment: .center)
-                    Text("Double tap切换橡皮擦")
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60, alignment: .center)
+                Text("在上方区域写出假名").font(.system(size: 14)).frame(minWidth: 0, maxWidth: .infinity)
+                
             } else {
                 // Type
                 
                 TextField("在此输入假名", text: $label) {
                     self.pressSubmit()
                 }
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 40, alignment: .leading)
-                    .padding()
-                    .background(base)
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 40, alignment: .leading)
+                .padding()
+                .background(base)
                 .border(isCorrect ? base : red)
 
             }

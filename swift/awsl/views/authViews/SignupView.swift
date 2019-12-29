@@ -42,7 +42,7 @@ struct SignUpView: View {
                     }
                     
                     VStack {
-                        PasswordField(bind: $repassword)
+                        PasswordField(bind: $repassword, isRepassword: true)
                         Divider()
                     }
                     
@@ -52,17 +52,18 @@ struct SignUpView: View {
                         RedButton(text: "提交", isLoading: $isLoading, action: signup)
                         RedButton(text: "返回", action: back)
                     }
-
-                    Spacer().frame(height: 200)
                     
-                }.frame(width: 300, height: fullHeight)
-                
-                NavigationLink(destination: HomeView(), isActive: $toHome) {
-                    EmptyView()
+                    NavigationLink(destination: HomeView(), isActive: $toHome) {
+                        EmptyView()
+                    }
+                    
                 }
-                
+                .frame(width: 300, height: fullHeight)
             }
-            .modifier(BaseViewStyle())
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height+200)
+            .background(studyCardBase)
+            .foregroundColor(fontBase)
+            .offset(y:-100)
         }
         .modifier(NavigationViewHiddenStyle())
     }

@@ -16,8 +16,8 @@ struct ReviewList: View {
         VStack(spacing: 20) {
             
             HStack(alignment: .top) {
-                Text("高频复习单词").bold().frame(width: 250)
-                Text("释义").bold().frame(width: 250)
+                Text("高频复习单词").bold().frame(width: 250, alignment: .leading)
+                Text("释义").bold().frame(width: 250, alignment: .leading)
             }
             
 

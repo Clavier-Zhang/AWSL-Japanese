@@ -64,8 +64,9 @@ struct NavigationViewBackStyle: ViewModifier {
 struct BaseViewStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height+300)
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height+200, alignment: .bottom)
             .background(base)
             .foregroundColor(fontBase)
+            .offset(y:-200)
     }
 }

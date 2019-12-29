@@ -11,9 +11,14 @@ import SwiftUI
 struct PasswordField: View {
     
     var password: Binding<String>
+    
+    var placeHolder: String = "密码"
 
-    public init(bind: Binding<String>) {
+    public init(bind: Binding<String>, isRepassword: Bool = false) {
         self.password = bind
+        if isRepassword {
+            self.placeHolder = "再次输入密码"
+        }
     }
     
     var body: some View {
@@ -22,11 +27,11 @@ struct PasswordField: View {
                 .frame(width: 30)
             ZStack(alignment: .leading) {
                 if password.wrappedValue.isEmpty {
-                    Text("Password")
+                    Text(placeHolder)
                         .foregroundColor(fontBase)
                         .opacity(0.4)
                 }
-                SecureField("Password", text: password)
+                SecureField(placeHolder, text: password)
             }
         }
     }

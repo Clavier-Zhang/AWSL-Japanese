@@ -37,10 +37,11 @@ struct HomeView: View {
                 
                 StartButton(task: $task)
                 
-                Spacer().frame(height: 50)
-                
             }
-            .modifier(BaseViewStyle())
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height+200)
+            .background(studyCardBase)
+            .foregroundColor(fontBase)
+            .offset(y:-100)
             .onAppear(perform: homeAppear)
         }
         .modifier(NavigationViewHiddenStyle())

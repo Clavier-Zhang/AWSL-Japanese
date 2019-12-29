@@ -31,6 +31,8 @@ struct LoginView: View {
             VStack {
                 VStack(spacing: 20) {
                     
+                    Spacer().frame(height: 30)
+                    
                     VStack {
                         EmailField(bind: $email)
                         Divider()
@@ -53,13 +55,14 @@ struct LoginView: View {
                     NavigationLink(destination: HomeView(), isActive: $toHome) {
                         EmptyView()
                     }
-                    
-                    Spacer().frame(height: 200)
 
                 }
                 .frame(width: 300)
             }
-            .modifier(BaseViewStyle())
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height+200)
+            .background(studyCardBase)
+            .foregroundColor(fontBase)
+            .offset(y:-100)
         }
         .modifier(NavigationViewHiddenStyle())
     }

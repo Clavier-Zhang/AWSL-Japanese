@@ -27,12 +27,11 @@ struct StudyCardView: View {
                 VStack {
                     VStack {
                         
-                        Spacer().frame(height: 30)
+                        Spacer().frame(height: 60)
                         
                         ProgressBar(new: task.getNewNum(), finished: task.getFinishedNum(), review: task.getReviewNum())
-                            .padding(.vertical)
                         
-                        Spacer().frame(height: 30)
+                        Spacer().frame(height: 60)
                     
                         if (currentPhase == SELF_EVALUATION_PHASE) {
                             SelfEvaluationPhase(currentPhase: $currentPhase, task: $task)
@@ -47,12 +46,15 @@ struct StudyCardView: View {
                         }
                         
                     }
-                    .frame(width: 700, height: 1.05*fullHeight)
+                    .frame(width: 700)
                 }
-                .frame(width: fullWidth, height: 1.05*fullHeight)
+                .frame(width: fullWidth, height: fullHeight-70)
                 .background(studyCardBase)
             }
-            .modifier(BaseViewStyle())
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height+200, alignment: .bottom)
+            .background(base)
+            .foregroundColor(fontBase)
+            .offset(y:-200)
             .onAppear(perform: onAppear)
             .onDisappear(perform: onDisappear)
         }

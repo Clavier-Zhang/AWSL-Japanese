@@ -25,26 +25,38 @@ struct PlanListView: View {
     var body: some View {
         NavigationView {
             VStack {
-                VStack (spacing: 10) {
-                    
+                VStack {
+                    Spacer().frame(height: 150)
+                    VStack(spacing: 10) {
+                        
                         Picker(selection: $data.currentPlanOption, label: Text("单词书")) {
                             ForEach(0..<self.data.planOptions.count) {
                                 Text(String(self.data.planOptions[$0].name)).tag($0)
                             }
-                        }.pickerStyle(WheelPickerStyle())
-                        // Num options
+                        }
+                        .pickerStyle(WheelPickerStyle())
+
                         Picker(selection: $data.currentNumOption, label: Text("每日计划")) {
                             ForEach(0..<self.data.numOptions.count) {
                                 Text(String(self.data.numOptions[$0])).tag($0)
                             }
-                        }.pickerStyle(WheelPickerStyle())
-                    
-                    RedButton(text: "保存", isLoading: $isLoadingSave, action: pressSave)
-                    
+                        }
+                        .pickerStyle(WheelPickerStyle())
+                        
+                        Spacer().frame(height: 20)
+                        
+                        RedButton(text: "保存", isLoading: $isLoadingSave, action: pressSave)
+                        
+                    }
+                    .frame(width: 400)
                 }
-                .frame(width: 400, height: fullHeight)
+                .frame(width: fullWidth, height: fullHeight-70, alignment: .top)
+                .background(studyCardBase)
             }
-            .modifier(BaseViewStyle())
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height+200, alignment: .bottom)
+            .background(base)
+            .foregroundColor(fontBase)
+            .offset(y:-200)
         }
         .modifier(NavigationViewBackStyle(pressBack: pressBack))
     }

@@ -25,11 +25,12 @@ struct LearnPhase: View {
             
             ExampleRow(examples: task.getWord().chinese_examples)
 
-            Spacer().frame(height: 50)
+            Spacer().frame(height: fullHeight-900)
             
             RedButton(text: "下一个", isLoading: $isLoading, action: pressNext)
 
-        }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
+        }
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
     }
     
     func pressNext() {
@@ -39,6 +40,5 @@ struct LearnPhase: View {
         } else {
             currentPhase = SUBMISSION_PHASE
         }
-        
     }
 }

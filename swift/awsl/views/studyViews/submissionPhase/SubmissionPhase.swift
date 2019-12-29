@@ -24,29 +24,35 @@ struct SubmissionPhase: View {
     @State var message = "“"
 
     var body: some View {
-        HStack {
-            VStack(spacing: 50) {
-                
-                HStack {
-                    CountLabel(label: "用 时", title: task.getTime())
-                }
-                .padding()
-                .frame(minWidth: 0, maxWidth: .infinity)
-                .background(studyCardBase)
-                
-                
-                ReviewList(reviewWords: task.getTopReviewWords(count: 5))
-                    .padding()
-                    .background(studyCardBase)
+        VStack {
+            VStack {
+                VStack(spacing: 50) {
                     
-                RedButton(text: "提交", isLoading: $isLoading, action: pressSubmit)
-                
-                Spacer().frame(height: 300)
-                
+                    Spacer().frame(height: 10)
+                    
+                    HStack {
+                        CountLabel(label: "用 时", title: task.getTime())
+                    }
+                    .padding()
+                    .frame(minWidth: 0, maxWidth: .infinity)
+                    
+                    ReviewList(reviewWords: task.getTopReviewWords(count: 5))
+                        .padding()
+                        .background(base)
+                        
+                    RedButton(text: "提交", isLoading: $isLoading, action: pressSubmit)
+                    
+                    
+                }
+                .frame(width: 550, alignment: .top)
             }
-            .frame(width: 550, alignment: .top)
+            .frame(width: fullWidth, height: fullHeight-70, alignment: .top)
+            .background(studyCardBase)
         }
-        .modifier(BaseViewStyle())
+        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height+200, alignment: .bottom)
+        .background(base)
+        .foregroundColor(fontBase)
+        .offset(y:-200)
     }
     
     func pressSubmit() {
