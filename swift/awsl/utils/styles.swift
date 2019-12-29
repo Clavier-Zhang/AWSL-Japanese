@@ -46,11 +46,12 @@ struct NavigationViewBackStyle: ViewModifier {
     
     var BackButton : some View {
         HStack {
-            Spacer().frame(width: 20)
             Button(action: pressBack) {
+                Spacer().frame(width: 20)
                 Image(systemName: "house")
-                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 40, height: 40)
                     .foregroundColor(.white)
+                Spacer().frame(width: 20)
             }
         }
     }

@@ -29,11 +29,14 @@ struct Task: Codable {
             self.newWords[i].remainRepetition = 1
             self.newWords[i].reviewCount = 0
         }
+        self.totalCount = newWords.count
         if isSubmitted {
             finishedWords = newWords
             newWords = []
         }
     }
+    
+    var totalCount: Int
     
     var newCount: Int
     
@@ -53,7 +56,7 @@ struct Task: Codable {
     }
     
     func getTotalCount() -> Int {
-        return finishedWords.count + newWords.count
+        return totalCount
     }
     
     func getNewCount() -> Int {
@@ -61,7 +64,7 @@ struct Task: Codable {
     }
     
     func getRemainCount() -> Int {
-        return newWords.count
+        return totalCount - finishedWords.count
     }
     
     // StudyCardView

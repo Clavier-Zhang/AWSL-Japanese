@@ -11,9 +11,9 @@ import Foundation
 struct Remote {
     
 //    DEV
-//    static let baseURL = "http://47.89.243.163:8000/api"
+    static let baseURL = "http://47.89.243.163:8000/api"
     
-    static let baseURL = "http://192.168.31.158:8000/api"
+//    static let baseURL = "http://192.168.31.158:8000/api"
     
     static func sendGetRequest(path: String, handleSuccess: @escaping (Data) -> Void, token: String, handleFail: Any = ()) -> Void {
         
