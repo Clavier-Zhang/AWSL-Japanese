@@ -37,7 +37,7 @@ struct StudyCardView: View {
                             SelfEvaluationPhase(currentPhase: $currentPhase, task: $task)
                             
                         } else if (currentPhase == TEST_PHASE) {
-                            TestPhase(currentPhase: $currentPhase, task: $task)
+                            TestPhase(task: $task, currentPhase: $currentPhase)
                             
                         } else if (currentPhase == LEARN_PHASE) {
                             LearnPhase(currentPhase: $currentPhase, task: $task)

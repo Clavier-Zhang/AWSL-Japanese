@@ -12,38 +12,33 @@ import SwiftUI
 struct TestPhase: View {
     
     @State var settings = Settings.get()
+    @Binding var task: Task
+    @Binding var currentPhase : String
     
     @State var isCorrect = true
     
-    @Binding var currentPhase : String
-    
-    @Binding var task: Task
-    
-    @State var canvas : WritingPad?
-    
     @State var label: String = ""
-    
     @State var disableSubmit: Bool = false
     
     @State var isPen : Bool = true
+    @State var canvas : WritingPad?
+    
+    @State var keyboardField : KeyboardField?
+    @State var writingField : WritingField?
     
     var body: some View {
         VStack(spacing: 20) {
             
-            // Explanation of the word
             MeaningRow(meanings: task.getWord().chinese_meanings, type: task.getWord().chinese_type)
             
-            // Buttons
             HStack {
                 WideButton(label: "提交", action: pressSubmit, center: true).disabled(disableSubmit)
                 WideButton(label: "不会拼", action: pressUnableToSpell, center: true)
             }
             
-            
             if settings.isHandwriting() {
-                // Handwriting
+                
                 HStack {
-                    
                     Button(action: switchTool) {
                         VStack {
                             if isPen {
@@ -92,50 +87,40 @@ struct TestPhase: View {
                 Text("在上方区域写出假名").font(.system(size: 14)).frame(minWidth: 0, maxWidth: .infinity)
                 
             } else {
-                // Type
-                
-                TextField("在此输入假名", text: $label) {
-                    self.pressSubmit()
-                }
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 40, alignment: .leading)
-                .padding()
-                .background(base)
-                .border(isCorrect ? base : red)
-
+                keyboardField
             }
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
         .onAppear {
             self.canvas = WritingPad(isPen: self.$isPen)
+            self.keyboardField = KeyboardField(label: self.$label, isCorrect: self.$isCorrect, pressSubmit: self.pressSubmit)
+            self.writingField = WritingField(label: self.$label, isCorrect: self.$isCorrect)
         }
     }
 
-    
     func clean() {
         canvas!.clean()
     }
     
     func switchTool() {
-        print("switch")
         canvas?.switchTool()
-
     }
     
     func pressSubmit() {
         disableSubmit = true
-        let expectedLabel = task.getWord().label
+        let correctLabel = task.getWord().label
         
-        // Handwriting
         if settings.isHandwriting() {
             let writtenLabel = canvas!.getText()
             label = writtenLabel
+//            writingField!.recognize()
         }
         
-        if (expectedLabel == label) {
+        if (correctLabel == label) {
             task.setCorrect()
             currentPhase = LEARN_PHASE
         } else {
-            print("wrong")
+            print("wrong " + correctLabel)
             isCorrect = false
         }
         

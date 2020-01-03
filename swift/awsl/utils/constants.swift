@@ -8,6 +8,9 @@
 
 import SwiftUI
 
+let UICOLOR_LIGHT_GRAY = UIColor.init(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)
+let UICOLOR_WHITE = UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
+
 let LEARN_PHASE = "LEARN_PHASE"
 
 var green = Color.init(red: 0x00/255, green: 0xa8/255, blue: 0x78/255)
