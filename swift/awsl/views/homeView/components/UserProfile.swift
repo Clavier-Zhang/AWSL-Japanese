@@ -19,27 +19,46 @@ struct UserProfile: View {
     }
     
     var body: some View {
-        HStack (spacing: 10) {
-            Image("avatar")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 50, height: 50)
-                .clipShape(Capsule())
-            Text(user.email)
+        VStack {
+            if !UIDevice.isPad {
+                Spacer().frame(height: 40)
+            }
             
-            
-            Button(action: logout) {
-                HStack {
-                    Text("退出")
+            HStack (spacing: 10) {
+                Image("avatar")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 50, height: 50)
+                    .clipShape(Capsule())
+                Text(user.email)
+                
+                
+                if UIDevice.isPad {
+                    Button(action: logout) {
+                        HStack {
+                            Text("退出")
+                        }
+                    }
+                    .buttonStyle(LogoutButtonStyle())
                 }
-            }
-            .buttonStyle(LogoutButtonStyle())
+                
+                
+                NavigationLink(destination: LoginView(), isActive: $toLoginView) {
+                    EmptyView()
+                }
+                
+            }.frame(minWidth: 0, maxWidth: .infinity)
             
-            NavigationLink(destination: LoginView(), isActive: $toLoginView) {
-                EmptyView()
+            if !UIDevice.isPad {
+                Button(action: logout) {
+                    HStack {
+                        Text("退出")
+                    }
+                }
+                .buttonStyle(LogoutButtonStyle())
             }
-            
-        }.frame(minWidth: 0, maxWidth: .infinity)
+        }
+        
     }
     
     func logout() {

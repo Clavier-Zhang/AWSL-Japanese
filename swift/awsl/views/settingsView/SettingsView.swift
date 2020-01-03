@@ -18,7 +18,7 @@ struct SettingsView: View {
         NavigationView {
             VStack {
                 VStack {
-                    Spacer().frame(height: 150)
+                    Spacer().frame(height: AwslStyle.SETTINGS_GAP)
                     VStack(spacing: 20) {
                         
                     //                      ******Future
@@ -36,12 +36,21 @@ struct SettingsView: View {
                                 }
                             }
                             .pickerStyle(SegmentedPickerStyle())
+                            .disabled(!UIDevice.isPad)
+                        }
+                        
+                        if !UIDevice.isPad {
+                            HStack {
+                                Text("手机仅支持键盘模式")
+                                    .font(.body)
+                                    .foregroundColor(red)
+                            }
                         }
 
                     }
-                    .frame(width: 500)
+                    .frame(width: AwslStyle.SETTINGS_WIDTH)
                 }
-                .frame(width: fullWidth, height: fullHeight-70, alignment: .top)
+                .frame(width: WIDTH, height: fullHeight-70, alignment: .top)
                 .background(studyCardBase)
             }
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height+200, alignment: .bottom)

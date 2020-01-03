@@ -24,8 +24,9 @@ struct LearnPhase: View {
             MeaningRow(meanings: task.getWord().chinese_meanings, type: task.getWord().chinese_type)
             
             ExampleRow(examples: task.getWord().chinese_examples)
+            
 
-            Spacer().frame(height: fullHeight-900)
+            Spacer().frame(height: AwslStyle.LEARN_GAP)
             
             RedButton(text: "下一个", isLoading: $isLoading, action: pressNext)
 

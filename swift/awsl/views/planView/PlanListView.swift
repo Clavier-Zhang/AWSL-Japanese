@@ -26,29 +26,41 @@ struct PlanListView: View {
         NavigationView {
             VStack {
                 VStack {
-                    Spacer().frame(height: 150)
+                    
+                    Spacer().frame(height: AwslStyle.PLAN_GAP)
                     VStack(spacing: 10) {
                         
-                        Picker(selection: $data.currentPlanOption, label: Text("单词书")) {
-                            ForEach(0..<self.data.planOptions.count) {
-                                Text(String(self.data.planOptions[$0].name)).tag($0)
+                        HStack {
+                            Text("单词书")
+                                .frame(width: 80)
+                            Picker(selection: $data.currentPlanOption, label: Text("")) {
+                                ForEach(0..<self.data.planOptions.count) {
+                                    Text(String(self.data.planOptions[$0].name)).tag($0)
+                                }
                             }
-                        }
-                        .pickerStyle(WheelPickerStyle())
-
-                        Picker(selection: $data.currentNumOption, label: Text("每日计划")) {
-                            ForEach(0..<self.data.numOptions.count) {
-                                Text(String(self.data.numOptions[$0])).tag($0)
+                            .pickerStyle(WheelPickerStyle())
+                            .frame(width: AwslStyle.PLAN_PICKER_WIDTH)
+                        }.frame(alignment: .leading)
+                        
+                        HStack {
+                            Text("每日计划")
+                                .frame(width: 80)
+                            Picker(selection: $data.currentNumOption, label: Text("")) {
+                                ForEach(0..<self.data.numOptions.count) {
+                                    Text(String(self.data.numOptions[$0])).tag($0)
+                                }
                             }
+                            .pickerStyle(WheelPickerStyle())
+                            .frame(width: AwslStyle.PLAN_PICKER_WIDTH)
                         }
-                        .pickerStyle(WheelPickerStyle())
+                        
                         
                         Spacer().frame(height: 20)
                         
                         RedButton(text: "保存", isLoading: $isLoadingSave, action: pressSave)
                         
                     }
-                    .frame(width: 400)
+                    .frame(width: AwslStyle.PLAN_WIDTH)
                 }
                 .frame(width: fullWidth, height: fullHeight-70, alignment: .top)
                 .background(studyCardBase)

@@ -16,7 +16,7 @@ struct TaskRow: View {
     
     var body: some View {
         VStack {
-            HStack (spacing: 100) {
+            HStack (spacing: AwslStyle.COUNT_LABEL_GAP) {
                 if task.isValid() {
                     CountLabel(label: "新单词", count: task.getNewCount())
                     CountLabel(label: "剩余单词", count: task.getRemainCount())

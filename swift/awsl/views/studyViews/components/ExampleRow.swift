@@ -18,10 +18,10 @@ struct ExampleRow: View {
             Spacer().frame(height: 10)
             
             Text("例句")
-                .font(large).bold()
+                .font(AwslStyle.MIDDLE_FONT).bold()
                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                     
-            Spacer().frame(height: 20)
+            Spacer().frame(height: 10)
                     
             ForEach(0..<self.examples.count) { idx in
                 HStack {
@@ -35,7 +35,7 @@ struct ExampleRow: View {
             }
         }
         .padding(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 230, alignment: .leading)
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: AwslStyle.EXAMPLE_HEIGHT, maxHeight: AwslStyle.EXAMPLE_HEIGHT, alignment: .leading)
         .background(base)
 
     }

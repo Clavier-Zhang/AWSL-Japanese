@@ -24,10 +24,11 @@ struct MeaningRow: View {
                 
                 // Type
                 Text(type)
-                    .font(large).bold()
+                    .font(AwslStyle.MIDDLE_FONT)
+                    .bold()
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                 
-                Spacer().frame(height: 20)
+                Spacer().frame(height: 10)
                 
                 // Meanings
                 ForEach(0..<self.meanings.count) { idx in
@@ -40,7 +41,7 @@ struct MeaningRow: View {
             
             Spacer().frame(width: 20)
         }
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 150, maxHeight: 150)
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: AwslStyle.MEANING_HEIGHT, maxHeight: AwslStyle.MEANING_HEIGHT)
         .background(base)
     }
 }

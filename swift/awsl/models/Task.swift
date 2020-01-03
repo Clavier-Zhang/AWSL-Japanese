@@ -174,7 +174,7 @@ struct Task: Codable {
     }
     
     mutating func getTopReviewWords(count: Int) -> [Word] {
-        var copy = finishedWords
+        var copy = [Word](finishedWords)
         copy.sort(by: { $0.reviewCount! > $1.reviewCount! })
         let upper = min(count, copy.count)
         return Array(copy[..<upper])

@@ -22,7 +22,7 @@ struct PlanRow: View {
     
     var body: some View {
         VStack {
-            HStack(spacing: 100) {
+            HStack(spacing: AwslStyle.COUNT_LABEL_GAP) {
                 if homeResponse.isValid() {
                     CountLabel(label: "单词书", title: homeResponse.currentPlan)
                     CountLabel(label: "剩余", count: homeResponse.currentPlanLeftWordCount)

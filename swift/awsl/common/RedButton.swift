@@ -42,7 +42,7 @@ struct LoginButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .frame(width: 300, height: 40)
+            .frame(width: AwslStyle.LARGE_BUTTON_SIZE, height: 40)
             .background(configuration.isPressed ? red.opacity(0.5) : red)
             .cornerRadius(20)
     }

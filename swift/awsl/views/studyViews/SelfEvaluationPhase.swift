@@ -20,7 +20,7 @@ struct SelfEvaluationPhase: View {
     @State var player : AVAudioPlayer?
     
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 10) {
             
             WordRow(task: task, withFurigara: false)
             
@@ -28,11 +28,13 @@ struct SelfEvaluationPhase: View {
                 WideButton(label: "太简单", action: pressEasy)
             }
             
-            Spacer().frame(height: fullHeight-700)
+            VStack {
+                WideButton(label: "认识", action: pressKnow)
+                Spacer().frame(height: 10)
+                WideButton(label: "不认识", action: pressNotKnow)
+                Spacer().frame(height: AwslStyle.SELF_EVALUATION_GAP)
+            }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .bottom)
             
-            WideButton(label: "认识", action: pressKnow)
-            
-            WideButton(label: "不认识", action: pressNotKnow)
 
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)

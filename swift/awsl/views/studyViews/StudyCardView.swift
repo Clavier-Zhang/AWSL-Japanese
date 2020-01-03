@@ -27,11 +27,11 @@ struct StudyCardView: View {
                 VStack {
                     VStack {
                         
-                        Spacer().frame(height: 60)
+                        Spacer().frame(height: AwslStyle.NAVIGATION_GAP)
                         
                         ProgressBar(new: task.getNewNum(), finished: task.getFinishedNum(), review: task.getReviewNum())
                         
-                        Spacer().frame(height: 60)
+                        Spacer().frame(height: AwslStyle.NAVIGATION_GAP)
                     
                         if (currentPhase == SELF_EVALUATION_PHASE) {
                             SelfEvaluationPhase(currentPhase: $currentPhase, task: $task)
@@ -46,7 +46,7 @@ struct StudyCardView: View {
                         }
                         
                     }
-                    .frame(width: 700)
+                    .frame(width: AwslStyle.STUDYVIEW_WIDTH)
                 }
                 .frame(width: fullWidth, height: fullHeight-70)
                 .background(studyCardBase)

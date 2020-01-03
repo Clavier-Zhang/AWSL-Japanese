@@ -14,7 +14,7 @@ struct Settings : Codable {
     
     var choosedLanguage : Int = 0
     
-    var modeOptions : [String] = ["手写", "键盘"]
+    var modeOptions : [String] = ["键盘", "手写"]
     
     var choosedMode : Int = 0
     

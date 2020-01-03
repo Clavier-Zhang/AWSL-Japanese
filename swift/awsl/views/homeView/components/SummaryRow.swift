@@ -16,7 +16,7 @@ struct SummaryRow: View {
     
     var body: some View {
         VStack {
-            HStack (spacing: 100) {
+            HStack (spacing: AwslStyle.COUNT_LABEL_GAP) {
                 if homeResponse.isValid() {
                     CountLabel(label: "已完成", count: homeResponse.finishedWordCount)
                     CountLabel(label: "进行中", count: homeResponse.progressingWordCount)

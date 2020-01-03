@@ -21,7 +21,7 @@ struct HomeView: View {
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 50) {
+            VStack(spacing: AwslStyle.HOMEVIEW_ROW_GAP) {
                 
                 UserProfile(user: user)
                 
@@ -48,6 +48,7 @@ struct HomeView: View {
     }
     
     func homeAppear() {
+
         // update home view
         task = Local.getTask()
         

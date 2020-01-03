@@ -27,7 +27,7 @@ struct CountLabel: View {
             
             if count != -1 {
                 Text(String(count))
-                    .font(.largeTitle)
+                    .font(AwslStyle.LARGE_FONT)
                     .bold()
                     .frame(height: 30)
             }
@@ -41,12 +41,12 @@ struct CountLabel: View {
             
             if title != "" {
                 Text(title)
-                    .font(.largeTitle)
+                    .font(AwslStyle.LARGE_FONT)
                     .bold()
-                    .frame(height: 30)
+                    .frame(height: AwslStyle.CountLabelSize)
             }
             
-            Spacer().frame(height: 30)
+            Spacer().frame(height: AwslStyle.CountLabelSize)
             
             Text(label)
             
