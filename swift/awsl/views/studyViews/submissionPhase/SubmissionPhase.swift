@@ -40,11 +40,13 @@ struct SubmissionPhase: View {
                         .padding()
                         .background(base)
                         
+                        
+                        
                     RedButton(text: "提交", isLoading: $isLoading, action: pressSubmit)
                     
                     
                 }
-                .frame(width: 550, alignment: .top)
+                .frame(width: AwslStyle.SUBMISSION_WIDTH, alignment: .top)
             }
             .frame(width: fullWidth, height: fullHeight-70, alignment: .top)
             .background(studyCardBase)

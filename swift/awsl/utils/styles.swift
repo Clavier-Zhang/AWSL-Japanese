@@ -47,6 +47,8 @@ struct AwslStyle {
     static var PLAN_GAP : CGFloat = UIDevice.isPad ? 150 : 20
     
     static var SETTINGS_GAP : CGFloat = UIDevice.isPad ? 150 : 20
+    
+    static var SUBMISSION_WIDTH : CGFloat = UIDevice.isPad ? 550 : WIDTH-50
 }
 
 

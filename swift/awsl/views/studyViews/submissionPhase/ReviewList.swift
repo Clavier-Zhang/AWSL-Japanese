@@ -17,7 +17,9 @@ struct ReviewList: View {
             
             HStack(alignment: .top) {
                 Text("高频复习单词").bold().frame(width: 250, alignment: .leading)
-                Text("释义").bold().frame(width: 250, alignment: .leading)
+                if UIDevice.isPad {
+                    Text("释义").bold().frame(width: 250, alignment: .leading)
+                }
             }
             
 
@@ -27,9 +29,11 @@ struct ReviewList: View {
                     Text(self.reviewWords[idx].text+"【"+self.reviewWords[idx].label+"】")
                         .frame(width: 250, alignment: .topLeading)
                     
-                    Text(self.reviewWords[idx].chinese_meanings[0])
+                    if UIDevice.isPad {
+                        Text(self.reviewWords[idx].chinese_meanings[0])
                         .frame(width: 250, alignment: .topLeading)
-                
+                    }
+                    
                 }
                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .topLeading)
                 
