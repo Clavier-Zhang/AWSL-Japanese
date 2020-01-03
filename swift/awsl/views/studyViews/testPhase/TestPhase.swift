@@ -19,11 +19,13 @@ struct TestPhase: View {
     
     @Binding var task: Task
     
-    var canvas : WritingPad = WritingPad()
+    @State var canvas : WritingPad?
     
     @State var label: String = ""
     
     @State var disableSubmit: Bool = false
+    
+    @State var isPen : Bool = true
     
     var body: some View {
         VStack(spacing: 20) {
@@ -40,11 +42,49 @@ struct TestPhase: View {
             
             if settings.isHandwriting() {
                 // Handwriting
-                Text(label)
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 40, alignment: .leading)
-                    .padding()
+                HStack {
+                    
+                    Button(action: switchTool) {
+                        VStack {
+                            if isPen {
+                                Image(systemName: "pencil")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 25, height: 25)
+                                    .animation(.interactiveSpring())
+                            } else {
+                                Image("eraser")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 25, height: 25)
+                                    .animation(.interactiveSpring())
+                            }
+                            
+                        }
+                        .frame(width: 60, height: 60)
+                    }
+                    .background(base)
+                    
+                    HStack {
+                        Text(label).padding()
+                    }
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
                     .background(base)
                     .border(isCorrect ? base : red)
+                    
+                    Button(action: clean) {
+                        VStack {
+                            Image(systemName: "gobackward")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 25, height: 25)
+                        }
+                        .frame(width: 60, height: 60)
+                    }
+                    .background(base)
+                }
+                .frame(height: 60)
+                
                 
                 // Writing pad
                 canvas.frame(width: 700, height: 150)
@@ -65,6 +105,20 @@ struct TestPhase: View {
             }
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
+        .onAppear {
+            self.canvas = WritingPad(isPen: self.$isPen)
+        }
+    }
+
+    
+    func clean() {
+        canvas!.clean()
+    }
+    
+    func switchTool() {
+        print("switch")
+        canvas?.switchTool()
+
     }
     
     func pressSubmit() {
@@ -73,7 +127,7 @@ struct TestPhase: View {
         
         // Handwriting
         if settings.isHandwriting() {
-            let writtenLabel = canvas.getText()
+            let writtenLabel = canvas!.getText()
             label = writtenLabel
         }
         

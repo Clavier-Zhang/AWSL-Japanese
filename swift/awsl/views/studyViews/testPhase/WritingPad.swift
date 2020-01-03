@@ -10,47 +10,19 @@ import UIKit
 import PencilKit
 import SwiftUI
 
-class PKCanvasTestView: PKCanvasView, UIPencilInteractionDelegate {
-    
-    var currentTool = "PEN"
-    
-    var eraser = PKEraserTool(.vector)
-    
-    var pen = PKInkingTool(.pen, color: UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 1))
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        let interaction = UIPencilInteraction()
-        interaction.delegate = self
-        self.addInteraction(interaction)
-        
-        self.backgroundColor = UIColor.init(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)
-        self.allowsFingerDrawing = false
-        self.tool = self.pen
-    }
 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    
-    func pencilInteractionDidTap(_ interaction: UIPencilInteraction) {
-        print("tap")
-        if (self.currentTool == "PEN") {
-            self.tool = self.eraser
-            currentTool = "ERASER"
-        } else {
-            self.tool = self.pen
-            currentTool = "PEN"
-        }
-    }
-
-}
 
 
 final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDelegate {
     
-    var view = PKCanvasTestView(frame: CGRect(x: 0, y: 0, width: 700, height: 100))
+    var isPen : Binding<Bool>
+    
+    var view : PKCanvasTestView
+    
+    init(isPen : Binding<Bool>) {
+        self.isPen = isPen
+        self.view = PKCanvasTestView(frame: CGRect(x: 0, y: 0, width: 700, height: 100), isPen: isPen)
+    }
     
     func makeUIView(context: Context) -> PKCanvasTestView {
         return view
@@ -76,20 +48,57 @@ final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDeleg
         return HandwritingRecognizer.hiragana(uiimage: self.getImage())
     }
     
+    func clean() {
+        view.drawing = PKDrawing()
+    }
+    
+    func switchTool() {
+        view.switchTool()
+    }
+    
 }
 
 
-
-final class TestChart : NSObject, UIViewRepresentable, UIPencilInteractionDelegate {
+class PKCanvasTestView: PKCanvasView, UIPencilInteractionDelegate {
     
-    var view = UITableView()
+    var currentTool = "PEN"
     
-    func makeUIView(context: Context) -> UITableView {
-        return view
+    var eraser = PKEraserTool(.vector)
+    
+    var pen = PKInkingTool(.pen, color: UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 1))
+    
+    var isPen : Binding<Bool>?
+    
+    init(frame: CGRect, isPen: Binding<Bool>) {
+        super.init(frame: frame)
+        
+        let interaction = UIPencilInteraction()
+        interaction.delegate = self
+        self.addInteraction(interaction)
+        
+        self.backgroundColor = UIColor.init(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)
+        self.allowsFingerDrawing = false
+        self.tool = self.pen
+        
+        self.isPen = isPen
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    func pencilInteractionDidTap(_ interaction: UIPencilInteraction) {
+        print("tap")
+        switchTool()
+    }
+    
+    func switchTool() {
+        self.isPen!.wrappedValue.toggle()
+        if self.isPen!.wrappedValue {
+            self.tool = self.pen
+        } else {
+            self.tool = self.eraser
+        }
     }
 
-    func updateUIView(_ view: UITableView, context: Context) {
-        self.view = view
-    }
-   
 }
