@@ -12,6 +12,7 @@ import SwiftUI
 struct TestPhase: View {
     
     @State var settings = Settings.get()
+    
     @Binding var task: Task
     @Binding var currentPhase : String
     
@@ -21,10 +22,8 @@ struct TestPhase: View {
     @State var disableSubmit: Bool = false
     
     @State var isPen : Bool = true
-    @State var canvas : WritingPad?
     
-    @State var keyboardField : KeyboardField?
-    @State var writingField : WritingField?
+    @State var canvas : WritingPad?
     
     var body: some View {
         VStack(spacing: 20) {
@@ -54,7 +53,6 @@ struct TestPhase: View {
                                     .frame(width: 25, height: 25)
                                     .animation(.interactiveSpring())
                             }
-                            
                         }
                         .frame(width: 60, height: 60)
                     }
@@ -86,15 +84,15 @@ struct TestPhase: View {
 
                 Text("在上方区域写出假名").font(.system(size: 14)).frame(minWidth: 0, maxWidth: .infinity)
                 
+                
             } else {
-                keyboardField
+                KeyboardField(label: self.$label, isCorrect: self.$isCorrect, pressSubmit: self.pressSubmit)
             }
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
         .onAppear {
             self.canvas = WritingPad(isPen: self.$isPen)
-            self.keyboardField = KeyboardField(label: self.$label, isCorrect: self.$isCorrect, pressSubmit: self.pressSubmit)
-            self.writingField = WritingField(label: self.$label, isCorrect: self.$isCorrect)
+//            self.writingField = WritingField(isCorrect: self.$isCorrect, label: self.$label)
         }
     }
 

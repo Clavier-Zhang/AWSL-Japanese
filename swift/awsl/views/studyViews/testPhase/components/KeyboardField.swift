@@ -10,26 +10,20 @@ import SwiftUI
 
 struct KeyboardField: View {
     
-    var isCorrect : Binding<Bool>
+    @Binding var label : String
     
-    var label : Binding<String>
+    @Binding var isCorrect : Bool
     
-    var pressSubmit : () -> Void
-    
-    init(label: Binding<String>, isCorrect: Binding<Bool>, pressSubmit: @escaping () -> Void) {
-        self.isCorrect = isCorrect
-        self.pressSubmit = pressSubmit
-        self.label = label
-    }
+    @State var pressSubmit : () -> Void
     
     var body: some View {
-        TextField("在此输入假名", text: label) {
+        TextField("在此输入假名", text: $label) {
             self.pressSubmit()
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 40, alignment: .leading)
         .padding()
         .background(base)
-        .border(isCorrect.wrappedValue ? base : red)
+        .border(isCorrect ? base : red)
     }
     
 }
