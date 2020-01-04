@@ -10,13 +10,13 @@ import Foundation
 
 struct Settings : Codable {
     
-    var languageOptions : [String] = ["中文", "English"]
+    var isCN : Bool = LANGUAGE == "zh"
     
-    var choosedLanguage : Int = LANGUAGE == "zh" ? 0 : 1
+    var isHandwriting : Bool = false
     
-    var modeOptions : [String] = ["键盘", "手写"]
+    var isHiragana : Bool = true
     
-    var choosedMode : Int = 0
+    var isGrid : Bool = true
     
     static func get() -> Settings {
         var settings : Settings? = Local.get(key: "settings")
@@ -35,11 +35,8 @@ struct Settings : Codable {
         Local.remove(key: "settings")
     }
     
-    func isHandwriting() -> Bool {
-        return modeOptions[choosedMode] == "手写"
-    }
+//    func isHandwriting() -> Bool {
+//        return modeOptions[choosedMode] == "手写"
+//    }
     
-    func isCN() -> Bool {
-        return languageOptions[choosedLanguage] == "中文"
-    }
 }

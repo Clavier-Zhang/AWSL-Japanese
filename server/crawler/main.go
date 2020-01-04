@@ -32,3 +32,7 @@ func addNPlan(level int) {
 	}
 	plan.Save()
 }
+
+func updateAll() {
+
+}

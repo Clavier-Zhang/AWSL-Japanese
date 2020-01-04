@@ -35,7 +35,7 @@ struct TestPhase: View {
                 WideButton(label: "不会拼", action: pressUnableToSpell, center: true)
             }
             
-            if settings.isHandwriting() {
+            if settings.isHandwriting {
                 
                 HStack {
                     Button(action: switchTool) {
@@ -107,7 +107,7 @@ struct TestPhase: View {
         disableSubmit = true
         let correctLabel = task.getWord().label
         
-        if settings.isHandwriting() {
+        if settings.isHandwriting {
             label = canvas!.getText()
         }
         

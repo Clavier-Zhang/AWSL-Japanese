@@ -90,10 +90,6 @@ func CollectCN(words *[]*Word) []primitive.ObjectID {
 		}
 	})
 
-	c.WithTransport(&http.Transport{
-		DisableKeepAlives: true,
-	})
-
 	for _, word := range *words {
 		m[word.Text+word.Label] = word
 		textsMap[word.Text] = true

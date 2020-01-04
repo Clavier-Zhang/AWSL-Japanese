@@ -44,6 +44,7 @@
 		25BA93E62365208F00F505E0 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BA93E52365208F00F505E0 /* DateExtension.swift */; };
 		25BEE771233C32E90074F510 /* LearnPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BEE770233C32E90074F510 /* LearnPhase.swift */; };
 		25C5E46D23C042CB0016B3EF /* zh-Hans.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 25C5E46C23C042CB0016B3EF /* zh-Hans.lproj */; };
+		25C5E47323C0E95E0016B3EF /* SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C5E47223C0E95E0016B3EF /* SwitchButton.swift */; };
 		25CFC29023482A1C003D8512 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CFC28F23482A1C003D8512 /* User.swift */; };
 		25CFC292234851DD003D8512 /* RemoteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CFC291234851DD003D8512 /* RemoteData.swift */; };
 		25D11E5723BEF4AF0057957A /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D11E5623BEF4AF0057957A /* UIDevice.swift */; };
@@ -105,6 +106,7 @@
 		25C5E46A23C042330016B3EF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		25C5E46B23C0426D0016B3EF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.storyboard"; sourceTree = "<group>"; };
 		25C5E46C23C042CB0016B3EF /* zh-Hans.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "zh-Hans.lproj"; sourceTree = "<group>"; };
+		25C5E47223C0E95E0016B3EF /* SwitchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchButton.swift; sourceTree = "<group>"; };
 		25CFC28F23482A1C003D8512 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		25CFC291234851DD003D8512 /* RemoteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteData.swift; sourceTree = "<group>"; };
 		25D11E5623BEF4AF0057957A /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 		25B55428239C51180040E09E /* settingsView */ = {
 			isa = PBXGroup;
 			children = (
+				25C5E47123C0E8C10016B3EF /* components */,
 				25B55429239C513C0040E09E /* SettingsView.swift */,
 			);
 			path = settingsView;
@@ -283,6 +286,14 @@
 				25D11E5623BEF4AF0057957A /* UIDevice.swift */,
 			);
 			path = extensions;
+			sourceTree = "<group>";
+		};
+		25C5E47123C0E8C10016B3EF /* components */ = {
+			isa = PBXGroup;
+			children = (
+				25C5E47223C0E95E0016B3EF /* SwitchButton.swift */,
+			);
+			path = components;
 			sourceTree = "<group>";
 		};
 		25CFC28E2347774F003D8512 /* models */ = {
@@ -545,6 +556,7 @@
 				257DFBFD232B35DD00AA7772 /* CountLabel.swift in Sources */,
 				25BA93E023614CD800F505E0 /* UIImageExtension.swift in Sources */,
 				25BA93E323614E1C00F505E0 /* UIIViewExtension.swift in Sources */,
+				25C5E47323C0E95E0016B3EF /* SwitchButton.swift in Sources */,
 				25D6091A23AEC42C00152164 /* notification.swift in Sources */,
 				25DF5EF82393514F0007951F /* Report.swift in Sources */,
 				25B5542A239C513C0040E09E /* SettingsView.swift in Sources */,

@@ -24,6 +24,8 @@ type Word struct {
 
 	Audio []byte `json:"audio"`
 
+	Romaji string `json:"romaji"`
+
 }
 
 type Example struct {

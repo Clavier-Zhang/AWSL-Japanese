@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Localize_Swift
 
 struct SettingsView: View {
     
@@ -21,28 +22,10 @@ struct SettingsView: View {
                     Spacer().frame(height: AwslStyle.SETTINGS_GAP)
                     VStack(spacing: 20) {
                         
+                        SwitchButton(isX: $settings.isCN, settings: $settings, text1: "中文", text2: "English")
                         
-                        HStack {
-                            Text("Language".localized())
-                            Picker("", selection: $settings.choosedLanguage) {
-                                ForEach(0 ..< settings.languageOptions.count) { index in
-                                    Text(self.settings.languageOptions[index]).tag(index)
-                                }
-                            }
-                            .pickerStyle(SegmentedPickerStyle())
-                            .disabled(!UIDevice.isPad)
-                        }
+                        SwitchButton(isX: $settings.isHandwriting, settings: $settings, text1: "Handwriting", text2: "Keyboard")
 
-                        HStack {
-                            Text("模式")
-                            Picker("", selection: $settings.choosedMode) {
-                                ForEach(0 ..< settings.modeOptions.count) { index in
-                                    Text(self.settings.modeOptions[index]).tag(index)
-                                }
-                            }
-                            .pickerStyle(SegmentedPickerStyle())
-                            .disabled(!UIDevice.isPad)
-                        }
                         
                         if !UIDevice.isPad {
                             HStack {
@@ -50,6 +33,26 @@ struct SettingsView: View {
                                     .font(.body)
                                     .foregroundColor(red)
                             }
+                        }
+                        
+                        if !settings.isHandwriting {
+                            SwitchButton(isX: $settings.isHiragana, settings: $settings, text1: "Hiragana", text2: "Romaji")
+                            
+                            Text("Preview".localized()).padding()
+                            Text("Please enter "+(settings.isHiragana ? "Hiragana".localized() : "Romaji".localized()))
+                                .opacity(0.5)
+                                .frame(width: AwslStyle.SETTINGS_SWITCH_WIDTH*2-20, height: 30, alignment: .leading)
+                                .padding()
+                                .background(base)
+                            Image(systemName: "arrow.down")
+                            Text(settings.isHiragana ? "ふぶき" : "hubuki")
+                                .opacity(0.5)
+                                .frame(width: AwslStyle.SETTINGS_SWITCH_WIDTH*2-20, height: 30, alignment: .leading)
+                                .padding()
+                                .background(base)
+                            
+                        } else {
+                            SwitchButton(isX: $settings.isGrid, settings: $settings, text1: "Grid", text2: "No Grid")
                         }
 
                     }
@@ -68,7 +71,12 @@ struct SettingsView: View {
     
     func pressBack() {
         settings.save()
+        Localize.setCurrentLanguage(Settings.get().isCN ? "zh-Hans" : "en")
         presentationMode.wrappedValue.dismiss()
+    }
+    
+    func test() {
+        print("test")
     }
 }
 

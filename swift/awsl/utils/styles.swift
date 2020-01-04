@@ -16,9 +16,9 @@ struct AwslStyle {
     
     static var HOMEVIEW_ROW_GAP : CGFloat = UIDevice.isPad ? 50 : 30
     
-    static var CountLabelSize : CGFloat = UIDevice.isPad ? 30 : 15
+    static var CountLabelSize : CGFloat = UIDevice.isPad ? 30 : 13
     
-    static var COUNT_LABEL_GAP : CGFloat = UIDevice.isPad ? 100 : 40
+    static var COUNT_LABEL_GAP : CGFloat = UIDevice.isPad ? 100 : 30
     
     static var LARGE_FONT : Font = UIDevice.isPad ? .largeTitle : .title
     
@@ -30,13 +30,13 @@ struct AwslStyle {
     
     static var SELF_EVALUATION_GAP : CGFloat = UIDevice.isPad ? 100 : 40
     
-    static var LEARN_GAP : CGFloat = UIDevice.isPad ? HEIGHT-900 : 30
+    static var LEARN_GAP : CGFloat = UIDevice.isPad ? HEIGHT-900 : 10
     
     static var MEANING_HEIGHT : CGFloat = UIDevice.isPad ? 150 : 100
     
     static var EXAMPLE_HEIGHT : CGFloat = UIDevice.isPad ? 230 : 150
     
-    static var NAVIGATION_GAP : CGFloat = UIDevice.isPad ? 60 : 30
+    static var NAVIGATION_GAP : CGFloat = UIDevice.isPad ? 60 : 45
     
     static var SETTINGS_WIDTH : CGFloat = UIDevice.isPad ? 400 : WIDTH-50
     
@@ -49,6 +49,8 @@ struct AwslStyle {
     static var SETTINGS_GAP : CGFloat = UIDevice.isPad ? 150 : 20
     
     static var SUBMISSION_WIDTH : CGFloat = UIDevice.isPad ? 550 : WIDTH-50
+    
+    static var SETTINGS_SWITCH_WIDTH : CGFloat = UIDevice.isPad ? 200 : 150
 }
 
 

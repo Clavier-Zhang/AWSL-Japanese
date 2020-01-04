@@ -28,6 +28,8 @@ struct HomeView: View {
         NavigationView {
             VStack(spacing: AwslStyle.HOMEVIEW_ROW_GAP) {
                 
+                Spacer().frame(height: 20)
+                
                 UserProfile(user: user)
                 
                 SummaryRow(homeResponse: $homeResponse)
