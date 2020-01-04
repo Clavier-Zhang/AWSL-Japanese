@@ -27,7 +27,7 @@ struct TaskRow: View {
                     CountLabel(label: "总共", title: "N/A")
                 }
                 Button(action: pressSettings) {
-                    CountLabel(label: "设置>>", icon: "gear")
+                    CountLabel(label: "Settings>>".localized(), icon: "gear")
                 }
             }
             NavigationLink(destination: SettingsView(), isActive: $toSettingsView) {

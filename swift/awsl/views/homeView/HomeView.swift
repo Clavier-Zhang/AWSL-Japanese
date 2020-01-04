@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Localize_Swift
 
 struct HomeView: View {
     
@@ -18,6 +19,10 @@ struct HomeView: View {
     // Request
     @State var message = ""
     @State var status = false
+    
+    @State var test = "Language"
+    
+    @State var test2 = "Language"
     
     var body: some View {
         NavigationView {
@@ -48,7 +53,7 @@ struct HomeView: View {
     }
     
     func homeAppear() {
-
+        
         // update home view
         task = Local.getTask()
         

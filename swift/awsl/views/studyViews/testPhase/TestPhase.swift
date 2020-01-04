@@ -92,7 +92,6 @@ struct TestPhase: View {
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
         .onAppear {
             self.canvas = WritingPad(isPen: self.$isPen)
-//            self.writingField = WritingField(isCorrect: self.$isCorrect, label: self.$label)
         }
     }
 
@@ -109,9 +108,7 @@ struct TestPhase: View {
         let correctLabel = task.getWord().label
         
         if settings.isHandwriting() {
-            let writtenLabel = canvas!.getText()
-            label = writtenLabel
-//            writingField!.recognize()
+            label = canvas!.getText()
         }
         
         if (correctLabel == label) {

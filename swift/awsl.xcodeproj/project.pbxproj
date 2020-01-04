@@ -17,7 +17,6 @@
 		2509238723515DC9003348F1 /* MeaningRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2509238623515DC9003348F1 /* MeaningRow.swift */; };
 		250B3092239DF0FB00BB3027 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250B3091239DF0FB00BB3027 /* ChartView.swift */; };
 		250B3094239DF3B500BB3027 /* PlanRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250B3093239DF3B500BB3027 /* PlanRow.swift */; };
-		250B309A239E14C200BB3027 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 250B3099239E14C200BB3027 /* SwiftUICharts */; };
 		2520423D232D7F1D00281016 /* SelfEvaluationPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2520423C232D7F1D00281016 /* SelfEvaluationPhase.swift */; };
 		2520423F232DA18A00281016 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2520423E232DA18A00281016 /* ProgressBar.swift */; };
 		25204241232DAA0400281016 /* TestPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25204240232DAA0400281016 /* TestPhase.swift */; };
@@ -44,6 +43,7 @@
 		25BA93E323614E1C00F505E0 /* UIIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BA93E223614E1C00F505E0 /* UIIViewExtension.swift */; };
 		25BA93E62365208F00F505E0 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BA93E52365208F00F505E0 /* DateExtension.swift */; };
 		25BEE771233C32E90074F510 /* LearnPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BEE770233C32E90074F510 /* LearnPhase.swift */; };
+		25C5E46D23C042CB0016B3EF /* zh-Hans.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 25C5E46C23C042CB0016B3EF /* zh-Hans.lproj */; };
 		25CFC29023482A1C003D8512 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CFC28F23482A1C003D8512 /* User.swift */; };
 		25CFC292234851DD003D8512 /* RemoteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CFC291234851DD003D8512 /* RemoteData.swift */; };
 		25D11E5723BEF4AF0057957A /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D11E5623BEF4AF0057957A /* UIDevice.swift */; };
@@ -102,6 +102,9 @@
 		25BA93E223614E1C00F505E0 /* UIIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIIViewExtension.swift; sourceTree = "<group>"; };
 		25BA93E52365208F00F505E0 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		25BEE770233C32E90074F510 /* LearnPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnPhase.swift; sourceTree = "<group>"; };
+		25C5E46A23C042330016B3EF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		25C5E46B23C0426D0016B3EF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.storyboard"; sourceTree = "<group>"; };
+		25C5E46C23C042CB0016B3EF /* zh-Hans.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "zh-Hans.lproj"; sourceTree = "<group>"; };
 		25CFC28F23482A1C003D8512 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		25CFC291234851DD003D8512 /* RemoteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteData.swift; sourceTree = "<group>"; };
 		25D11E5623BEF4AF0057957A /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
@@ -118,7 +121,6 @@
 		25E14A40232733EC00050264 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		25E14A42232733ED00050264 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		25E14A45232733ED00050264 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		25E14A48232733ED00050264 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		25E14A4A232733ED00050264 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25E97579234CB7C400F0583E /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		90365B163D62C7AE5A335978 /* Pods-awsl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-awsl.debug.xcconfig"; path = "Target Support Files/Pods-awsl/Pods-awsl.debug.xcconfig"; sourceTree = "<group>"; };
@@ -131,7 +133,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F36834E4258DFBDBBF254559 /* Pods_awsl.framework in Frameworks */,
-				250B309A239E14C200BB3027 /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,6 +343,7 @@
 				25E14A3C232733EC00050264 /* AppDelegate.swift */,
 				25E14A3E232733EC00050264 /* SceneDelegate.swift */,
 				25E14A42232733ED00050264 /* Assets.xcassets */,
+				25C5E46C23C042CB0016B3EF /* zh-Hans.lproj */,
 				25E14A44232733ED00050264 /* Preview Content */,
 				25CFC28E2347774F003D8512 /* models */,
 				257DFBFB232B2B6500AA7772 /* common */,
@@ -413,7 +415,6 @@
 			);
 			name = awsl;
 			packageProductDependencies = (
-				250B3099239E14C200BB3027 /* SwiftUICharts */,
 			);
 			productName = awsl;
 			productReference = 25E14A39232733EC00050264 /* AWSL日语.app */;
@@ -440,7 +441,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
+				"zh-Hans",
 			);
 			mainGroup = 25E14A30232733EB00050264;
 			packageReferences = (
@@ -463,6 +464,7 @@
 				25E14A49232733ED00050264 /* LaunchScreen.storyboard in Resources */,
 				25E14A46232733ED00050264 /* Preview Assets.xcassets in Resources */,
 				25E14A43232733ED00050264 /* Assets.xcassets in Resources */,
+				25C5E46D23C042CB0016B3EF /* zh-Hans.lproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,7 +576,8 @@
 		25E14A47232733ED00050264 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				25E14A48232733ED00050264 /* Base */,
+				25C5E46A23C042330016B3EF /* en */,
+				25C5E46B23C0426D0016B3EF /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -586,6 +589,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -616,6 +620,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 8P58CHWZH6;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -639,6 +644,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -646,6 +652,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -676,6 +683,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 8P58CHWZH6;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -693,6 +701,7 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
@@ -710,7 +719,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = zyc.awsl;
 				PRODUCT_NAME = "AWSL日语";
 				SWIFT_VERSION = 5.0;
@@ -732,7 +741,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = zyc.awsl;
 				PRODUCT_NAME = "AWSL日语";
 				SWIFT_VERSION = 5.0;
@@ -773,14 +782,6 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		250B3099239E14C200BB3027 /* SwiftUICharts */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 250B3098239E14C200BB3027 /* XCRemoteSwiftPackageReference "ChartView" */;
-			productName = SwiftUICharts;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 25E14A31232733EB00050264 /* Project object */;
 }

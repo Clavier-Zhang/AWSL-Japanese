@@ -8,5 +8,8 @@ target 'awsl' do
   # Pods for awsl
   pod 'NotificationBannerSwift'
   pod 'Charts'
+  
+#  source 'https://github.com/CocoaPods/Specs.git'
+  pod 'Localize-Swift', '~> 2.0'
 
 end

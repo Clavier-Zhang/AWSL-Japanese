@@ -7,10 +7,15 @@
 //
 
 import SwiftUI
+import Localize_Swift
 
 struct ContentView: View {
     
     @State var user = User.get()
+    
+    init() {
+        Localize.setCurrentLanguage(Settings.get().isCN() ? "zh-Hans" : "en")
+    }
     
     var body: some View {
         VStack {

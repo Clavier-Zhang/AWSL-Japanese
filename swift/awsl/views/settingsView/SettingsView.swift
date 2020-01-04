@@ -21,13 +21,18 @@ struct SettingsView: View {
                     Spacer().frame(height: AwslStyle.SETTINGS_GAP)
                     VStack(spacing: 20) {
                         
-                    //                      ******Future
-                    //                    Picker("", selection: $settings.choosedLanguage) {
-                    //                        ForEach(0 ..< settings.languageOptions.count) { index in
-                    //                            Text(self.settings.languageOptions[index]).tag(index)
-                    //                        }
-                    //                    }.pickerStyle(SegmentedPickerStyle())
-                    //                    Text("语言")
+                        
+                        HStack {
+                            Text("Language".localized())
+                            Picker("", selection: $settings.choosedLanguage) {
+                                ForEach(0 ..< settings.languageOptions.count) { index in
+                                    Text(self.settings.languageOptions[index]).tag(index)
+                                }
+                            }
+                            .pickerStyle(SegmentedPickerStyle())
+                            .disabled(!UIDevice.isPad)
+                        }
+
                         HStack {
                             Text("模式")
                             Picker("", selection: $settings.choosedMode) {

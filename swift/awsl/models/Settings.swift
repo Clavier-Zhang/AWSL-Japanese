@@ -12,7 +12,7 @@ struct Settings : Codable {
     
     var languageOptions : [String] = ["中文", "English"]
     
-    var choosedLanguage : Int = 0
+    var choosedLanguage : Int = LANGUAGE == "zh" ? 0 : 1
     
     var modeOptions : [String] = ["键盘", "手写"]
     
@@ -24,7 +24,6 @@ struct Settings : Codable {
             return settings
         }
         settings = Settings()
-        settings!.save()
         return settings!
     }
     
@@ -33,10 +32,14 @@ struct Settings : Codable {
     }
     
     static func delete() {
-        Settings().save()
+        Local.remove(key: "settings")
     }
     
     func isHandwriting() -> Bool {
         return modeOptions[choosedMode] == "手写"
+    }
+    
+    func isCN() -> Bool {
+        return languageOptions[choosedLanguage] == "中文"
     }
 }
