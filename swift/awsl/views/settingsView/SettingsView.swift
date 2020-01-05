@@ -39,7 +39,7 @@ struct SettingsView: View {
                             SwitchButton(isX: $settings.isHiragana, settings: $settings, text1: "Hiragana", text2: "Romaji")
                             
                             Text("Preview".localized()).padding()
-                            Text("Please enter "+(settings.isHiragana ? "Hiragana".localized() : "Romaji".localized()))
+                            Text("Please enter ".localized()+(settings.isHiragana ? "Hiragana".localized() : "Romaji".localized()))
                                 .opacity(0.5)
                                 .frame(width: AwslStyle.SETTINGS_SWITCH_WIDTH*2-20, height: 30, alignment: .leading)
                                 .padding()

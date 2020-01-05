@@ -30,6 +30,8 @@ struct Word: Codable {
     
     var audio: Data
     
+    var romaji: String
+    
     // Submit to server
     
     var status: String? = NEW

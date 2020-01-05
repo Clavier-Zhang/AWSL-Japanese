@@ -86,7 +86,7 @@ struct TestPhase: View {
                 
                 
             } else {
-                KeyboardField(label: self.$label, isCorrect: self.$isCorrect, pressSubmit: self.pressSubmit)
+                KeyboardField(label: self.$label, isCorrect: self.$isCorrect, pressSubmit: self.pressSubmit, settings: self.settings)
             }
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
@@ -105,19 +105,47 @@ struct TestPhase: View {
     
     func pressSubmit() {
         disableSubmit = true
-        let correctLabel = task.getWord().label
         
+        // Determine solution
+        var solution = ""
+        // Handing writing, always label
+        if settings.isHandwriting {
+            solution = task.getWord().label
+        // Keyboard
+        } else {
+            // Label
+            if settings.isHiragana {
+                solution = task.getWord().label
+            // Romaji
+            } else {
+                solution = task.getWord().romaji
+            }
+        }
+        
+        
+        // Determine answer
         if settings.isHandwriting {
             label = canvas!.getText()
         }
+        var answer = label
         
-        if (correctLabel == label) {
+        
+        
+        
+        
+        
+        
+        if (solution == label) {
             task.setCorrect()
             currentPhase = LEARN_PHASE
         } else {
-            print("wrong " + correctLabel)
+            print("Wrong! Correct solution is " + solution)
             isCorrect = false
         }
+        
+        
+        
+        
         
         disableSubmit = false
     }

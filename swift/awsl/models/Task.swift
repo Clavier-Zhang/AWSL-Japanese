@@ -82,7 +82,7 @@ struct Task: Codable {
     
     func getWord() -> Word {
         if (isEmpty()) {
-            return Word(ID: Data(), text: "", label: "", english_meanings: [], english_examples: [], chinese_type: "", chinese_meanings: [], chinese_examples: [], audio: Data())
+            return Word(ID: Data(), text: "", label: "", english_meanings: [], english_examples: [], chinese_type: "", chinese_meanings: [], chinese_examples: [], audio: Data(), romaji: "")
         }
         return newWords[0]
     }
