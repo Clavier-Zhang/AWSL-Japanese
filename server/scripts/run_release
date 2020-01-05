@@ -1,3 +1,8 @@
 #! /usr/bin/env bash
 go build
+export GOPATH="$HOME/go"
+PATH="$GOPATH/bin:$PATH"
+
+> ./logs/release_log
+
 godotenv -f ./.env.release ./server > ./logs/release_log &
