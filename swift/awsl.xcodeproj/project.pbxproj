@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -103,10 +103,10 @@
 		25BA93E223614E1C00F505E0 /* UIIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIIViewExtension.swift; sourceTree = "<group>"; };
 		25BA93E52365208F00F505E0 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		25BEE770233C32E90074F510 /* LearnPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnPhase.swift; sourceTree = "<group>"; };
-		25C5E46A23C042330016B3EF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		25C5E46B23C0426D0016B3EF /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.storyboard"; sourceTree = "<group>"; };
 		25C5E46C23C042CB0016B3EF /* zh-Hans.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "zh-Hans.lproj"; sourceTree = "<group>"; };
 		25C5E47223C0E95E0016B3EF /* SwitchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchButton.swift; sourceTree = "<group>"; };
+		25C5E47423C245C50016B3EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		25CFC28F23482A1C003D8512 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		25CFC291234851DD003D8512 /* RemoteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteData.swift; sourceTree = "<group>"; };
 		25D11E5623BEF4AF0057957A /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
@@ -453,10 +453,10 @@
 			knownRegions = (
 				en,
 				"zh-Hans",
+				Base,
 			);
 			mainGroup = 25E14A30232733EB00050264;
 			packageReferences = (
-				250B3098239E14C200BB3027 /* XCRemoteSwiftPackageReference "ChartView" */,
 			);
 			productRefGroup = 25E14A3A232733EC00050264 /* Products */;
 			projectDirPath = "";
@@ -588,8 +588,8 @@
 		25E14A47232733ED00050264 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				25C5E46A23C042330016B3EF /* en */,
 				25C5E46B23C0426D0016B3EF /* zh-Hans */,
+				25C5E47423C245C50016B3EF /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -783,17 +783,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		250B3098239E14C200BB3027 /* XCRemoteSwiftPackageReference "ChartView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AppPear/ChartView";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.4.2;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 25E14A31232733EB00050264 /* Project object */;
 }

@@ -1,7 +1,4 @@
 PODS:
-  - Charts (3.4.0):
-    - Charts/Core (= 3.4.0)
-  - Charts/Core (3.4.0)
   - Localize-Swift (2.0.0)
   - MarqueeLabel (4.0.0)
   - NotificationBannerSwift (3.0.2):
@@ -10,25 +7,22 @@ PODS:
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
-  - Charts
   - Localize-Swift (~> 2.0)
   - NotificationBannerSwift
 
 SPEC REPOS:
   trunk:
-    - Charts
     - Localize-Swift
     - MarqueeLabel
     - NotificationBannerSwift
     - SnapKit
 
 SPEC CHECKSUMS:
-  Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
   Localize-Swift: c798ec9286494866f7068f85f7c71283ac5bdab4
   MarqueeLabel: b55b26e690b6ad41faedd95cbf5eae6f1d1735b4
   NotificationBannerSwift: 713e20f21b6105f4a36a00e5d9fa414a930d3d8e
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 09d110bd0efa71c60931d8805c5ad93ac28b8cab
+PODFILE CHECKSUM: 44bd47c0e3f025d60f3e1ec93e07506e5bb745ba
 
 COCOAPODS: 1.8.4

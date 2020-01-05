@@ -190,7 +190,7 @@ struct TestPhase: View {
                 label = canvas!.getText()
             }
         }
-        var answer = label
+        let answer = label
         
         
         
