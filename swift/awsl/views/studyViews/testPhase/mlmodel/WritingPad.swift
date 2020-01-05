@@ -66,6 +66,14 @@ final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDeleg
         view.switchTool()
     }
     
+    func setTool(isPen: Bool) {
+        if isPen {
+            view.setPen()
+        } else {
+            view.setEraser()
+        }
+    }
+    
     // For test
     func getImages() -> [UIImage] {
         return HandwritingRecognizer.splitText(uiimage: self.getImage())
@@ -78,9 +86,12 @@ class ExtendedPKCanvasView: PKCanvasView, UIPencilInteractionDelegate {
     
     var isPen : Binding<Bool>?
     
+    var selfIsPen : Bool = true
+    
     init(frame: CGRect, isPen: Binding<Bool>) {
         super.init(frame: frame)
         self.isPen = isPen
+        self.selfIsPen = isPen.wrappedValue
         // Double tap
         let interaction = UIPencilInteraction()
         interaction.delegate = self
@@ -100,12 +111,23 @@ class ExtendedPKCanvasView: PKCanvasView, UIPencilInteractionDelegate {
     }
     
     func switchTool() {
-        isPen!.wrappedValue.toggle()
+        selfIsPen.toggle()
+        isPen!.wrappedValue = selfIsPen
         if isPen!.wrappedValue {
             tool = PKInkingTool(.pen, color: UICOLOR_WHITE)
         } else {
             tool = PKEraserTool(.vector)
         }
+    }
+    
+    func setPen() {
+        isPen!.wrappedValue = true
+        tool = PKInkingTool(.pen, color: UICOLOR_WHITE)
+    }
+    
+    func setEraser() {
+        isPen!.wrappedValue = false
+        tool = PKEraserTool(.vector)
     }
 
 }

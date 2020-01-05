@@ -123,7 +123,7 @@ struct TestPhase: View {
             if self.settings.isHandwriting {
                 // Handwrting grid mode
                 if self.settings.isGrid {
-                    for _ in 0..<18 {
+                    for _ in 0..<19 {
                         self.pads.append(WritingPad(isPen: self.$isPen))
                     }
                 } else {
@@ -137,11 +137,25 @@ struct TestPhase: View {
     }
 
     func clean() {
-        canvas!.clean()
+        if settings.isGrid {
+            for pad in pads {
+                pad.clean()
+            }
+        } else {
+            canvas!.clean()
+        }
     }
     
     func switchTool() {
-        canvas?.switchTool()
+        if settings.isGrid {
+            isPen.toggle()
+            for pad in pads {
+                pad.setTool(isPen: isPen)
+            }
+        } else {
+            canvas?.switchTool()
+        }
+        
     }
     
     func pressSubmit() {
