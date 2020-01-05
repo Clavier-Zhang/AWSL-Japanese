@@ -1,11 +1,14 @@
 package main
 
 import (
+	//"log"
 	//"go.mongodb.org/mongo-driver/bson/primitive"
 	. "server/crawler/collectors"
 	. "server/models/plan"
 	//. "server/models/word"
+	//. "server/models/word"
 	"strconv"
+	. "server/crawler/tools"
 
 	//."server/utils"
 )
@@ -13,11 +16,13 @@ import (
 func main() {
 	//s := "https://dict.hjenglish.com/jp/jc/%E6%9C%AA%E3%81%A0???????"
 	//fmt.Println(s[:strings.Index(s, "?")])
-	for i:=1; i <=2; i++ {
-		addNPlan(i)
-	}
-	//CollectCN(&[]*Word{})
 
+	//CollectCN(&[]*Word{})
+	//UpdateAll()
+	//print(ids)
+	//FindErrors()
+	ClearInvalidPlanWords()
+	//FindErrors()
 
 }
 
@@ -33,6 +38,3 @@ func addNPlan(level int) {
 	plan.Save()
 }
 
-func updateAll() {
-
-}

@@ -31,6 +31,17 @@ func NewWord(text string, label string) *Word {
 	return word
 }
 
+func FindWordByID(id string) *Word {
+	result := &Word{}
+	s, _ := primitive.ObjectIDFromHex(id)
+	filter := bson.D{{"_id", s}}
+	err := models.DB.Collection("word").FindOne(context.TODO(), filter).Decode(&result)
+	if err != nil {
+		return nil
+	}
+	return result
+}
+
 func FindWordByTextAndLabel(text string, label string) *Word {
 	result := &Word{}
 	filter := bson.D{{"text", text}, {"label", label}}
@@ -78,4 +89,16 @@ func WordIdsToWords(wordIDs []primitive.ObjectID) *[]Word {
 		words = append(words, *word)
 	}
 	return &words
+}
+
+func FindAllWordIds() *[]Word {
+	var results []Word
+	cursor, _ := models.DB.Collection("word").Find(context.TODO(), bson.D{})
+	for cursor.Next(context.TODO()) {
+		// Declare a result BSON object
+		var result Word
+		_ = cursor.Decode(&result)
+		results = append(results, result)
+	}
+	return &results
 }
