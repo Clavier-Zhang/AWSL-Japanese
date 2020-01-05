@@ -53,6 +53,12 @@ struct SettingsView: View {
                             
                         } else {
                             SwitchButton(isX: $settings.isGrid, settings: $settings, text1: "Grid", text2: "No Grid")
+                            Text("Preview".localized()).padding()
+
+                            Image(settings.isGrid ? "grid_writing" : "non_grid_writing")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: AwslStyle.SETTINGS_SWITCH_WIDTH*2-20, height: 120, alignment: .leading)
                         }
 
                     }

@@ -59,8 +59,6 @@ struct HomeView: View {
         // update home view
         task = Local.getTask()
         
-        print(task)
-        
         let wait = DispatchGroup()
         wait.enter()
 
