@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gorilla/mux"
+	"log"
 	"net/http"
 	. "server/controllers"
 	. "server/middlewares"
@@ -32,6 +33,8 @@ func main() {
 
 	// err
 	err := http.ListenAndServe(":" + "8000", router)
+
+	log.Println("Start server on port 8000")
 
 	if err != nil {
 		fmt.Print(err)
