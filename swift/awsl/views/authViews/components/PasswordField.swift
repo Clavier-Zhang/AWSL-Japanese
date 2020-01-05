@@ -12,12 +12,12 @@ struct PasswordField: View {
     
     var password: Binding<String>
     
-    var placeHolder: String = "密码"
+    var placeHolder: String = "Password".localized()
 
     public init(bind: Binding<String>, isRepassword: Bool = false) {
         self.password = bind
         if isRepassword {
-            self.placeHolder = "再次输入密码"
+            self.placeHolder = "Enter password again".localized()
         }
     }
     

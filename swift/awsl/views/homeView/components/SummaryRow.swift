@@ -18,11 +18,11 @@ struct SummaryRow: View {
         VStack {
             HStack (spacing: AwslStyle.COUNT_LABEL_GAP) {
                 if homeResponse.isValid() {
-                    CountLabel(label: "已完成", count: homeResponse.finishedWordCount)
-                    CountLabel(label: "进行中", count: homeResponse.progressingWordCount)
+                    CountLabel(label: "Finished".localized(), count: homeResponse.finishedWordCount)
+                    CountLabel(label: "Progressing".localized(), count: homeResponse.progressingWordCount)
                 } else {
-                    CountLabel(label: "已完成", title: "N/A")
-                    CountLabel(label: "进行中", title: "N/A")
+                    CountLabel(label: "Finished".localized(), title: "N/A")
+                    CountLabel(label: "Progressing".localized(), title: "N/A")
                 }
                 
 //              ****** Future

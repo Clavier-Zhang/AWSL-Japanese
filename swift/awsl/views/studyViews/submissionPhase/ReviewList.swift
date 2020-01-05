@@ -16,9 +16,9 @@ struct ReviewList: View {
         VStack(spacing: 20) {
             
             HStack(alignment: .top) {
-                Text("高频复习单词").bold().frame(width: 250, alignment: .leading)
+                Text("Frequently Reviewed Words".localized()).bold().frame(width: 250, alignment: .leading)
                 if UIDevice.isPad {
-                    Text("释义").bold().frame(width: 250, alignment: .leading)
+                    Text("Meaning".localized()).bold().frame(width: 250, alignment: .leading)
                 }
             }
             

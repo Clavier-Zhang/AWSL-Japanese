@@ -28,39 +28,42 @@ struct PlanListView: View {
                 VStack {
                     
                     Spacer().frame(height: AwslStyle.PLAN_GAP)
-                    VStack(spacing: 10) {
+                    VStack(spacing: 0) {
                         
                         HStack {
-                            Text("单词书")
-                                .frame(width: 80)
+                            Text("Plan".localized())
+                                .frame(width: 85)
+                                .offset(x: 80)
                             Picker(selection: $data.currentPlanOption, label: Text("")) {
                                 ForEach(0..<self.data.planOptions.count) {
                                     Text(String(self.data.planOptions[$0].name)).tag($0)
                                 }
                             }
+                            .frame(minWidth: AwslStyle.PLAN_PICKER_WIDTH)
                             .pickerStyle(WheelPickerStyle())
-                            .frame(width: AwslStyle.PLAN_PICKER_WIDTH)
-                        }.frame(alignment: .leading)
+                        }
+                        .offset(x: -50)
                         
                         HStack {
-                            Text("每日计划")
-                                .frame(width: 80)
+                            Text("Scheduled".localized())
+                                .frame(width: 85)
+                                .offset(x: 80)
                             Picker(selection: $data.currentNumOption, label: Text("")) {
                                 ForEach(0..<self.data.numOptions.count) {
                                     Text(String(self.data.numOptions[$0])).tag($0)
                                 }
                             }
+                            .frame(minWidth: AwslStyle.PLAN_PICKER_WIDTH)
                             .pickerStyle(WheelPickerStyle())
-                            .frame(width: AwslStyle.PLAN_PICKER_WIDTH)
                         }
+                        .offset(x: -50)
+                            
+//                        Spacer().frame(height: 0)
                         
-                        
-                        Spacer().frame(height: 20)
-                        
-                        RedButton(text: "保存", isLoading: $isLoadingSave, action: pressSave)
+                        RedButton(text: "Save".localized(), isLoading: $isLoadingSave, action: pressSave)
                         
                     }
-                    .frame(width: AwslStyle.PLAN_WIDTH)
+                    .frame(width: AwslStyle.PLAN_WIDTH, alignment: .center)
                 }
                 .frame(width: fullWidth, height: fullHeight-70, alignment: .top)
                 .background(studyCardBase)
@@ -105,7 +108,7 @@ struct PlanListView: View {
         }
         
         func handleFail() {
-            self.message = "无法连接到服务器"
+            self.message = "Can not connect to server".localized()
             wait.leave()
         }
         
@@ -116,9 +119,9 @@ struct PlanListView: View {
         wait.notify(queue: .main) {
             self.isLoadingSave = false
             if (self.status) {
-                notification("更新设置成功", .success)
+                notification("Success to update plan".localized(), .success)
             } else {
-                notification("更新设置成功失败: "+self.message, .danger)
+                notification("Fail to update plan: ".localized()+self.message, .danger)
             }
         }
 

@@ -30,11 +30,11 @@ struct TestPhase: View {
     var body: some View {
         VStack(spacing: 20) {
             
-            MeaningRow(meanings: task.getWord().chinese_meanings, type: task.getWord().chinese_type)
+            MeaningRow(meanings: task.getWord().getMeanings(), type: task.getWord().getType())
             
             HStack {
-                WideButton(label: "提交", action: pressSubmit, center: true).disabled(disableSubmit)
-                WideButton(label: "不会拼", action: pressUnableToSpell, center: true)
+                WideButton(label: "Submit".localized(), action: pressSubmit, center: true).disabled(disableSubmit)
+                WideButton(label: "Can Not Spell".localized(), action: pressUnableToSpell, center: true)
             }
             
             if settings.isHandwriting {
@@ -108,9 +108,7 @@ struct TestPhase: View {
 //                    pad.frame(width: 300, height: 150)
 //                }
 
-
-
-                Text("在上方区域写出假名").font(.system(size: 14)).frame(minWidth: 0, maxWidth: .infinity)
+                Text("Write Hiragana in this area".localized()).font(.system(size: 14)).frame(minWidth: 0, maxWidth: .infinity)
                 
                 
             } else {

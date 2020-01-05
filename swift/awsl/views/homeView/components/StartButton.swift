@@ -24,9 +24,9 @@ struct StartButton: View {
     var body: some View {
         VStack {
             if task.isValid() && task.isSubmitted {
-                Text("已完成")
+                Text("Done".localized())
             } else {
-                RedButton(text: "开始", isLoading: $isLoadingStart, action: pressStart)
+                RedButton(text: "Start".localized(), isLoading: $isLoadingStart, action: pressStart)
             }
             NavigationLink(destination: StudyCardView(), isActive: $toStudyCardView) {
                 EmptyView()
@@ -66,7 +66,7 @@ struct StartButton: View {
             }
             
             func handleFail() {
-                self.message = "无法连接到服务器"
+                self.message = "Can not connect to server".localized()
                 wait.leave()
             }
             
@@ -77,9 +77,9 @@ struct StartButton: View {
                     if !self.task.isSubmitted {
                         self.toStudyCardView = true
                     }
-                    notification("获取单词数据成功", .success)
+                    notification("Success to fetch task".localized(), .success)
                 } else {
-                    notification("获取单词数据失败: "+self.message, .danger)
+                    notification("Fail to fetch task: ".localized()+self.message, .danger)
                 }
                 self.isLoadingStart = false
             }

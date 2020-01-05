@@ -49,8 +49,8 @@ struct SignUpView: View {
                     Spacer().frame(height: 10)
                     
                     VStack(spacing: 20) {
-                        RedButton(text: "提交", isLoading: $isLoading, action: signup)
-                        RedButton(text: "返回", action: back)
+                        RedButton(text: "Submit".localized(), isLoading: $isLoading, action: signup)
+                        RedButton(text: "Back".localized(), action: back)
                     }
                     
                     NavigationLink(destination: HomeView(), isActive: $toHome) {
@@ -74,8 +74,13 @@ struct SignUpView: View {
     
     func signup() {
         
+        if (password.count < 6) {
+            notification("Fail to sign up: password should contain at least 6 characters".localized(), .danger)
+            return
+        }
+        
         if (password != repassword) {
-            notification("注册失败: 两次输入密码不一致", .danger)
+            notification("Fail to sign up: passwords do not match".localized(), .danger)
             return
         }
         
@@ -99,7 +104,7 @@ struct SignUpView: View {
         }
         
         func handleFail() {
-            self.message = "无法连接到服务器"
+            self.message = "Can not connect to server".localized()
             wait.leave()
         }
 
@@ -107,10 +112,10 @@ struct SignUpView: View {
         
         wait.notify(queue: .main) {
             if (self.status) {
-                notification("注册成功", .success)
+                notification("Success to sign up".localized(), .success)
                 self.toHome = true
             } else {
-                notification("注册失败: "+self.message, .danger)
+                notification("Fail to sign up: "+self.message, .danger)
             }
             self.isLoading = false
         }

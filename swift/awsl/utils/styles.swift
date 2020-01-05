@@ -18,7 +18,7 @@ struct AwslStyle {
     
     static var CountLabelSize : CGFloat = UIDevice.isPad ? 30 : 13
     
-    static var COUNT_LABEL_GAP : CGFloat = UIDevice.isPad ? 100 : 30
+    static var COUNT_LABEL_GAP : CGFloat = UIDevice.isPad ? 100 : 25
     
     static var LARGE_FONT : Font = UIDevice.isPad ? .largeTitle : .title
     
@@ -42,9 +42,9 @@ struct AwslStyle {
     
     static var PLAN_WIDTH : CGFloat = UIDevice.isPad ? 400 : WIDTH-50
     
-    static var PLAN_PICKER_WIDTH : CGFloat = UIDevice.isPad ? 300 : 100
+    static var PLAN_PICKER_WIDTH : CGFloat = UIDevice.isPad ? 300 : 50
     
-    static var PLAN_GAP : CGFloat = UIDevice.isPad ? 150 : 20
+    static var PLAN_GAP : CGFloat = UIDevice.isPad ? 150 : 80
     
     static var SETTINGS_GAP : CGFloat = UIDevice.isPad ? 150 : 20
     

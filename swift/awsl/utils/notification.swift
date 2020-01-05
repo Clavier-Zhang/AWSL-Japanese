@@ -14,3 +14,4 @@ func notification(_ message: String, _ type: BannerStyle) {
     
     banner.show()
 }
+

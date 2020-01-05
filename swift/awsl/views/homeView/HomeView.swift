@@ -20,10 +20,6 @@ struct HomeView: View {
     @State var message = ""
     @State var status = false
     
-    @State var test = "Language"
-    
-    @State var test2 = "Language"
-    
     var body: some View {
         NavigationView {
             VStack(spacing: AwslStyle.HOMEVIEW_ROW_GAP) {
@@ -76,7 +72,7 @@ struct HomeView: View {
         }
         
         func handleFail() {
-            self.message = "无法连接到服务器"
+            self.message = "Can not connect to server".localized()
             wait.leave()
         }
         
@@ -84,7 +80,7 @@ struct HomeView: View {
         
         wait.notify(queue: .main) {
             if (!self.status) {
-                notification("获取用户数据失败: "+self.message, .danger)
+                notification("Fail to fetch user data: ".localized()+self.message, .danger)
             }
         }
 

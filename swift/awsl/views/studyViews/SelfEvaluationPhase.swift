@@ -25,13 +25,13 @@ struct SelfEvaluationPhase: View {
             WordRow(task: task, withFurigara: false)
             
             if (task.getStatus() == NEW) {
-                WideButton(label: "太简单", action: pressEasy)
+                WideButton(label: "Easy".localized(), action: pressEasy)
             }
             
             VStack {
-                WideButton(label: "认识", action: pressKnow)
+                WideButton(label: "Know".localized(), action: pressKnow)
                 Spacer().frame(height: 10)
-                WideButton(label: "不认识", action: pressNotKnow)
+                WideButton(label: "Not Know".localized(), action: pressNotKnow)
                 Spacer().frame(height: AwslStyle.SELF_EVALUATION_GAP)
             }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .bottom)
             

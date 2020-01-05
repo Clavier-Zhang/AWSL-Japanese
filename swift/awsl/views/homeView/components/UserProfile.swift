@@ -36,7 +36,7 @@ struct UserProfile: View {
                 if UIDevice.isPad {
                     Button(action: logout) {
                         HStack {
-                            Text("退出")
+                            Text("Sign Out".localized())
                         }
                     }
                     .buttonStyle(LogoutButtonStyle())
@@ -52,7 +52,7 @@ struct UserProfile: View {
             if !UIDevice.isPad {
                 Button(action: logout) {
                     HStack {
-                        Text("退出")
+                        Text("Sign Out".localized())
                     }
                 }
                 .buttonStyle(LogoutButtonStyle())

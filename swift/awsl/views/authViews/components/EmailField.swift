@@ -22,7 +22,7 @@ struct EmailField: View {
                 .frame(width: 30)
             ZStack(alignment: .leading) {
                 if email.wrappedValue.isEmpty {
-                    Text("邮箱")
+                    Text("Email".localized())
                         .opacity(0.4)
                 }
                 // Avoid auto-capitalization

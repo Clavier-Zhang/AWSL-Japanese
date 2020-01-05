@@ -21,14 +21,14 @@ struct LearnPhase: View {
             
             WordRow(task: task, withFurigara: true)
             
-            MeaningRow(meanings: task.getWord().chinese_meanings, type: task.getWord().chinese_type)
+            MeaningRow(meanings: task.getWord().getMeanings(), type: task.getWord().getType())
             
-            ExampleRow(examples: task.getWord().chinese_examples)
+            ExampleRow(examples: task.getWord().getExamples())
             
 
             Spacer().frame(height: AwslStyle.LEARN_GAP)
             
-            RedButton(text: "下一个", isLoading: $isLoading, action: pressNext)
+            RedButton(text: "Next".localized(), isLoading: $isLoading, action: pressNext)
 
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)

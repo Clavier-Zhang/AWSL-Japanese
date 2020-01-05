@@ -24,17 +24,17 @@ struct PlanRow: View {
         VStack {
             HStack(spacing: AwslStyle.COUNT_LABEL_GAP) {
                 if homeResponse.isValid() {
-                    CountLabel(label: "单词书", title: homeResponse.currentPlan)
-                    CountLabel(label: "剩余", count: homeResponse.currentPlanLeftWordCount)
-                    CountLabel(label: "每日计划", count: homeResponse.scheduledWordsCount)
+                    CountLabel(label: "Plan".localized(), title: homeResponse.currentPlan)
+                    CountLabel(label: "Remain".localized(), count: homeResponse.currentPlanLeftWordCount)
+                    CountLabel(label: "Scheduled".localized(), count: homeResponse.scheduledWordsCount)
                 } else {
-                    CountLabel(label: "单词书", title: "N/A")
-                    CountLabel(label: "剩余", title: "N/A")
-                    CountLabel(label: "每日计划", title: "N/A")
+                    CountLabel(label: "Plan".localized(), title: "N/A")
+                    CountLabel(label: "Remain".localized(), title: "N/A")
+                    CountLabel(label: "Scheduled".localized(), title: "N/A")
                 }
                 
                 Button(action: pressBook) {
-                    CountLabel(label: "选择>>", icon: "book")
+                    CountLabel(label: "Select>>".localized(), icon: "book")
                 }
                 
             }
@@ -65,7 +65,7 @@ struct PlanRow: View {
         }
         
         func handleFail() {
-            self.message = "无法连接到服务器"
+            self.message = "Can not connect to server".localized()
             wait.leave()
         }
         
@@ -75,7 +75,7 @@ struct PlanRow: View {
             if self.status {
 //                notification("获取单词书列表成功", .success)
             } else {
-                notification("获取单词书列表失败: "+self.message, .danger)
+                notification("Fail to fetch plan list: ".localized()+self.message, .danger)
             }
         }
     }

@@ -31,7 +31,7 @@ struct SubmissionPhase: View {
                     Spacer().frame(height: 10)
                     
                     HStack {
-                        CountLabel(label: "用 时", title: task.getTime())
+                        CountLabel(label: "Time".localized(), title: task.getTime())
                     }
                     .padding()
                     .frame(minWidth: 0, maxWidth: .infinity)
@@ -42,7 +42,7 @@ struct SubmissionPhase: View {
                         
                         
                         
-                    RedButton(text: "提交", isLoading: $isLoading, action: pressSubmit)
+                    RedButton(text: "Submit".localized(), isLoading: $isLoading, action: pressSubmit)
                     
                     
                 }
@@ -76,7 +76,7 @@ struct SubmissionPhase: View {
         }
         
         func handleFail() {
-            self.message = "无法连接到服务器"
+            self.message = "Can not connect to server".localized()
             wait.leave()
         }
         
@@ -84,12 +84,12 @@ struct SubmissionPhase: View {
             
         wait.notify(queue: .main) {
             if (self.status) {
-                notification("提交成功", .success)
+                notification("Success to submit".localized(), .success)
                 self.task.isSubmitted = true
                 self.task.save()
                 self.back()
             } else {
-                notification("提交失败: "+self.message, .danger)
+                notification("Fail to submit: ".localized()+self.message, .danger)
             }
             self.isLoading = false
         }

@@ -15,6 +15,8 @@ struct SettingsView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    @State var oldLanguage = Settings.get().isCN
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -22,21 +24,8 @@ struct SettingsView: View {
                     Spacer().frame(height: AwslStyle.SETTINGS_GAP)
                     VStack(spacing: 20) {
                         
-                        SwitchButton(isX: $settings.isCN, settings: $settings, text1: "中文", text2: "English")
-                        
-                        SwitchButton(isX: $settings.isHandwriting, settings: $settings, text1: "Handwriting", text2: "Keyboard")
-
-                        
-                        if !UIDevice.isPad {
-                            HStack {
-                                Text("手机仅支持键盘模式")
-                                    .font(.body)
-                                    .foregroundColor(red)
-                            }
-                        }
-                        
                         if !settings.isHandwriting {
-                            SwitchButton(isX: $settings.isHiragana, settings: $settings, text1: "Hiragana", text2: "Romaji")
+                            
                             
                             Text("Preview".localized()).padding()
                             Text("Please enter ".localized()+(settings.isHiragana ? "Hiragana".localized() : "Romaji".localized()))
@@ -51,15 +40,43 @@ struct SettingsView: View {
                                 .padding()
                                 .background(base)
                             
+                            SwitchButton(isX: $settings.isHiragana, settings: $settings, text1: "Hiragana", text2: "Romaji")
+                            
                         } else {
-                            SwitchButton(isX: $settings.isGrid, settings: $settings, text1: "Grid", text2: "No Grid")
+                            
                             Text("Preview".localized()).padding()
 
                             Image(settings.isGrid ? "grid_writing" : "non_grid_writing")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: AwslStyle.SETTINGS_SWITCH_WIDTH*2-20, height: 120, alignment: .leading)
+                            
+                            SwitchButton(isX: $settings.isGrid, settings: $settings, text1: "Grid", text2: "No Grid")
                         }
+                        
+                        
+                        
+                        SwitchButton(isX: $settings.isHandwriting, settings: $settings, text1: "Handwriting", text2: "Keyboard", isDisabled: !UIDevice.isPad)
+
+                        if !UIDevice.isPad {
+                            HStack {
+                                Text("手机仅支持键盘模式")
+                                    .font(FONT_SMALL)
+                                    .foregroundColor(red)
+                            }
+                        }
+                        
+                        SwitchButton(isX: $settings.isCN, settings: $settings, text1: "中文", text2: "English")
+                        
+                        HStack {
+                            if oldLanguage != settings.isCN {
+                                Text("Restart to change language".localized())
+                                    .font(FONT_SMALL)
+                                    .foregroundColor(red)
+                            }
+                        }
+                        .frame(height: 30)
+                        
 
                     }
                     .frame(width: AwslStyle.SETTINGS_WIDTH)

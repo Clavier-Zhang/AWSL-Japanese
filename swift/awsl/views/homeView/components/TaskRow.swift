@@ -14,17 +14,19 @@ struct TaskRow: View {
     
     @State var toSettingsView = false
     
+    @State var dummy = false
+    
     var body: some View {
         VStack {
             HStack (spacing: AwslStyle.COUNT_LABEL_GAP) {
                 if task.isValid() {
-                    CountLabel(label: "新单词", count: task.getNewCount())
-                    CountLabel(label: "剩余单词", count: task.getRemainCount())
-                    CountLabel(label: "总共", count: task.getTotalCount())
+                    CountLabel(label: "New".localized(), count: task.getNewCount())
+                    CountLabel(label: "Today's Remain".localized(), count: task.getRemainCount())
+                    CountLabel(label: "Total".localized(), count: task.getTotalCount())
                 } else {
-                    CountLabel(label: "新单词", title: "N/A")
-                    CountLabel(label: "剩余单词", title: "N/A")
-                    CountLabel(label: "总共", title: "N/A")
+                    CountLabel(label: "New".localized(), title: "N/A")
+                    CountLabel(label: "Today's Remain".localized(), title: "N/A")
+                    CountLabel(label: "Total".localized(), title: "N/A")
                 }
                 Button(action: pressSettings) {
                     CountLabel(label: "Settings>>".localized(), icon: "gear")

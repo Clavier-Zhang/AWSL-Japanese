@@ -731,7 +731,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = zyc.awsl;
 				PRODUCT_NAME = "AWSL日语";
 				SWIFT_VERSION = 5.0;
@@ -753,7 +753,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = zyc.awsl;
 				PRODUCT_NAME = "AWSL日语";
 				SWIFT_VERSION = 5.0;

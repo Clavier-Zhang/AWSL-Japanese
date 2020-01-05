@@ -41,6 +41,18 @@ struct Word: Codable {
     var reviewCount: Int? = 0
     
     var isCorrect: Bool? = true
+    
+    func getMeanings() -> [String] {
+        return Settings.get().isCN ? chinese_meanings : english_meanings
+    }
+    
+    func getExamples() -> [Example] {
+        return Settings.get().isCN ? chinese_examples : english_examples
+    }
+    
+    func getType() -> String {
+        return Settings.get().isCN ? chinese_type : ""
+    }
      
 }
 

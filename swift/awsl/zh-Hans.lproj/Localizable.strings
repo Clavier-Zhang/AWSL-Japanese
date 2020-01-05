@@ -6,6 +6,14 @@
   
 */
 
+"Back" = "返回";
+
+"Can Not Spell" = "不会拼";
+
+"Email" = "邮箱";
+"Password" = "密码";
+"Enter password again" = "再次输入密码";
+"Write Hiragana in this area" = "在上方区域写出假名";
 
 "Language" = "语言";
 "Settings>>" = "设置>>";
@@ -17,3 +25,49 @@
 "Grid" = "网格";
 "No Grid" = "无网格";
 "Please enter " = "请输入";
+
+"Submit" = "提交";
+"Save" = "保存";
+"Sign Out" = "退出";
+"Sign In" = "登录";
+"Sign Up" = "注册";
+
+"Plan" = "单词书";
+"Total" = "总共";
+"Restart to change language" = "重启生效";
+"Can not connect to server" = "无法连接到服务器";
+"Fail to fetch user data: "= "获取用户数据失败: ";
+"Scheduled" = "每日计划";
+"Select>>" = "选择>>";
+"Fail to fetch plan list: " = "获取单词书列表失败: ";
+"Fail to fetch task: " = "获取单词数据失败: ";
+"Success to fetch task" = "获取单词数据成功";
+"Success to update plan" = "更新设置成功";
+"Success to sign up" = "注册成功";
+"Success to sign in" = "登陆成功";
+"Fail to sign in: " = "登录失败: ";
+
+"Success to submit" = "提交成功";
+"Fail to submit: " = "提交失败: ";
+
+
+"Fail to sign up: " = "注册失败: ";
+"Fail to update plan: " = "更新设置成功失败: ";
+"Fail to sign up: passwords do not match" = "注册失败: 两次输入密码不一致";
+"Fail to sign up: password should contain at least 6 characters" = "注册失败: 密码长度至少六位";
+"Remain" = "剩余";
+"Finished" = "已完成";
+"Progressing" = "进行中";
+"New" = "新单词";
+"Today's Remain" = "今日剩余";
+"Time" = "用 时";
+"Done" = "已完成";
+"Start" = "开始";
+
+
+"Easy" = "太简单";
+"Know" = "认识";
+"Not Know" = "不认识";
+"Next" = "下一个";
+"Meaning" = "释义";
+"Frequently Reviewed Words" = "高频复习单词";

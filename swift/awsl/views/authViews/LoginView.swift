@@ -46,9 +46,9 @@ struct LoginView: View {
                     Spacer().frame(height: 10)
                     
                     VStack(spacing: 20) {
-                        RedButton(text: "登录", isLoading: $isLoading, action: login)
+                        RedButton(text: "Sign In".localized(), isLoading: $isLoading, action: login)
                         NavigationLink(destination: SignUpView()) {
-                            Text("注册")
+                            Text("Sign Up".localized())
                         }.buttonStyle(LoginButtonStyle())
                     }
     
@@ -91,7 +91,7 @@ struct LoginView: View {
         }
         
         func handleFail() {
-            self.message = "无法连接到服务器"
+            self.message = "Can not connect to server".localized()
             wait.leave()
         }
         
@@ -99,10 +99,10 @@ struct LoginView: View {
         
         wait.notify(queue: .main) {
             if (self.status) {
-                notification("登陆成功", .success)
+                notification("Success to sign in".localized(), .success)
                 self.toHome = true
             } else {
-                notification("登录失败: "+self.message, .danger)
+                notification("Fail to sign in: ".localized()+self.message, .danger)
             }
             self.isLoading = false
         }

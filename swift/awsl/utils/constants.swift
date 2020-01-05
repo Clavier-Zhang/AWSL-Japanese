@@ -36,6 +36,8 @@ var baseURL = "http://192.168.31.158:8000/api"
 
 var large = Font.system(size: 20)
 
+var FONT_SMALL = Font.system(size: 14)
+
 let SELF_EVALUATION_PHASE = "SELF_EVALUATION_PHASE"
 
 let TEST_PHASE = "TEST_PHASE"
