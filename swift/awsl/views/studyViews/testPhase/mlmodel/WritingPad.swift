@@ -10,6 +10,17 @@ import UIKit
 import PencilKit
 import SwiftUI
 
+class Pad : Identifiable {
+    
+    init(writingPad : WritingPad) {
+        self.writingPad = writingPad
+    }
+    
+    var id = UUID()
+    
+    var writingPad : WritingPad
+}
+
 final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDelegate {
     
     var isPen : Binding<Bool>
@@ -19,13 +30,16 @@ final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDeleg
     init(isPen : Binding<Bool>) {
         self.isPen = isPen
         self.view = ExtendedPKCanvasView(frame: CGRect(x: 0, y: 0, width: 700, height: 100), isPen: isPen)
+        view.tool = PKInkingTool(.pen, color: UICOLOR_WHITE)
     }
     
     func makeUIView(context: Context) -> ExtendedPKCanvasView {
+        view.tool = PKInkingTool(.pen, color: UICOLOR_WHITE)
         return view
     }
 
     func updateUIView(_ view: ExtendedPKCanvasView, context: Context) {
+        view.tool = PKInkingTool(.pen, color: UICOLOR_WHITE)
         self.view = view
     }
     
@@ -38,6 +52,10 @@ final class WritingPad : NSObject, UIViewRepresentable, UIPencilInteractionDeleg
     
     func getText() -> String {
         return HandwritingRecognizer.hiragana(uiimage: self.getImage())
+    }
+    
+    func getOneText() -> String {
+        return HandwritingRecognizer.recognizeOneHiragana(uiimage: self.getImage())
     }
     
     func clean() {

@@ -11,6 +11,7 @@ import SwiftUI
 let LANGUAGE = Locale.preferredLanguages[0].prefix(2)
 
 let UICOLOR_LIGHT_GRAY = UIColor.init(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)
+
 let UICOLOR_WHITE = UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
 
 let LEARN_PHASE = "LEARN_PHASE"

@@ -25,6 +25,8 @@ struct TestPhase: View {
     
     @State var canvas : WritingPad?
     
+    @State var pads : [WritingPad] = []
+    
     var body: some View {
         VStack(spacing: 20) {
             
@@ -81,6 +83,32 @@ struct TestPhase: View {
                 
                 // Writing pad
                 canvas.frame(width: 700, height: 150)
+                
+                if pads.count > 0 {
+                    VStack(spacing: 10) {
+                        HStack {
+                            ForEach(0..<9) { idx in
+                                self.pads[idx].frame(width: 70, height: 70)
+                            }
+                        }
+                        HStack {
+                            ForEach(9..<18) { idx in
+                                self.pads[idx].frame(width: 70, height: 70)
+                            }
+                        }
+                    }
+                }
+                
+//                canvas2.frame(width: 300, height: 150)
+//                ForEach(0..<self.pads.count) { idx in
+//                    self.pads[idx].frame(width: 100, height: 100)
+//                }
+                
+//                List(pads) { pad in
+//                    pad.frame(width: 300, height: 150)
+//                }
+
+
 
                 Text("在上方区域写出假名").font(.system(size: 14)).frame(minWidth: 0, maxWidth: .infinity)
                 
@@ -91,7 +119,20 @@ struct TestPhase: View {
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
         .onAppear {
-            self.canvas = WritingPad(isPen: self.$isPen)
+            // Handwrting pad mode
+            if self.settings.isHandwriting {
+                // Handwrting grid mode
+                if self.settings.isGrid {
+                    for _ in 0..<18 {
+                        self.pads.append(WritingPad(isPen: self.$isPen))
+                    }
+                } else {
+                    // non-grid mode
+                    self.canvas = WritingPad(isPen: self.$isPen)
+                }
+            }
+            
+            
         }
     }
 
@@ -125,7 +166,15 @@ struct TestPhase: View {
         
         // Determine answer
         if settings.isHandwriting {
-            label = canvas!.getText()
+            if settings.isGrid {
+                var temp = ""
+                for pad in pads {
+                    temp += pad.getOneText()
+                }
+                label = temp
+            } else {
+                label = canvas!.getText()
+            }
         }
         var answer = label
         
@@ -135,7 +184,7 @@ struct TestPhase: View {
         
         
         
-        if (solution == label) {
+        if (solution == answer) {
             task.setCorrect()
             currentPhase = LEARN_PHASE
         } else {

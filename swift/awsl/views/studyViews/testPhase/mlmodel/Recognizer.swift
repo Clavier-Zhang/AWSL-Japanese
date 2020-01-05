@@ -17,6 +17,20 @@ class HandwritingRecognizer {
     
     static let model = hiraganaModel()
     
+    public static func recognizeOneHiragana(uiimage: UIImage) -> String {
+        // Avoid blank image
+        let matrix = uiimage.toMatrix()
+        if (matrix.count == 0) {
+            return ""
+        }
+        var result = ""
+        let output = try? model.prediction(image: uiimage.toCVPixelBuffer())
+        if let output = output {
+            result += output.classLabel
+        }
+        return result
+    }
+    
     public static func hiragana(uiimage: UIImage) -> String {
         var result = ""
         let images = splitText(uiimage: uiimage)
@@ -30,14 +44,13 @@ class HandwritingRecognizer {
     }
     
     public static func splitText(uiimage: UIImage) -> [UIImage] {
-        print("spilit text")
+
         let matrix = uiimage.toMatrix()
         if (matrix.count == 0) {
             return [UIImage]()
         }
         // Get char intervals
         let intervals = getCharRanges(matrix: matrix);
-        print(intervals)
         
         var rects = [CGRect]()
         // Get square chars
@@ -90,7 +103,6 @@ class HandwritingRecognizer {
 
             rects.append(CGRect(x: left, y: top, width: side, height: side))
         }
-        print(rects)
         
         return uiimage.toUIImages(rects: rects)
     }
