@@ -52,6 +52,7 @@ struct HomeView: View {
     
     func homeAppear() {
         
+        
         // update home view
         task = Local.getTask()
         
@@ -72,6 +73,7 @@ struct HomeView: View {
         }
         
         func handleFail() {
+            
             self.message = "Can not connect to server".localized()
             wait.leave()
         }

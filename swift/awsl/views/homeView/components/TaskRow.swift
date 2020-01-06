@@ -21,11 +21,11 @@ struct TaskRow: View {
             HStack (spacing: AwslStyle.COUNT_LABEL_GAP) {
                 if task.isValid() {
                     CountLabel(label: "New".localized(), count: task.getNewCount())
-                    CountLabel(label: "Today's Remain".localized(), count: task.getRemainCount())
+                    CountLabel(label: "Task".localized(), count: task.getRemainCount())
                     CountLabel(label: "Total".localized(), count: task.getTotalCount())
                 } else {
                     CountLabel(label: "New".localized(), title: "N/A")
-                    CountLabel(label: "Today's Remain".localized(), title: "N/A")
+                    CountLabel(label: "Task".localized(), title: "N/A")
                     CountLabel(label: "Total".localized(), title: "N/A")
                 }
                 Button(action: pressSettings) {

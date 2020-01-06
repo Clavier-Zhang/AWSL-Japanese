@@ -24,27 +24,27 @@ struct CountLabel: View {
     
     var body: some View {
         VStack {
-            
-            if count != -1 {
-                Text(String(count))
-                    .font(AwslStyle.LARGE_FONT)
-                    .bold()
-                    .frame(height: 30)
+            VStack {
+                if count != -1 {
+                    Text(String(count))
+                        .font(AwslStyle.LARGE_FONT)
+                        .bold()
+                }
+                
+                if icon != "" {
+                    Image(systemName: icon)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                }
+                
+                if title != "" {
+                    Text(title)
+                        .font(AwslStyle.LARGE_FONT)
+                        .bold()
+                }
             }
-            
-            if icon != "" {
-                Image(systemName: icon)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 30, height: 30)
-            }
-            
-            if title != "" {
-                Text(title)
-                    .font(AwslStyle.LARGE_FONT)
-                    .bold()
-                    .frame(height: AwslStyle.CountLabelSize)
-            }
+            .frame(height: AwslStyle.CountLabelSize)
             
             Spacer().frame(height: AwslStyle.CountLabelSize)
             
