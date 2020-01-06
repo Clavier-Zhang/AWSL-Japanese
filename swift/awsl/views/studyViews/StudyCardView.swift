@@ -48,7 +48,7 @@ struct StudyCardView: View {
                     }
                     .frame(width: AwslStyle.STUDYVIEW_WIDTH)
                 }
-                .frame(width: fullWidth, height: fullHeight-70)
+                .frame(width: WIDTH, height: HEIGHT-HEADER_HEIGHT)
                 .background(studyCardBase)
             }
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height+200, alignment: .bottom)

@@ -15,14 +15,14 @@ struct LoginView: View {
     
     @State var password: String = ""
     
-    @State var toSignUp: Bool = false
-    
     @State var toHome: Bool = false
     
-    
+    // Navigation
+    @State var toSignUpView = false
     
     // Request
     @State var isLoading = false
+    @State var dummyLoading = false
     @State var status = false
     @State var message = ""
 
@@ -46,14 +46,21 @@ struct LoginView: View {
                     Spacer().frame(height: 10)
                     
                     VStack(spacing: 20) {
+                        
                         RedButton(text: "Sign In".localized(), isLoading: $isLoading, action: login)
-                        NavigationLink(destination: SignUpView()) {
-                            Text("Sign Up".localized())
-                        }.buttonStyle(LoginButtonStyle())
+                        
+                        RedButton(text: "Sign Up".localized(), isLoading: $dummyLoading, action: toSignUp)
+                        
                     }
-    
-                    NavigationLink(destination: HomeView(), isActive: $toHome) {
-                        EmptyView()
+                    
+                    HStack {
+                        NavigationLink(destination: HomeView(), isActive: $toHome) {
+                            EmptyView()
+                        }
+                        
+                        NavigationLink(destination: SignUpView(), isActive: $toSignUpView) {
+                            EmptyView()
+                        }
                     }
 
                 }
@@ -65,6 +72,10 @@ struct LoginView: View {
             .offset(y:-100)
         }
         .modifier(NavigationViewHiddenStyle())
+    }
+    
+    func toSignUp() {
+        toSignUpView = true
     }
 
     

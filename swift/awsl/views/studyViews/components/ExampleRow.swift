@@ -17,7 +17,7 @@ struct ExampleRow: View {
             
             Spacer().frame(height: 10)
             
-            Text("例句")
+            Text("Examples".localized())
                 .font(AwslStyle.MIDDLE_FONT).bold()
                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                     

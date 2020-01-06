@@ -48,7 +48,7 @@ struct SubmissionPhase: View {
                 }
                 .frame(width: AwslStyle.SUBMISSION_WIDTH, alignment: .top)
             }
-            .frame(width: fullWidth, height: fullHeight-70, alignment: .top)
+            .frame(width: WIDTH, height: HEIGHT-HEADER_HEIGHT, alignment: .top)
             .background(studyCardBase)
         }
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height+200, alignment: .bottom)

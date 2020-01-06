@@ -22,10 +22,12 @@ struct RedButton: View {
         Button(action: action) {
             HStack {
                 ActivityIndicator(isAnimating: getLoadingStatus(), style: .medium)
-                Text(text)
+                Text(text).frame(width: 80)
                 Spacer().frame(width: 20)
             }
-        }.disabled(getLoadingStatus().wrappedValue).buttonStyle(LoginButtonStyle())
+        }
+        .disabled(getLoadingStatus().wrappedValue)
+        .buttonStyle(LoginButtonStyle())
     }
     
     func getLoadingStatus() -> Binding<Bool> {

@@ -29,6 +29,7 @@ struct CountLabel: View {
                     Text(String(count))
                         .font(AwslStyle.LARGE_FONT)
                         .bold()
+
                 }
                 
                 if icon != "" {

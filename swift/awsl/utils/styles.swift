@@ -16,19 +16,19 @@ struct AwslStyle {
     
     static var HOMEVIEW_ROW_GAP : CGFloat = UIDevice.isPad ? 50 : 30
     
-    static var CountLabelSize : CGFloat = UIDevice.isPad ? 30 : 13
+    static var CountLabelSize : CGFloat = UIDevice.isPad ? 30 : 15
     
-    static var COUNT_LABEL_GAP : CGFloat = UIDevice.isPad ? 100 : 25
+    static var COUNT_LABEL_GAP : CGFloat = UIDevice.isPad ? 100 : 30
     
-    static var LARGE_FONT : Font = UIDevice.isPad ? .largeTitle : .title
+    static var LARGE_FONT : Font = UIDevice.isPad ? .largeTitle : Font.system(size: 20)
     
     static var MIDDLE_FONT : Font = UIDevice.isPad ? Font.system(size: 20) : .body
     
-    static var LARGE_BUTTON_SIZE : CGFloat = UIDevice.isPad ? 300 : 200
+    static var LARGE_BUTTON_SIZE : CGFloat = UIDevice.isPad ? 300 : 220
     
     static var STUDYVIEW_WIDTH : CGFloat = UIDevice.isPad ? 700 : WIDTH-50
     
-    static var SELF_EVALUATION_GAP : CGFloat = UIDevice.isPad ? 100 : 40
+    static var SELF_EVALUATION_GAP : CGFloat = UIDevice.isPad ? 100 : 60
     
     static var LEARN_GAP : CGFloat = UIDevice.isPad ? HEIGHT-900 : 10
     
