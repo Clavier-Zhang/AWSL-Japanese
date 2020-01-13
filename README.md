@@ -57,8 +57,8 @@ This app is made for me to learn Japanese. When I was learning English, many gre
 </p>
 
 <p float="left">
-    <img src="./doc/preview/en_12.9/learn_2.1.png"  width="450" >
-    <img src="./doc/preview/en_12.9/learn_2.2.png"  width="450" >
+    <img src="./doc/preview/en_12.9/learn_2.1.png"  width="420" >
+    <img src="./doc/preview/en_12.9/learn_2.2.png"  width="420" >
 </p>
 
 <img src="./doc/preview/en_12.9/learn_3.png"  width="370" >
