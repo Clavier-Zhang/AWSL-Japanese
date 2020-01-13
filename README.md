@@ -25,8 +25,6 @@
   - [Settings](#settings)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
 
 
 
@@ -49,11 +47,11 @@ This app is made for me to learn Japanese. When I was learning English, many gre
 ## Previews
 
 ### Dashboard
-<img src="./doc/preview/en_12.9/dashboard.png"  width="370" >
+<img src="./doc/preview/en_12.9/dashboard.png"  width="420" >
 
 ### Study Steps (Handwriting / Keyboard)
 <p float="left">
-    <img src="./doc/preview/en_12.9/learn_1.png"  width="370" >
+    <img src="./doc/preview/en_12.9/learn_1.png"  width="420" >
 </p>
 
 <p float="left">
@@ -61,62 +59,32 @@ This app is made for me to learn Japanese. When I was learning English, many gre
     <img src="./doc/preview/en_12.9/learn_2.2.png"  width="420" >
 </p>
 
-<img src="./doc/preview/en_12.9/learn_3.png"  width="370" >
+<img src="./doc/preview/en_12.9/learn_3.png"  width="420" >
 
 ### Auth
 <p float="left">
-    <img src="./doc/preview/en_12.9/signin.png"  width="370" >
-    <img src="./doc/preview/en_12.9/signup.png"  width="370" >
+    <img src="./doc/preview/en_12.9/signin.png"  width="420" >
+    <img src="./doc/preview/en_12.9/signup.png"  width="420" >
 </p>
 
 ### Settings
 <p float="left">
-    <img src="./doc/preview/en_12.9/settings.png"  width="370" >
-    <img src="./doc/preview/en_12.9/plan.png"  width="370" >
+    <img src="./doc/preview/en_12.9/settings.png"  width="420" >
+    <img src="./doc/preview/en_12.9/plan.png"  width="420" >
 </p>
 
 
 
-<!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
 ### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-```sh
-npm install npm@latest -g
-```
-
-### Installation
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-```sh
-git clone https://github.com/your_username_/Project-Name.git
-```
-3. Install NPM packages
-```sh
-npm install
-```
-4. Enter your API in `config.js`
-```JS
-const API_KEY = 'ENTER YOUR API';
-```
-
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-
+The following dependencies are necessary:
+* Xcode 11.0+
+* iOS 13.0+
+* pod 3.0.1+
+* Go 1.10+
+* TensorFlow 1.14.0 (exactly)
+* tfcoreml 1.1 (exactly)
 
 
 
