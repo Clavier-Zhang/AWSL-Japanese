@@ -20,7 +20,8 @@
 - [About the Project](#about-the-project)
 - [Previews](#previews)
   - [Dashboard](#dashboard)
-  - [Study Steps](#study-steps)
+  - [Study Steps (Handwriting / Keyboard)](#study-steps-handwriting--keyboard)
+  - [Auth](#auth)
   - [Settings](#settings)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
@@ -48,15 +49,23 @@ This app is made for me to learn Japanese. When I was learning English, many gre
 ## Previews
 
 ### Dashboard
-<img src="./doc/preview/en_12.9/dashboard.png"  width="500" >
+<img src="./doc/preview/en_12.9/dashboard.png"  width="370" >
 
-### Study Steps
-<img src="./doc/preview/en_12.9/learn_1.png"  width="500" >
-<img src="./doc/preview/en_12.9/learn_2.1.png"  width="500" >
+### Study Steps (Handwriting / Keyboard)
+<img src="./doc/preview/en_12.9/learn_1.png"  width="370" >
+<br />
+<img src="./doc/preview/en_12.9/learn_2.1.png"  width="370" >
+<img src="./doc/preview/en_12.9/learn_2.2.png"  width="370" >
+<br />
+<img src="./doc/preview/en_12.9/learn_3.png"  width="370" >
+
+### Auth
+<img src="./doc/preview/en_12.9/signin.png"  width="370" >
+<img src="./doc/preview/en_12.9/signup.png"  width="370" >
 
 ### Settings
-<img src="./doc/preview/en_12.9/settings.png"  width="500" >
-<img src="./doc/preview/en_12.9/plan.png"  width="500" >
+<img src="./doc/preview/en_12.9/settings.png"  width="370" >
+<img src="./doc/preview/en_12.9/plan.png"  width="370" >
 
 
 
