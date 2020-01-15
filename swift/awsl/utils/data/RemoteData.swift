@@ -10,10 +10,8 @@ import Foundation
 
 struct Remote {
     
-//    DEV
-    static let baseURL = "http://47.89.243.163:8000/api"
-    
-//    static let baseURL = "http://192.168.31.158:8000/api"
+    // Address of your server
+    static let baseURL = "<Address of your server>/api"
     
     static func sendGetRequest(path: String, handleSuccess: @escaping (Data) -> Void, token: String, handleFail: Any = ()) -> Void {
         

@@ -25,6 +25,9 @@
   - [Settings](#settings)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
+  - [Install](#install)
+    - [Set Up Server:](#set-up-server)
+    - [Set Up Swift:](#set-up-swift)
 
 
 
@@ -78,15 +81,51 @@ This app is made for me to learn Japanese. When I was learning English, many gre
 ## Getting Started
 
 ### Prerequisites
-The following dependencies are necessary:
+The following dependencies are necessary for iOS Development:
 * Xcode 11.0+
 * iOS 13.0+
 * pod 3.0.1+
+
+The following dependencies are necessary for server Development:
 * Go 1.10+
+* GoDotEnv
+
+The following dependencies are necessary for machine learning:
 * TensorFlow 1.14.0 (exactly)
 * tfcoreml 1.1 (exactly)
 
+### Install
+
+#### Set Up Server:
+
+<a href="https://github.com/joho/godotenv">
+Install GoDotEnv to your command line
+</a>
+
+Change the .env.dev under server folder to your MongoDB address
+```
+DB_SERVER=<MONGO_DB ADDRESS>
+DB_NAME=<DB_NAME>
+```
+Start Serverice
+```sh
+go build && godotenv -f ./.env.dev ./server
+```
 
 
 
+#### Set Up Swift:
+```sh
+cd swift
+pod install
+```
+Open *awsl.xcworkspace* (not awsl.xcodeproj)
 
+Replace the value of *baseURL* in awsl/utils/Data/RemoteData.swift to your server address (just set up)
+
+```
+// Address of your server
+static let baseURL = "<Address of your server>/api"
+```
+
+Click run in swift
