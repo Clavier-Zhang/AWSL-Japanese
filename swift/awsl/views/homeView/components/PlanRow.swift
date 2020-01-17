@@ -64,12 +64,16 @@ struct PlanRow: View {
             wait.leave()
         }
         
-        func handleFail() {
+        func handleFail(text: String) {
             self.message = "Can not connect to server".localized()
             wait.leave()
         }
         
-        Remote.sendGetRequest(path: "/plan/list", handleSuccess: handleSuccess, token: Local.getToken(), handleFail: handleFail)
+        func handleExit() {
+
+        }
+        
+        Remote.sendGetRequest(path: "/plan/list", handleSuccess: handleSuccess, token: Local.getToken(), handleFail: handleFail, handleExit: handleExit)
         
         wait.notify(queue: .main) {
             if self.status {

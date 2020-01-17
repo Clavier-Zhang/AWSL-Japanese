@@ -48,7 +48,6 @@
 		25CFC29023482A1C003D8512 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CFC28F23482A1C003D8512 /* User.swift */; };
 		25CFC292234851DD003D8512 /* RemoteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CFC291234851DD003D8512 /* RemoteData.swift */; };
 		25D11E5723BEF4AF0057957A /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D11E5623BEF4AF0057957A /* UIDevice.swift */; };
-		25D11E5923BFD00C0057957A /* KeyboardField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D11E5823BFD00C0057957A /* KeyboardField.swift */; };
 		25D6091A23AEC42C00152164 /* notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6091923AEC42C00152164 /* notification.swift */; };
 		25D6091C23B006A400152164 /* SummaryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6091B23B006A400152164 /* SummaryRow.swift */; };
 		25D6091E23B0202100152164 /* TaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6091D23B0202100152164 /* TaskRow.swift */; };
@@ -110,7 +109,6 @@
 		25CFC28F23482A1C003D8512 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		25CFC291234851DD003D8512 /* RemoteData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteData.swift; sourceTree = "<group>"; };
 		25D11E5623BEF4AF0057957A /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
-		25D11E5823BFD00C0057957A /* KeyboardField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardField.swift; sourceTree = "<group>"; };
 		25D6091923AEC42C00152164 /* notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = notification.swift; sourceTree = "<group>"; };
 		25D6091B23B006A400152164 /* SummaryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryRow.swift; sourceTree = "<group>"; };
 		25D6091D23B0202100152164 /* TaskRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRow.swift; sourceTree = "<group>"; };
@@ -263,7 +261,6 @@
 			isa = PBXGroup;
 			children = (
 				25D11E5B23BFD22F0057957A /* mlmodel */,
-				25D11E5A23BFD01B0057957A /* components */,
 				25204240232DAA0400281016 /* TestPhase.swift */,
 			);
 			path = testPhase;
@@ -308,14 +305,6 @@
 				25B55431239CBE700040E09E /* Plan.swift */,
 			);
 			path = models;
-			sourceTree = "<group>";
-		};
-		25D11E5A23BFD01B0057957A /* components */ = {
-			isa = PBXGroup;
-			children = (
-				25D11E5823BFD00C0057957A /* KeyboardField.swift */,
-			);
-			path = components;
 			sourceTree = "<group>";
 		};
 		25D11E5B23BFD22F0057957A /* mlmodel */ = {
@@ -562,7 +551,6 @@
 				25B5542A239C513C0040E09E /* SettingsView.swift in Sources */,
 				2520423D232D7F1D00281016 /* SelfEvaluationPhase.swift in Sources */,
 				257DFBF8232B27FA00AA7772 /* styles.swift in Sources */,
-				25D11E5923BFD00C0057957A /* KeyboardField.swift in Sources */,
 				25092372234D70C5003348F1 /* PasswordField.swift in Sources */,
 				257283FB2348C7E000FFE0CC /* LocalData.swift in Sources */,
 				25CFC292234851DD003D8512 /* RemoteData.swift in Sources */,
@@ -731,7 +719,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.3;
+				MARKETING_VERSION = 1.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = zyc.awsl;
 				PRODUCT_NAME = "AWSL日语";
 				SWIFT_VERSION = 5.0;
@@ -753,7 +741,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.3;
+				MARKETING_VERSION = 1.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = zyc.awsl;
 				PRODUCT_NAME = "AWSL日语";
 				SWIFT_VERSION = 5.0;

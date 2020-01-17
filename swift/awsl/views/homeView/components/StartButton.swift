@@ -65,12 +65,16 @@ struct StartButton: View {
                 wait.leave()
             }
             
-            func handleFail() {
+            func handleFail(text: String) {
                 self.message = "Can not connect to server".localized()
                 wait.leave()
             }
             
-            Remote.sendGetRequest(path: "/task/get/"+String(today), handleSuccess: handleSuccess, token: Local.getToken(), handleFail: handleFail)
+            func handleExit() {
+
+            }
+            
+            Remote.sendGetRequest(path: "/task/get/"+String(today), handleSuccess: handleSuccess, token: Local.getToken(), handleFail: handleFail, handleExit: handleExit)
             
             wait.notify(queue: .main) {
                 if (self.status) {

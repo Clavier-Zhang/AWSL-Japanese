@@ -8,5 +8,6 @@ target 'awsl' do
   # Pods for awsl
   pod 'NotificationBannerSwift'
   pod 'Localize-Swift', '~> 2.0'
+  pod 'KeyboardObserving'
 
 end

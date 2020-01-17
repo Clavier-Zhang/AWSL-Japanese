@@ -30,9 +30,9 @@ struct AwslStyle {
     
     static var SELF_EVALUATION_GAP : CGFloat = UIDevice.isPad ? 100 : 60
     
-    static var LEARN_GAP : CGFloat = UIDevice.isPad ? HEIGHT-900 : 10
+    static var LEARN_GAP : CGFloat = UIDevice.isPad ? HEIGHT-900 : 0
     
-    static var MEANING_HEIGHT : CGFloat = UIDevice.isPad ? 150 : 100
+    static var MEANING_HEIGHT : CGFloat = UIDevice.isPad ? 150 : 130
     
     static var EXAMPLE_HEIGHT : CGFloat = UIDevice.isPad ? 230 : 150
     

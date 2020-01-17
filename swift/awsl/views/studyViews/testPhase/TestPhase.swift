@@ -7,6 +7,20 @@
 //
 
 import SwiftUI
+import KeyboardObserving
+
+
+extension UIApplication {
+    /// Checks if view hierarchy of application contains `UIRemoteKeyboardWindow` if it does, keyboard is presented
+    var isKeyboardPresented: Bool {
+        if let keyboardWindowClass = NSClassFromString("UIRemoteKeyboardWindow"),
+            self.windows.contains(where: { $0.isKind(of: keyboardWindowClass) }) {
+            return true
+        } else {
+            return false
+        }
+    }
+}
 
 
 struct TestPhase: View {
@@ -27,17 +41,19 @@ struct TestPhase: View {
     
     @State var pads : [WritingPad] = []
     
+    @State var test = ""
+    
     var body: some View {
         VStack(spacing: 20) {
             
-            MeaningRow(meanings: task.getWord().getMeanings(), type: task.getWord().getType())
-            
-            HStack {
-                WideButton(label: "Submit".localized(), action: pressSubmit, center: true).disabled(disableSubmit)
-                WideButton(label: "Can Not Spell".localized(), action: pressUnableToSpell, center: true)
-            }
-            
             if settings.isHandwriting {
+                
+                MeaningRow(meanings: task.getWord().getMeanings(), type: task.getWord().getType())
+                
+                HStack {
+                    WideButton(label: "Submit".localized(), action: pressSubmit, center: true).disabled(disableSubmit)
+                    WideButton(label: "Can Not Spell".localized(), action: pressUnableToSpell, center: true)
+                }
                 
                 HStack {
                     Button(action: switchTool) {
@@ -99,22 +115,43 @@ struct TestPhase: View {
                     }
                 }
                 
-//                canvas2.frame(width: 300, height: 150)
-//                ForEach(0..<self.pads.count) { idx in
-//                    self.pads[idx].frame(width: 100, height: 100)
-//                }
-                
-//                List(pads) { pad in
-//                    pad.frame(width: 300, height: 150)
-//                }
 
                 Text("Write Hiragana in this area".localized()).font(.system(size: 14)).frame(minWidth: 0, maxWidth: .infinity)
                 
                 
             } else {
-                KeyboardField(label: self.$label, isCorrect: self.$isCorrect, pressSubmit: self.pressSubmit, settings: self.settings)
+                
+                VStack(spacing: 20) {
+                    
+                    MeaningRow(meanings: task.getWord().getMeanings(), type: task.getWord().getType(), hasKeyboard: true)
+                    
+                    HStack {
+                        WideButton(label: "Submit".localized(), action: pressSubmit, center: true).disabled(disableSubmit)
+                        WideButton(label: "Can Not Spell".localized(), action: pressUnableToSpell, center: true)
+                    }
+                    
+                    TextField("Please enter ".localized()+(settings.isHiragana ? "Hiragana/Katakana".localized() : "Romaji".localized()), text: $label) {
+                        self.pressSubmit()
+                    }
+                    .padding()
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
+                    .background(base)
+                    .border(isCorrect ? base : red)
+                    .disableAutocorrection(true)
+                    .autocapitalization(UITextAutocapitalizationType.none)
+                    
+                    Spacer().frame(height:120)
+                    
+                }
+                    
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 40, alignment: .leading)
+                
+                
             }
+//            Spacer().frame(height:220)
         }
+        .keyboardObserving()
+                    
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
         .onAppear {
             // Handwrting pad mode
@@ -161,6 +198,7 @@ struct TestPhase: View {
         
         // Determine solution
         var solution = ""
+        var kanjiSolution = "$#%^@$%"
         // Handing writing, always label
         if settings.isHandwriting {
             solution = task.getWord().label
@@ -169,6 +207,7 @@ struct TestPhase: View {
             // Label
             if settings.isHiragana {
                 solution = task.getWord().label
+                kanjiSolution = task.getWord().text
             // Romaji
             } else {
                 solution = task.getWord().romaji
@@ -188,15 +227,11 @@ struct TestPhase: View {
                 label = canvas!.getText()
             }
         }
-        let answer = label
+        // Trim
+        let answer = label.trimmingCharacters(in: .whitespacesAndNewlines)
         
         
-        
-        
-        
-        
-        
-        if (solution == answer) {
+        if (solution == answer || kanjiSolution == answer) {
             task.setCorrect()
             currentPhase = LEARN_PHASE
         } else {

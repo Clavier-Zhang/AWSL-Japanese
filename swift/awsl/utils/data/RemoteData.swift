@@ -11,9 +11,9 @@ import Foundation
 struct Remote {
     
     // Address of your server
-    static let baseURL = "<Address of your server>/api"
+    static let baseURL = "<Your server address>/api"
     
-    static func sendGetRequest(path: String, handleSuccess: @escaping (Data) -> Void, token: String, handleFail: Any = ()) -> Void {
+    static func sendGetRequest(path: String, handleSuccess: @escaping (Data) -> Void, token: String, handleFail: Any = (), handleExit: Any = ()) -> Void {
         
         let url = URL(string: baseURL + path)!
         
@@ -22,15 +22,23 @@ struct Remote {
         request.setValue("bearer "+token, forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            
             if let data = data {
-                handleSuccess(data)
-                return
-            } else {
-                if let handleFail = handleFail as? ()->Void {
-                    handleFail()
+                if response.debugDescription.contains("403") {
+                    if let handleFail = handleFail as? (_ text: String)->Void {
+                        handleFail("403")
+                    }
+                } else {
+                    handleSuccess(data)
                 }
-                print("ERROR: Request failed")
+                
+                return
             }
+            
+            if let handleFail = handleFail as? (_ text: String)->Void {
+                handleFail(response.debugDescription)
+            }
+
             
         }
                       

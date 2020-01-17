@@ -20,13 +20,24 @@ struct HomeView: View {
     @State var message = ""
     @State var status = false
     
+    @State var toLoginView = false
+    
     var body: some View {
         NavigationView {
+            
             VStack(spacing: AwslStyle.HOMEVIEW_ROW_GAP) {
+                
+                NavigationLink(destination: LoginView(), isActive: $toLoginView) {
+                    EmptyView()
+                }
                 
                 Spacer().frame(height: 20)
                 
                 UserProfile(user: user)
+                
+                if self.message == "Can not connect to server" {
+                    Text("Can not connect to server".localized()).foregroundColor(red)
+                }
                 
                 SummaryRow(homeResponse: $homeResponse)
                 
@@ -55,7 +66,7 @@ struct HomeView: View {
         
         // update home view
         task = Local.getTask()
-        
+
         let wait = DispatchGroup()
         wait.enter()
 
@@ -72,20 +83,39 @@ struct HomeView: View {
             wait.leave()
         }
         
-        func handleFail() {
-            
+        func handleFail(text: String) {
             self.message = "Can not connect to server".localized()
+            if text == "403" {
+                self.message = "Token expire"
+            }
             wait.leave()
         }
+
+        func handleExit(text: String) {
+            print("handle exit")
+            print(text)
+        }
         
-        Remote.sendGetRequest(path: "/user/home", handleSuccess: handleSuccess, token: Local.getToken(), handleFail: handleFail)
-        
+        Remote.sendGetRequest(path: "/user/home", handleSuccess: handleSuccess, token: Local.getToken(), handleFail: handleFail, handleExit: handleExit)
+
         wait.notify(queue: .main) {
             if (!self.status) {
-                notification("Fail to fetch user data: ".localized()+self.message, .danger)
+                print(self.message)
+                if self.message == "Token expire" {
+                    self.logout()
+                }
+                // fix later
+//                notification("Fail to fetch user data: ".localized()+self.message, .danger)
             }
         }
 
+    }
+    
+    func logout() {
+        User.delete()
+        Task.delete()
+        Settings.delete()
+        toLoginView = true
     }
 
 }

@@ -1,4 +1,5 @@
 PODS:
+  - KeyboardObserving (0.2.1)
   - Localize-Swift (2.0.0)
   - MarqueeLabel (4.0.0)
   - NotificationBannerSwift (3.0.2):
@@ -7,22 +8,25 @@ PODS:
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
+  - KeyboardObserving
   - Localize-Swift (~> 2.0)
   - NotificationBannerSwift
 
 SPEC REPOS:
   trunk:
+    - KeyboardObserving
     - Localize-Swift
     - MarqueeLabel
     - NotificationBannerSwift
     - SnapKit
 
 SPEC CHECKSUMS:
+  KeyboardObserving: d80b12a71a9ca1111372281eab70d454f9871e06
   Localize-Swift: c798ec9286494866f7068f85f7c71283ac5bdab4
   MarqueeLabel: b55b26e690b6ad41faedd95cbf5eae6f1d1735b4
   NotificationBannerSwift: 713e20f21b6105f4a36a00e5d9fa414a930d3d8e
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 44bd47c0e3f025d60f3e1ec93e07506e5bb745ba
+PODFILE CHECKSUM: c19115fea591c1bca1996d032944e4708844c854
 
 COCOAPODS: 1.8.4

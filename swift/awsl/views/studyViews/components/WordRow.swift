@@ -24,7 +24,7 @@ struct WordRow: View {
         self.task = task
         self.text = task.getWord().text
         if (withFurigara) {
-            self.text += (" " + "【" + task.getWord().label + "】")
+            self.text += (" " + "【" + task.getWord().label + "】" + "【" + task.getWord().romaji + "】")
         }
     }
     
